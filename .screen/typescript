@@ -1,0 +1,91 @@
+Script started on 2007Ç¯09·î07Æü 00»þ38Ê¬16ÉÃ
+Loading .zshrc
+Loading .zaliases
+_~/.screen\k$:\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:38][m[1m[31m%[m[m [K[115C[31m[~/.screen][m[126Dsscrit   s  sscript/
+kscript\_~/.screen/script ~/.screen\k$:script/\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:38][m[1m[31m%[m[m [K[108C[31m[~/.screen/script][m[126Dlls
+kls\[0m[31mcopy-line.sh[0m  [31mcopy-word.sh[0m  [31me[0m  [31mlookup.sh[0m  [31mmove-window.sh[0m  [31mscreen_mfiler_emacs.sh[0m  [31msplit.sh[0m
+[mk$:ls\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:38][m[1m[31m%[m[m [K[108C[31m[~/.screen/script][m[126D...
+k..\_~/.screen ~/.screen/script ~/.screen\k$:..\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:38][m[1m[31m%[m[m [K[115C[31m[~/.screen][m[126Dlls
+kls\[0m[34mscript[0m  [0mtypescript[0m
+[mk$:ls\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:38][m[1m[31m%[m[m [K[115C[31m[~/.screen][m[126D...
+k..\_~ ~/.screen ~/.screen/script ~/.screen\k$:..\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:38][m[1m[31m%[m[m [K[123C[31m[~][m[126Dlls
+kls\[0m[34mDesktop[0m  [34mMail[0m  [0mTAGS[0m  [34mbin[0m  [34mcron[0m  [34mdict[0m  [34metc[0m  [34mhowm[0m  [34minstalldir[0m  [34mlib[0m  [34mman[0m  [31mmessages.po[0m  [34mmtrashbox[0m  [34msbin[0m  [34msrc[0m  [34msvn[0m  [34mtmp[0m  [34mvar[0m
+[mk$:ls\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:38][m[1m[31m%[m[m [K[123C[31m[~][m[126Dssbin/
+ksbin\_~/sbin ~ ~/.screen ~/.screen/script ~/.screen\k$:sbin/\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:38][m[1m[31m%[m[m [K[118C[31m[~/sbin][m[126Dlls
+kls\[0m[31mfeed[0m  [31mgetmailcount[0m  [31mgetmailcount.rb[0m  [31mgmail[0m  [31minstall-sh[0m  [31mksumail[0m  [31mscreenstatus[0m  [31mskkserv.rb[0m  [31mtest.rb[0m  [31myahoomail[0m
+[mk$:ls\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:38][m[1m[31m%[m[m [K[118C[31m[~/sbin][m[126D...
+k..\_~ ~/sbin ~ ~/.screen ~/.screen/script ~/.screen\k$:..\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:38][m[1m[31m%[m[m [K[123C[31m[~][m[126Dlls
+kls\[0m[34mDesktop[0m  [34mMail[0m  [0mTAGS[0m  [34mbin[0m  [34mcron[0m  [34mdict[0m  [34metc[0m  [34mhowm[0m  [34minstalldir[0m  [34mlib[0m  [34mman[0m  [31mmessages.po[0m  [34mmtrashbox[0m  [34msbin[0m  [34msrc[0m  [34msvn[0m  [34mtmp[0m  [34mvar[0m
+[mk$:ls\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:38][m[1m[31m%[m[m [K[123C[31m[~][m[126Dbbin/
+kbin\_~/bin ~ ~/sbin ~ ~/.screen ~/.screen/script ~/.screen\k$:bin/\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:38][m[1m[31m%[m[m [K[119C[31m[~/bin][m[126Dlls
+kls\[0m[31mincm[0m  [31mmew-pinentry[0m  [31mmewcat[0m  [31mmewdecode[0m  [31mmewencode[0m  [31mmewest[0m  [31mmewl[0m  [31mphptags[0m  [31mrdic[0m  [31mscreenstatus[0m
+[mk$:ls\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:38][m[1m[31m%[m[m [K[119C[31m[~/bin][m[126Dsscreenstatus[12Dmscreenstatus[12Dmvscreenstatus[12D screenstatus[12D[12C ~/sbin/
+kmv\k$:mv\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:39][m[1m[31m%[m[m [K[119C[31m[~/bin][m[126Dlla
+kls\[0m[34m.[0m  [34m..[0m  [31mincm[0m  [31mmew-pinentry[0m  [31mmewcat[0m  [31mmewdecode[0m  [31mmewencode[0m  [31mmewest[0m  [31mmewl[0m  [31mphptags[0m  [31mrdic[0m
+[mk$:ls\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:39][m[1m[31m%[m[m [K[119C[31m[~/bin][m[126Dl
+kls\[0m¹ç·× 416
+-r-xr-xr-x 1 yoshi yoshi  42197  8·î 23 10:42 [31mincm[0m
+-r-xr-xr-x 1 yoshi yoshi   2175  8·î 23 10:42 [31mmew-pinentry[0m
+-r-xr-xr-x 1 yoshi yoshi  39453  8·î 23 10:42 [31mmewcat[0m
+-r-xr-xr-x 1 yoshi yoshi  39453  8·î 23 10:42 [31mmewdecode[0m
+-r-xr-xr-x 1 yoshi yoshi  39453  8·î 23 10:42 [31mmewencode[0m
+-r-xr-xr-x 1 yoshi yoshi   4386  8·î 23 10:42 [31mmewest[0m
+-r-xr-xr-x 1 yoshi yoshi  54793  8·î 23 10:42 [31mmewl[0m
+-rwxr-xr-x 1 yoshi yoshi  19414  9·î  6 08:07 [31mphptags[0m
+-rwxr-xr-x 1 yoshi yoshi 124416  8·î 20 15:21 [31mrdic[0m
+[mk$:ls\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:39][m[1m[31m%[m[m [K[119C[31m[~/bin][m[126Dlll
+kls\[0m¹ç·× 432
+drwxr-xr-x  2 yoshi yoshi   4096  9·î  7 00:39 [34m.[0m
+drwxr-xr-x 38 yoshi yoshi   4096  9·î  7 00:29 [34m..[0m
+-r-xr-xr-x  1 yoshi yoshi  42197  8·î 23 10:42 [31mincm[0m
+-r-xr-xr-x  1 yoshi yoshi   2175  8·î 23 10:42 [31mmew-pinentry[0m
+-r-xr-xr-x  1 yoshi yoshi  39453  8·î 23 10:42 [31mmewcat[0m
+-r-xr-xr-x  1 yoshi yoshi  39453  8·î 23 10:42 [31mmewdecode[0m
+-r-xr-xr-x  1 yoshi yoshi  39453  8·î 23 10:42 [31mmewencode[0m
+-r-xr-xr-x  1 yoshi yoshi   4386  8·î 23 10:42 [31mmewest[0m
+-r-xr-xr-x  1 yoshi yoshi  54793  8·î 23 10:42 [31mmewl[0m
+-rwxr-xr-x  1 yoshi yoshi  19414  9·î  6 08:07 [31mphptags[0m
+-rwxr-xr-x  1 yoshi yoshi 124416  8·î 20 15:21 [31mrdic[0m
+[mk$:ls\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:39][m[1m[31m%[m[m [K[119C[31m[~/bin][m[126D...
+k..\_~ ~/bin ~ ~/sbin ~ ~/.screen ~/.screen/script ~/.screen\k$:..\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:39][m[1m[31m%[m[m [K[123C[31m[~][m[126Dlls
+kls\[0m[34mDesktop[0m  [34mMail[0m  [0mTAGS[0m  [34mbin[0m  [34mcron[0m  [34mdict[0m  [34metc[0m  [34mhowm[0m  [34minstalldir[0m  [34mlib[0m  [34mman[0m  [31mmessages.po[0m  [34mmtrashbox[0m  [34msbin[0m  [34msrc[0m  [34msvn[0m  [34mtmp[0m  [34mvar[0m
+[mk$:ls\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:39][m[1m[31m%[m[m [K[123C[31m[~][m[126Dssbin/
+ksbin\_~/sbin ~ ~/bin ~ ~/sbin ~ ~/.screen ~/.screen/script ~/.screen\k$:sbin/\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:39][m[1m[31m%[m[m [K[118C[31m[~/sbin][m[126Dlls
+kls\[0m[31mfeed[0m  [31mgetmailcount[0m  [31mgetmailcount.rb[0m  [31mgmail[0m  [31minstall-sh[0m  [31mksumail[0m  [31mscreenstatus[0m  [31mskkserv.rb[0m  [31mtest.rb[0m  [31myahoomail[0m
+[mk$:ls\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:39][m[1m[31m%[m[m [K[118C[31m[~/sbin][m[126Dl
+kls\[0m¹ç·× 52
+-rwxr-xr-x 1 yoshi yoshi  209  9·î  6 12:25 [31mfeed[0m
+-rwxr-xr-x 1 yoshi yoshi  473  9·î  6 15:43 [31mgetmailcount[0m
+-rwxr-xr-x 1 yoshi yoshi 1109  9·î  7 00:25 [31mgetmailcount.rb[0m
+-rwxr-xr-x 1 yoshi yoshi  139  9·î  6 14:05 [31mgmail[0m
+-rwxr-xr-x 1 yoshi yoshi 5598 11·î 16  2003 [31minstall-sh[0m
+-rwxr-xr-x 1 yoshi yoshi  148  9·î  6 13:27 [31mksumail[0m
+-rwxr-xr-x 1 yoshi yoshi  693  9·î  6 00:16 [31mscreenstatus[0m
+-rwxr-xr-x 1 yoshi yoshi 8335  9·î  6 09:06 [31mskkserv.rb[0m
+-rwxr-xr-x 1 yoshi yoshi 1117  9·î  6 21:42 [31mtest.rb[0m
+-rwxr-xr-x 1 yoshi yoshi  152  9·î  6 13:26 [31myahoomail[0m
+[mk$:ls\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:39][m[1m[31m%[m[m [K[118C[31m[~/sbin][m[126Dlls
+kls\[0m[31mfeed[0m  [31mgetmailcount[0m  [31mgetmailcount.rb[0m  [31mgmail[0m  [31minstall-sh[0m  [31mksumail[0m  [31mscreenstatus[0m  [31mskkserv.rb[0m  [31mtest.rb[0m  [31myahoomail[0m
+[mk$:ls\You have new mail.
+[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:40][m[1m[31m%[m[m [K[118C[31m[~/sbin][m[126Dlls
+kls\[0m[31mfeed[0m  [31mgetmailcount[0m  [31mgetmailcount.rb[0m  [31mgmail[0m  [31minstall-sh[0m  [31mksumail[0m  [31mscreenstatus[0m  [31mskkserv.rb[0m  [31mtest.rb[0m  [31myahoomail[0m
+[mk$:ls\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:40][m[1m[31m%[m[m [K[118C[31m[~/sbin][m[126Dlls
+kls\[0m[31mfeed[0m  [31mgetmailcount[0m  [31mgetmailcount.rb[0m  [31mgmail[0m  [31minstall-sh[0m  [31mksumail[0m  [31mscreenstatus[0m  [31mskkserv.rb[0m  [31mtest.rb[0m  [31myahoomail[0m
+[mk$:ls\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:40][m[1m[31m%[m[m [K[118C[31m[~/sbin][m[126Dlls
+kls\[0m[31mfeed[0m  [31mgetmailcount[0m  [31mgetmailcount.rb[0m  [31mgmail[0m  [31minstall-sh[0m  [31mksumail[0m  [31mscreenstatus[0m  [31mskkserv.rb[0m  [31mtest.rb[0m  [31myahoomail[0m
+[mk$:ls\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:41][m[1m[31m%[m[m [K[118C[31m[~/sbin][m[126Dcchmod   c  eeme  ../getmailcount.rn b
+kgetmailcount.rb\1 ÄÌ¤Î¥á¥Ã¥»¡¼¥¸¤¬ ¥¢¥«¥¦¥ó¥È fujimoto1001@gmail.com , ¥µ¡¼¥Ð pop.gmail.com °¸¤ËÆÏ¤¤¤Æ¤¤¤Þ¤¹ (1416 ¥Ð¥¤¥È)
+11 ÄÌ¤Î¥á¥Ã¥»¡¼¥¸ (¤½¤Î¤¦¤Á 10 ÄÌ¤Ï ´û¤ËÆÉ¤ß¹þ¤ó¤Ç¤¤¤Þ¤¹) ¤¬¥¢¥«¥¦¥ó¥È jimo_1001 , ¥µ¡¼¥Ð pop.mail.yahoo.co.jp°¸¤ËÆÏ¤¤¤Æ¤¤¤Þ¤¹ (100153 ¥Ð¥¤¥È)
+1 ÄÌ¤Î¥á¥Ã¥»¡¼¥¸¤¬ ¥¢¥«¥¦¥ó¥È s4jk146 , ¥µ¡¼¥Ð sail.ip.kyusan-u.ac.jp °¸¤ËÆÏ¤¤¤Æ¤¤¤Þ¤¹ (1523 ¥Ð¥¤¥È)
+k$:./getmailcount.rb\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:41][m[1m[31m%[m[m [K[118C[31m[~/sbin][m[126Dlls
+kls\[0m[31mfeed[0m  [31mgetmailcount[0m  [31mgetmailcount.rb[0m  [31mgmail[0m  [31minstall-sh[0m  [31mksumail[0m  [31mscreenstatus[0m  [31mskkserv.rb[0m  [31mtest.rb[0m  [31myahoomail[0m
+[mk$:ls\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:42][m[1m[31m%[m[m [K[118C[31m[~/sbin][m[126D~~/cron
+kcron\_~/cron ~/sbin ~ ~/bin ~ ~/sbin ~ ~/.screen ~/.screen/script ~/.screen\k$:~/cron\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:44][m[1m[31m%[m[m [K[118C[31m[~/cron][m[126Dlls
+kls\[0m[31mcron_home[0m
+[mk$:ls\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:44][m[1m[31m%[m[m [K[118C[31m[~/cron][m[126Dccrontab cri on_home 
+kcrontab\k$:crontab\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:44][m[1m[31m%[m[m [K[118C[31m[~/cron][m[126Dccrontab -l
+kcrontab\*/10 * * * * $HOME/sbin/feed 1> $HOME/tmp/feedunread.txt 2>&1
+*/10 * * * * $HOME/sbin/getmailcount.rb 2>&1
+k$:crontab\[m[23m[24m[J[1m[41myoshi[m[1m[31m@[m[1m[41mtwilight[m[1m[37m[07-09-07 0:44][m[1m[31m%[m[m [K[118C[31m[~/cron][m[126Deexit
+kexit\
+Script done on 2007Ç¯09·î07Æü 00»þ54Ê¬38ÉÃ

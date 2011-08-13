@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ $GNU_SCREEN = true -a $# = 1 ]; then
+    echo $WINDOW >~/tmp/emacsclient-caller
+    screen -r -X select 0
+    emacsclient $1
+else
+    /usr/local/bin/emacs $@
+fi

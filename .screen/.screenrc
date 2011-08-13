@@ -1,0 +1,157 @@
+#**************************************************
+# Gnu Screen settings - .screenrc
+#**************************************************
+
+#--------------------------------------------------
+# set env
+#--------------------------------------------------
+
+shell /bin/zsh
+setenv GNU_SCREEN true
+setenv LANG ja_JP.UTF-8
+setenv TERM xterm-color
+scrollback 10000
+autodetach on
+startup_message off
+defflow off
+vbell off
+vbell_msg "   Wuff  ----  Wuff!!  "
+bell off
+msgminwait 0
+
+#zombie q^m
+
+## encoding
+defkanji utf
+defencoding utf
+
+#--------------------------------------------------
+# start up
+#--------------------------------------------------
+# screen -t emacs 	0 emacs -nw
+# screen -t mfiler2 	1 mfiler2
+# screen
+# select 1
+
+#--------------------------------------------------
+# bind key
+#--------------------------------------------------
+
+
+escape ^t^t			# ESCAPE
+
+bind . source $HOME/.screenrc
+bind m multiuser on
+bind r aclchg * -w "#?"
+bind w aclchg * +w "#?"
+# bind s			# reset a key (xoff)
+# bind o remove
+# bind 2 split
+# bind S colon 'screen ssh '
+
+bind ! only
+bind k kill
+bind c screen
+
+bind ^W exec lookup.sh
+bind '-' exec split.sh --toggle
+bind M exec getmail
+
+## bind F10 to Screen's quit command
+bindkey -k k; quit
+
+## move to other screen
+
+bind o  focus
+bind ^a eval 'focus top' 'other'
+bind 1  eval 'focus top' 'select 1'
+bind 2  eval 'focus top' 'select 2'
+bind 3  eval 'focus top' 'select 3'
+bind 4  eval 'focus top' 'select 4'
+bind 5  eval 'focus top' 'select 5'
+bind 6  eval 'focus top' 'select 6'
+bind 7  eval 'focus top' 'select 7'
+bind 8  eval 'focus top' 'select 8'
+bind 9  eval 'focus top' 'select 9'
+bind 0  eval 'focus top' 'select 0'
+
+bind s
+bind ^s command -c prefix
+bind -c prefix ^a command
+bind -c prefix 0 select 0
+bind -c prefix 1 select 1
+bind -c prefix 2 select 2
+bind -c prefix 3 select 3
+bind -c prefix 4 select 4
+bind -c prefix 5 select 5
+bind -c prefix 6 select 6
+bind -c prefix 7 select 7
+bind -c prefix 8 select 8
+bind -c prefix 9 select 9
+bind -c prefix a select a
+bind -c prefix b select b
+bind -c prefix c select c
+bind -c prefix d select d
+bind -c prefix e select e
+bind -c prefix f select f
+bind -c prefix g select g
+bind -c prefix h select h
+bind -c prefix i select i
+bind -c prefix j select j
+bind -c prefix k select k
+bind -c prefix l select l
+bind -c prefix m select m
+bind -c prefix n select n
+bind -c prefix o select o
+bind -c prefix p select p
+bind -c prefix q select q
+bind -c prefix r select r
+bind -c prefix s select s
+bind -c prefix t select t
+bind -c prefix u select u
+bind -c prefix v select v
+bind -c prefix w select w
+bind -c prefix x select x
+bind -c prefix y select y
+bind -c prefix z select z
+
+## Cyclic traversal
+
+bind              ^n   eval "next" "echo 'Next window'"     "command -c traversal"
+bind              ^p   eval "prev" "echo 'Previous window'" "command -c traversal"
+bind -c traversal ^n   eval "next" "echo 'Next window'"     "command -c traversal"
+bind -c traversal ^p   eval "prev" "echo 'Previous window'" "command -c traversal"
+bind -c traversal ^a   command
+
+
+## Window motion
+
+bind           ^f eval "exec move-window.sh forward " "command -c window"
+bind           ^b eval "exec move-window.sh backward" "command -c window"
+bind -c window ^f eval "exec move-window.sh forward " "command -c window"
+bind -c window ^b eval "exec move-window.sh backward" "command -c window"
+bind -c window ^a command
+
+#--------------------------------------------------
+# emacs like copy mode
+#--------------------------------------------------
+
+markkeys h=^b:l=^f:$=^e:^d=^v
+bind ^y eval 'pasts .'
+bind ^k  exec copy-line.sh
+bind ^@  eval "copy" "stuff ' '"
+bind ' ' eval "copy" "stuff ' '"
+
+#--------------------------------------------------
+# Statusbar
+#--------------------------------------------------
+
+hardstatus on
+caption always "%{= Kw} %-w%{=b dc}=>%{= Kw}%{=bu dr}%n %t%{-}%+w %= %m/%d %c"
+
+#--------------------------------------------------
+# Multiuser
+#--------------------------------------------------
+# aclumask ?+r-wx
+# acladd USERNAME # username
+# aclchg *+x detach,next,pref

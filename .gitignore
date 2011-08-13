@@ -1,0 +1,12 @@
+.xyzzy/site-lisp/*
+*.elc
+.emacs.d/elisp/*
+!elisp/color-theme/themes/my-color-theme.el
+.emacs.d/data/
+.emacs.d/etc/*
+.emacs.d/info/
+.emacs.d/snippets/
+.emacs.d/tmp/
+.emacs.d/url/
+.emacs.d/.saves/*
+.zsh/.zcompdump
