@@ -1,7 +1,9 @@
-.xyzzy/site-lisp/*
-*.elc
+.emacs.d/private.init.el
+.emacs.d/*.elc
+.emacs.d/_elisp
+!.emacs.d/elisp/my-elisp/*.el
+!.emacs.d/elisp/color-theme/themes/my-color-theme.el
 .emacs.d/elisp/*
-!elisp/color-theme/themes/my-color-theme.el
 .emacs.d/data/
 .emacs.d/etc/*
 .emacs.d/info/
@@ -10,3 +12,4 @@
 .emacs.d/url/
 .emacs.d/.saves/*
 .zsh/.zcompdump
+

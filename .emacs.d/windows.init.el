@@ -27,7 +27,7 @@
 ;; Migemo
 (when (featurep 'migemo)
   ;; PATH of migemo dictionary
-  (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
+  (setq migemo-dictionary "C:/cygwin/usr/local/share/migemo/utf-8/migemo-dict")
   ;; charset encoding
   (setq migemo-coding-system 'utf-8-unix)
   (migemo-init))
@@ -215,6 +215,7 @@
              (cursor-color  . "blue")
              (alpha . (100 100)))
            default-frame-alist))
+
     ;; NT Emacs 用フォント設定
     ;; MeiryoKe_Gothic
     ;; (set-face-attribute 'default
@@ -224,18 +225,21 @@
     ;; (set-fontset-font "fontset-default"
     ;; 		    'japanese-jisx0208
     ;; 		    '("MeiryoKe_Gothic" . "jisx0208-sjis"))
+
     ;; ARISAKA(Mono)
-    ;; (set-face-attribute 'default
-    ;;                     nil
-    ;;                     :family "ARISAKA_Mono"
-    ;;                     :height 100)
-    ;; (set-fontset-font "fontset-default"
-    ;;                   'japanese-jisx0208
-    ;;                   '("ARISAKA_Mono" . "jisx0208-sjis"))
-    ;; Ricty
-    (set-face-attribute 'default nil
-                        :family "Ricty"
-                        :height 120)
+    (set-face-attribute 'default
+                        nil
+                        :family "ARISAKA_Mono"
+                        :height 100)
     (set-fontset-font "fontset-default"
                       'japanese-jisx0208
-                      (font-spec :family "Ricty"))))
+                      '("ARISAKA_Mono" . "jisx0208-sjis"))
+
+    ;; Ricty
+    ;; (set-face-attribute 'default nil
+    ;;                     :family "Ricty"
+    ;;                     :height 120)
+    ;; (set-fontset-font "fontset-default"
+    ;;                   'japanese-jisx0208
+    ;;                   (font-spec :family "Ricty"))
+    ))

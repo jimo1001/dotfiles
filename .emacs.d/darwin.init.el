@@ -14,6 +14,7 @@
 ;; Add exec-path
 (setq exec-path
       (append (list
+               "/usr/local/bin"
                "/opt/local/bin"
                "/opt/local/sbin"
                ) exec-path))
@@ -45,7 +46,8 @@
   ;; set path for migemo-dict
   (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
   ;; charset encoding for migemo
-  (setq migemo-coding-system 'utf-8-unix))
+  (setq migemo-coding-system 'utf-8-unix)
+  (migemo-init))
 
 ;; ce-scroll
 ;; info: one line scroll
@@ -122,17 +124,28 @@
 
   ;; set Droid font
   (when (window-system)
+    ;; (set-face-attribute 'default nil
+    ;;                     :family "Droid Sans Mono"
+    ;;                     :height 130)
+    ;; (set-fontset-font "fontset-default"
+    ;;                   'japanese-jisx0208
+    ;;                   '("Droid Sans Fallback" . "iso10646-1"))
+    ;; (set-fontset-font "fontset-default"
+    ;;                   'katakana-jisx0201
+    ;;                   '("Droid Sans Fallback" . "iso10646-1"))
+    ;; (setq face-font-rescale-alist
+    ;;       '((".*Droid_Sans_Mono.*" . 1.0)
+    ;;         (".*Droid_Sans_Mono-medium.*" . 1.0)
+    ;;         (".*Droid_Sans_Fallback.*" . 1.3)
+    ;;         (".*Droid_Sans_Fallback-medium.*" . 1.3)))
+
+    ;; Ricty
+    ;;(add-to-list 'default-frame-alist '(font . "ricty-15"))
+    ;;(set-frame-font "ricty-15")
     (set-face-attribute 'default nil
-                        :family "Droid Sans Mono"
-                        :height 130)
-    (set-fontset-font "fontset-default"
+                        :family "Ricty"
+                        :height 160)
+    (set-fontset-font nil
                       'japanese-jisx0208
-                      '("Droid Sans Fallback" . "iso10646-1"))
-    (set-fontset-font "fontset-default"
-                      'katakana-jisx0201
-                      '("Droid Sans Fallback" . "iso10646-1"))
-    (setq face-font-rescale-alist
-          '((".*Droid_Sans_Mono.*" . 1.0)
-            (".*Droid_Sans_Mono-medium.*" . 1.0)
-            (".*Droid_Sans_Fallback.*" . 1.3)
-            (".*Droid_Sans_Fallback-medium.*" . 1.3)))))
+                      (font-spec :family "Ricty"))
+    ))

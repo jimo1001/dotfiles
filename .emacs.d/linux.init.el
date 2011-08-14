@@ -18,6 +18,10 @@
 ;; set hostname
 (setq hostname (substitute-env-vars "$HOSTNAME"))
 
+;; dont create backup files
+(setq make-backup-files nil)
+(setq auto-save-default nil)
+
 ;; screen 使用時用設定
 (add-hook 'server-done-hook
           (lambda ()

@@ -57,6 +57,12 @@
 ;; "yes or no" => "y or n"
 (fset 'yes-or-no-p 'y-or-n-p)
 
+;; delete auto save files when quit Emacs
+(setq delete-auto-save-files t)
+
+;; dont create backup files
+(setq backup-inhibited t)
+
 ;; Font-lock
 (global-font-lock-mode t)
 (setq font-lock-support-mode 'jit-lock-mode
@@ -224,12 +230,12 @@
 
   ;; anything-etags, tags
   (require 'anything-etags nil t)
-  (global-set-key (kbd "C-.")
+  (global-set-key (kbd "C-c .")
                   (lambda ()
                     (interactive)
                     (anything '(anything-c-source-imenu))))
   (when (require 'anything-tags nil t)
-    (global-set-key (kbd "C-.")
+    (global-set-key (kbd "C-c .")
                     (lambda ()
                       (interactive)
                       (anything '(anything-c-source-tags-select
@@ -436,35 +442,41 @@
   "my custom faces." :prefix "myface-" :group 'convenience)
 
 (defface myface-highlight-return
-  '((t (:background "black")))
+  '((t (:background "#000000")))
   "Face for return code(\x0d)." :group 'myface)
 
 (defvar myface-highlight-return-face 'myface-highlight-return
   "Face for return code(\x0d).")
 
 (defface myface-highlight-double-space
-  '((t (:background "gray30")))
+  '((t (:background "#444444")))
   "Face for double byte space." :group 'myface)
 
 (defvar myface-highlight-double-space-face 'myface-highlight-double-space
   "Face for double byte space.")
 
+;; (defface myface-highlight-head-half-space
+;;   '((t (:background "#121212" :underline nil)))
+;;   "Face for head of half size space." :group 'myface)
 (defface myface-highlight-head-half-space
-  '((t (:foreground "gray15" :underline t)))
+  '((t (:foreground "#262626" :underline t)))
   "Face for head of half size space." :group 'myface)
 
 (defvar myface-highlight-head-half-space-face 'myface-highlight-head-half-space
   "Face for head of half size space.")
 
 (defface myface-highlight-head-tab
-  '((t (:background "gray10")))
+  '((t (:background "#303030")))
   "Face for head of tab." :group 'myface)
 
 (defvar myface-highlight-head-tab-face 'myface-highlight-head-tab
   "Face for head of tab.")
 
+;; (defface myface-highlight-end-tab-space
+;;   '((t (:background "#5f0000" :underline nil)))
+;;   "Face for end of tab." :group 'myface)
 (defface myface-highlight-end-tab-space
-  '((t (:foreground "red" :underline t)))
+  '((t (:foreground "#5f0000" :underline t)))
   "Face for end of tab." :group 'myface)
 
 (defvar myface-highlight-end-tab-space-face 'myface-highlight-end-tab-space
@@ -537,7 +549,7 @@
   (global-set-key "\C-x\C-b" 'ibuffer))
 
 ;; ndmacro
-(defconst *ndmacro-key* "\C-t" "繰返し指定キー")
+(defconst *ndmacro-key* (kbd "M-m") "繰返し指定キー")
 (global-set-key *ndmacro-key* 'ndmacro-exec)
 (autoload 'ndmacro-exec "ndmacro" t)
 
@@ -684,12 +696,12 @@
              (back-to-indentation)
              (point))))
       (skip-chars-forward "\s " point-of-indentation)))
-  (eval-after-load "js-mode"
+  (eval-after-load "js"
     '(progn
        (setq js-cleanup-whitespace nil
              js-mirror-mode nil
              js-bounce-indent-flag nil
-             js-indent-level 4)
+             js-indent-level 2)
        (define-key js-mode-map "\C-i" 'indent-and-back-to-indentation)
        (define-key js-mode-map "\C-m" nil)
        (define-key js-mode-map "\C-m" 'newline-and-indent))))
@@ -1107,7 +1119,16 @@
 (when (autoload-if-found 'rst-mode "rst" "reStructuredText mode" t)
   (setq auto-mode-alist
         (append '(("\\.rst\\'" . rst-mode)
-                  ("\\.rest\\'" . rst-mode)) auto-mode-alist)))
+                  ("\\.rest\\'" . rst-mode)) auto-mode-alist))
+  (eval-after-load "rst"
+    '(progn
+       (custom-set-faces
+        '(rst-level-1-face ((t (:foreground "#afcdcd" :background "#000000" :weight bold))))
+        '(rst-level-2-face ((t (:foreground "#87cdcd" :background "#000000" :weight bold))))
+        '(rst-level-3-face ((t :foreground "#5faf5f" :background "#000000" :weight bold)))
+        '(rst-level-4-face ((t :foreground "#5f5faf" :background "#000000")))
+        '(rst-level-5-face ((t :background "5fcd5f" :background "#000000")))
+        '(rst-level-6-face ((t :foreground "#00cdcd" :background "#000000")))))))
 
 ;; org-mode
 (when (require 'org-install nil t)
@@ -1148,6 +1169,31 @@
 
 ;; howm (Hitori Otegaru Wiki Modoki)
 ;; info: memo tool
+(defvar my-howm-schedule-page "TITLE") ; 予定を入れるメモのタイトル
+;; for cfw
+(defun my-cfw-open-schedule-buffer ()
+  (interactive)
+  (let*
+      ((date (cfw:cursor-to-nearest-date))
+       (howm-items
+        (howm-folder-grep
+         howm-directory
+         (regexp-quote my-howm-schedule-page))))
+    (cond
+     ((null howm-items) ; create
+      (howm-create-file-with-title my-howm-schedule-page nil nil nil nil))
+     (t
+      (howm-view-open-item (car howm-items))))
+    (goto-char (point-max))
+    (unless (bolp) (insert "\n"))
+    (insert
+     (format "[%04d-%02d-%02d]@ "
+             (calendar-extract-year date)
+             (calendar-extract-month date)
+             (calendar-extract-day date)))))
+(setq cfw:howm-schedule-summary-transformer
+  (lambda (line) (split-string (replace-regexp-in-string "^[^@!]+[@!] " "" line) " / ")))
+;; autoload
 (when (autoload-if-found (list 'howm-menu 'howm-mode)
                          "howm" "Hitori Otegaru Wiki Modoki" t)
   (setq howm-menu-lang 'ja
@@ -1170,8 +1216,32 @@
             (lambda ()
               (setq indent-tabs-mode nil)))
   ;; The link is traced in the tab.
-  (eval-after-load "howm-mode"
+  (eval-after-load "howm-menu"
     '(progn
+       ;; calfw for howm
+       (require 'calfw-howm)
+       (cfw:install-howm-schedules)
+       (define-key howm-mode-map (kbd "M-C") 'cfw:elscreen-open-howm-calendar)
+       (define-key cfw:howm-schedule-map (kbd "i") 'my-cfw-open-schedule-buffer)
+       (define-key cfw:howm-schedule-inline-keymap (kbd "i") 'my-cfw-open-schedule-buffer)
+       ;; change faces
+       (custom-set-faces
+        '(cfw:face-title ((t (:foreground "#f0dfaf" :weight bold :height 2.0 :inherit variable-pitch))))
+        '(cfw:face-header ((t (:foreground "#d0bf8f" :weight bold))))
+        '(cfw:face-sunday ((t :foreground "#cc9393" :background "grey10" :weight bold)))
+        '(cfw:face-saturday ((t :foreground "#8cd0d3" :background "grey10" :weight bold)))
+        '(cfw:face-holiday ((t :background "grey10" :foreground "#8c5353" :weight bold)))
+        '(cfw:face-default-content ((t :foreground "#bfebbf")))
+        '(cfw:face-regions ((t :foreground "#366060")))
+        '(cfw:face-day-title ((t :background "grey10")))
+        '(cfw:face-periods ((t :foreground "#8cd0d3")))
+        '(cfw:face-today-title ((t :background "#7f9f7f" :weight bold)))
+        '(cfw:face-today ((t :background: "grey10" :weight bold)))
+        '(cfw:face-select ((t :background "#2f2f2f")))
+        '(cfw:face-toolbar ((t (:foreground "#808080" :background "#303030"))))
+        '(cfw:face-toolbar-button-off ((t (:foreground "#585858" :background "#303030"))))
+        '(cfw:face-toolbar-button-on ((t (:foreground "#c6c6c6" :background "#303030" :bold t)))))
+       ;; Elescreen
        (require 'elscreen-howm nil t)
        ;;(define-key howm-mode-map [tab] 'action-lock-goto-next-link)
        ;;(define-key howm-mode-map [(meta tab)] 'action-lock-goto-previous-link)
@@ -1185,6 +1255,7 @@
                            :background "#000000"
                            :underline nil
                            :bold t)))
+
   ;; hilightのカラーを変更
   (defface howm-reminder-today-face
     '((((class color)) (:foreground "#e5e5e5" :background "#870000"))
@@ -1220,7 +1291,8 @@
              (imenu-add-to-menubar "imenu")))
        ;;(add-hook 'find-file-hooks 'my-imenu-ff-hook t)
        ))
-  (global-set-key "\C-c." 'imenu))
+  ;;(global-set-key "\C-c." 'imenu)
+  )
 
 ;; wanderlust
 ;; info: Mailer
@@ -1238,7 +1310,7 @@
              'wl-draft-send
              'wl-draft-kill
              'mail-send-hook))))
-  (global-set-key "\C-cm" 'wl))
+  (global-set-key (kbd "C-c m m") 'wl))
 (autoload-if-found '(wl-draft wl-user-agent-compose)
                    "wl-draft" "Write draft with Wanderlust." t)
 
@@ -1359,7 +1431,7 @@
   ;; C0103: Invalid name "%s" (should match %s)
   ;; C0111: Missing docstring
   ;; E1101: %s %r has no %r member
-  (setq pylint-options "-f parseable -d C0103,C0111")
+  (setq pylint-options "-f parseable -d C0103,C0111,E1101,C0301")
   (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
   (setq interpreter-mode-alist (cons '("python" . python-mode)
                                      interpreter-mode-alist))
@@ -1422,8 +1494,12 @@
   (global-set-key (kbd "C-x C-f") 'ido-find-file)
   (global-set-key (kbd "C-x b") 'ido-switch-buffer)
   (global-set-key (kbd "C-x d") 'ido-dired)
+  (setq ido-save-directory-list-file "~/.saves/.ido.last")
   (add-hook 'ido-setup-hook
             (lambda ()
               (message "setup ido")
               (define-key ido-completion-map "\C-h" 'backward-delete-char-untabify)
               (define-key ido-completion-map " " 'ido-next-match))))
+
+;; trac-wiki
+(autoload-if-found 'trac-wiki-mode "trac-wiki" "Trac Wiki Mode" t)
