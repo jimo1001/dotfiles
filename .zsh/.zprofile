@@ -1,4 +1,5 @@
 # -*- coding: utf-8; mode: shell-script; -*-
+
 # User specific aliases and functions
 export LANG=ja_JP.UTF-8
 export LC_ALL=ja_JP.UTF-8
