@@ -6,7 +6,6 @@
 #--------------------------------------------------
 # Environment variable configuration
 #--------------------------------------------------
-
 # charactor set
 export LANG=ja_JP.UTF-8
 # export LANG=ja_JP.EUC-JP
@@ -63,26 +62,18 @@ export DOWNLOADER="wget -S"
 ## TERM
 # export TERM=xterm-256color
 
+# for python
+export PYTHONSTARTUP=$HOME/.pythonrc.py
+
+# for Git
+export GIT_SSL_NO_VERIFY=true
+
 #--------------------------------------------------
 # Add PATH
 #--------------------------------------------------
-PATH=${HOME}/local/bin:${HOME}/bin:/opt/local/bin:/usr/local/bin:/bin:/usr/bin:/sw/bin:/usr/local/mysql/bin:$PATH
+PATH=$HOME/local/bin:$HOME/bin:/opt/local/bin:/usr/local/bin:/bin:/usr/bin:/sw/bin:/usr/local/mysql/bin:$PATH
 if [[ $UID = 1 ]]; then
     PATH=/usr/sbin:$PATH
 fi
 export PATH=$PATH
-export MANPATH=$MANPATH:${HOME}/local/man:${HOME}/man:/man:/usr/man:/usr/local/man:/opt/local/man
-
-#--------------------------------------------------
-# etc
-#--------------------------------------------------
-
-## JAVA for MacOS
-if [ `uname` = 'Darwin' ]; then
-    JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home
-    export JAVA_HOME
-    export PATH=${JAVA_HOME}/bin:$PATH
-    export TOMCAT_HOME=/usr/local/tomcat6
-    export CATALINA_HOME=/usr/local/tomcat6
-    export CLASSPATH=$CLASSPATH:$CATALINA_HOME/lib
-fi
+export MANPATH=$MANPATH:$HOME/local/man:$HOME/man:/man:/usr/man:/usr/local/man:/opt/local/man

@@ -10,6 +10,7 @@ ln -sh $DOTFILE_PATH/.zsh $HOME/.zsh
 ln -sh $DOTFILE_PATH/.bash $HOME/.bash
 ln -sh $DOTFILE_PATH/.vim $HOME/.vim
 ln -s $DOTFILE_PATH/.tmux.conf $HOME/.tmux.conf
+ln -s $DOTFILE_PATH/.pythonrc.py $HOME/.pythonrc.py
 
 pushd $HOME
 ln -s .screen/.screenrc .screenrc

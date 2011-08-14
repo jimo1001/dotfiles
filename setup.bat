@@ -9,6 +9,7 @@ mklink /D "%HOME%/.zsh" "%DOTFILE_PATH%/.zsh"
 mklink /D "%HOME%/.bash" "%DOTFILE_PATH%/.bash"
 mklink /D "%HOME%/.vim" "%DOTFILE_PATH%/.vim"
 mklink "%HOME%/.tmux.conf" "%DOTFILE_PATH%/.tmux.conf"
+mklink "%HOME%/.pythonrc.py" "%DOTFILE_PATH%/.pythonrc.py"
 
 cd "%HOME%"
 mklink .screenrc .screen\.screenrc
