@@ -158,7 +158,7 @@ case ${UID} in
 #   PROMPT="${YELLOW}#:----(${DEFAULT} ${LIGHT_BLUE}%n${DEFAULT}${RED}@${DEFAULT}${GREEN}%m${DEFAULT}${DEFAULT} ${YELLOW})----(${DEFAULT} ${PURPLE}%D %T${DEFAULT} ${YELLOW})-----(${DEFAULT} ${LIGHT_BLUE}%~${DEFAULT} ${YELLOW})${DEFAULT}
 # ${YELLOW}#:-->${DEFAULT} "
 #   PROMPT2="${YELLOW}%_%%${DEFAULT} "
-# #   RPROMPT="${LIGHT_BLUE}[%~]${DEFAULT}"
+#   RPROMPT="${LIGHT_BLUE}[%~]${DEFAULT}"
 #   SPROMPT="${LIGHT_BLUE}%r is correct? [n,y,a,e]:${DEFAULT} "
 #   [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
 #   ;;
@@ -166,7 +166,7 @@ case ${UID} in
 #   PROMPT="${YELLOW}$:----(${DEFAULT} ${LIGHT_BLUE}%n${DEFAULT}${RED}@${DEFAULT}${GREEN}%m${DEFAULT}${DEFAULT} ${YELLOW})----(${DEFAULT} ${PURPLE}%D %T${DEFAULT} ${YELLOW})-----(${DEFAULT} ${LIGHT_BLUE}%~${DEFAULT} ${YELLOW})${DEFAULT}
 # ${YELLOW}$:-->${DEFAULT} "
 #   PROMPT2="${YELLOW}%_%%${DEFAULT} "
-# #   RPROMPT="${LIGHT_BLUE}[%~]${DEFAULT}"
+#   RPROMPT="${LIGHT_BLUE}[%~]${DEFAULT}"
 #   SPROMPT="${LIGHT_BLUE}%r is correct? [n,y,a,e]:${DEFAULT} "
 #   [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
 #   ;;
