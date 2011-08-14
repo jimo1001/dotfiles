@@ -47,8 +47,8 @@ export ZUSERDIR=$ZDOTDIR
 
 # 環境変数（PATH など）の OS 別設定ファイルを読み込む
 
-if [ -f $ZUSERDIR/zshrc.$SYSTEM ]; then
-  source $ZUSERDIR/zshrc.$SYSTEM
+if [ -f $ZUSERDIR/$SYSTEM.zshrc ]; then
+  source $ZUSERDIR/$SYSTEM.zshrc
 fi
 
 # man path
