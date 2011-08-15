@@ -4,17 +4,17 @@
 SCRIPT_FILE=$0
 DOTFILE_PATH=${SCRIPT_FILE%/*}
 
-ln -sh $DOTFILE_PATH/.emacs.d $HOME/.emacs.d
-ln -sh $DOTFILE_PATH/.screen $HOME/.screen
-ln -sh $DOTFILE_PATH/.zsh $HOME/.zsh
-ln -sh $DOTFILE_PATH/.bash $HOME/.bash
-ln -sh $DOTFILE_PATH/.vim $HOME/.vim
-ln -s $DOTFILE_PATH/.tmux.conf $HOME/.tmux.conf
-ln -s $DOTFILE_PATH/.pythonrc.py $HOME/.pythonrc.py
-
 pushd $HOME
-ln -s .screen/.screenrc .screenrc
-ln -s .zsh/.zshenv .zshenv
-ln -s .bash/.bashrc .bashrc
-ln -s .vim/.vimrc .vimrc
+ln -is $DOTFILE_PATH/.emacs.d
+ln -is $DOTFILE_PATH/.screen
+ln -is $DOTFILE_PATH/.zsh
+ln -is $DOTFILE_PATH/.bash
+ln -is $DOTFILE_PATH/.vim
+ln -is $DOTFILE_PATH/.tmux.conf
+ln -is $DOTFILE_PATH/.pythonrc.py
+ln -is $DOTFILE_PATH/.irbrc
+ln -is .screen/.screenrc
+ln -is .zsh/.zshenv
+ln -is .bash/.bashrc
+ln -is .vim/.vimrc
 popd

@@ -18,6 +18,7 @@ linux*)
   ;;
 esac
 
+alias ls="ls --color=always"
 alias l="ls -l"
 alias ll="ls -la"
 alias la="ls -a"

@@ -22,7 +22,7 @@ export RUBYLIB=$HOME/lib/ruby/site_ruby/1.8:$HOME/lib/ruby
 export GEM_HOME=$HOME/lib/ruby/gem
 
 ## w3m HOME
-export HTTP_HOME="http://www.google.co.jp/"
+export HTTP_HOME='http://www.google.co.jp/'
 
 ## Editor
 if [[ -x `which emacs 2> /dev/null` && `which emacs` != 'emacs not found' ]]; then
@@ -51,13 +51,13 @@ fi
 
 ## Browser
 if [[ -z "$DISPLAY" ]]; then
-    export WWW_BROWSER="w3m"
+    export WWW_BROWSER='w3m'
 else
-    export WWW_BROWSER="firefox"
+    export WWW_BROWSER='firefox'
 fi
 
 ## Downloader
-export DOWNLOADER="wget -S"
+export DOWNLOADER='wget -S'
 
 ## TERM
 # export TERM=xterm-256color
@@ -68,12 +68,18 @@ export PYTHONSTARTUP=$HOME/.pythonrc.py
 # for Git
 export GIT_SSL_NO_VERIFY=true
 
+# LESS
+export LESS='-R'
+
+# LV
+export LV='-Ou8 -c'
+
 #--------------------------------------------------
 # Add PATH
 #--------------------------------------------------
-PATH=$HOME/local/bin:$HOME/bin:/opt/local/bin:/usr/local/bin:/bin:/usr/bin:/sw/bin:/usr/local/mysql/bin:$PATH
+PATH=$HOME/local/bin:$HOME/bin:$PATH
 if [[ $UID = 1 ]]; then
-    PATH=/usr/sbin:$PATH
+    PATH=$PATH:/usr/sbin
 fi
 export PATH=$PATH
-export MANPATH=$MANPATH:$HOME/local/man:$HOME/man:/man:/usr/man:/usr/local/man:/opt/local/man
+export MANPATH=$MANPATH:$HOME/local/man:$HOME/man:/usr/local/man:/opt/local/man
