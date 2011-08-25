@@ -2,7 +2,7 @@
 # -*- coding: utf-8; mode: shell-script -*-
 
 SCRIPT_FILE=$0
-DOTFILE_PATH=${SCRIPT_FILE%/*}
+DOTFILE_PATH=$PWD/${SCRIPT_FILE%/*}
 
 pushd $HOME
 ln -is $DOTFILE_PATH/.emacs.d
@@ -16,5 +16,6 @@ ln -is $DOTFILE_PATH/.irbrc
 ln -is .screen/.screenrc
 ln -is .zsh/.zshenv
 ln -is .bash/.bashrc
+ln -is .bash/.bash_profile
 ln -is .vim/.vimrc
 popd

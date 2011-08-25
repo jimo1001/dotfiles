@@ -42,11 +42,15 @@
 ;; C/Migemo
 (when (featurep 'migemo)
   (when (executable-find "cmigemo")
-    (setq migemo-options '("-q" "--emacs" "-i" "\a")))
+    (setq migemo-command "cmigemo")
+    (setq migemo-options '("-q" "--emacs")))
   ;; set path for migemo-dict
   (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
+  (setq migemo-user-dictionary nil)
+  (setq migemo-regex-dictionary nil)
   ;; charset encoding for migemo
   (setq migemo-coding-system 'utf-8-unix)
+  (load-library "migemo")
   (migemo-init))
 
 ;; ce-scroll
@@ -144,7 +148,7 @@
     ;;(set-frame-font "ricty-15")
     (set-face-attribute 'default nil
                         :family "Ricty"
-                        :height 160)
+                        :height 175)
     (set-fontset-font nil
                       'japanese-jisx0208
                       (font-spec :family "Ricty"))

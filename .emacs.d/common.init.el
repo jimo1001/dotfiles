@@ -683,6 +683,19 @@
                          sgml-shorttag nil
                          sgml-tag-region-if-active t
                          sgml-xml-validate-command "xmllint --noout --valid %s %s"))))))
+;; flymake
+(when (require 'flymake nil t)
+  ;; gotoした際にエラーメッセージをminibufferに表示する
+  (defun display-error-message ()
+    (message (get-char-property (point) 'help-echo)))
+  (defadvice flymake-goto-prev-error (after flymake-goto-prev-error-display-message)
+    (display-error-message))
+  (defadvice flymake-goto-next-error (after flymake-goto-next-error-display-message)
+    (display-error-message))
+  (ad-activate 'flymake-goto-prev-error 'flymake-goto-prev-error-display-message)
+  (ad-activate 'flymake-goto-next-error 'flymake-goto-next-error-display-message)
+  (global-set-key "\M-e" 'flymake-goto-next-error)
+  (global-set-key "\M-E" 'flymake-goto-prev-error))
 
 ;; JavaScript
 ;; js-mode
@@ -696,14 +709,34 @@
              (back-to-indentation)
              (point))))
       (skip-chars-forward "\s " point-of-indentation)))
+  ;; check syntax by jslint
+  ;; http://d.hatena.ne.jp/sugyan/20110510/1305036104
+  (when (and (require 'flymake nil t) (executable-find "node"))
+    (add-to-list 'flymake-allowed-file-name-masks '("\\.js\\'" flymake-js-init))
+    (defun flymake-js-init ()
+      (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                         'flymake-create-temp-inplace))
+             (local-file (file-relative-name
+                          temp-file
+                          (file-name-directory buffer-file-name))))
+        (list "jslint" (list "--no-es5" local-file))))
+    (defun flymake-js-load ()
+      (interactive)
+      (setq flymake-err-line-patterns
+            (cons '("^ *[[:digit:]] \\([[:digit:]]+\\),\\([[:digit:]]+\\)\: \\(.+\\)$"
+                    nil 1 2 3)
+                  flymake-err-line-patterns))
+      (flymake-mode t))
+    (add-hook 'js-mode-hook
+              (lambda ()
+                (flymake-js-load))))
   (eval-after-load "js"
     '(progn
        (setq js-cleanup-whitespace nil
              js-mirror-mode nil
              js-bounce-indent-flag nil
              js-indent-level 2)
-       (define-key js-mode-map "\C-i" 'indent-and-back-to-indentation)
-       (define-key js-mode-map "\C-m" nil)
+       ;; (define-key js-mode-map "\C-i" 'indent-and-back-to-indentation)
        (define-key js-mode-map "\C-m" 'newline-and-indent))))
 
 ;; php-mode
@@ -1435,6 +1468,16 @@
   (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
   (setq interpreter-mode-alist (cons '("python" . python-mode)
                                      interpreter-mode-alist))
+  (when (and (require 'flymake nil t) (executable-find "epylint"))
+    (defun flymake-pylint-init ()
+      (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                         'flymake-create-temp-inplace))
+             (local-file (file-relative-name
+                          temp-file
+                          (file-name-directory buffer-file-name))))
+        (list "epylint" (list local-file))))
+    (add-to-list 'flymake-allowed-file-name-masks
+                 '("\\.py\\'" flymake-pylint-init)))
   (eval-after-load "python-mode"
     '(progn
        (add-hook 'python-mode-hook
@@ -1503,3 +1546,18 @@
 
 ;; trac-wiki
 (autoload-if-found 'trac-wiki-mode "trac-wiki" "Trac Wiki Mode" t)
+
+;; judge indent
+;; set indent style
+(setq c-default-style "bsd")
+(setq-default c-basic-offset 4)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 8)
+;; enable judge-indent
+(when (require 'judge-indent nil t)
+  ;;(global-judge-indent-mode t)
+  (setq judge-indent-major-modes
+        '(c-mode c++-mode python-mode
+                 nxml-mode html-helper-mode css-mode
+                 ;;js2-mode
+                 sh-mode)))

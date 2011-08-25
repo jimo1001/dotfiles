@@ -14,6 +14,7 @@ mklink "%HOME%/.pythonrc.py" "%DOTFILE_PATH%/.pythonrc.py"
 cd "%HOME%"
 mklink .screenrc .screen\.screenrc
 mklink .zshenv .zsh\.zshenv
+mklink .bash_profile .bash\.bash_profile
 mklink .bashrc .bash\.bashrc
 mklink .vimrc .vim\.vimrc
 cd "%CURRENT_PATH%"
