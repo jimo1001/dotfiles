@@ -577,9 +577,11 @@
                             :background "#008700"
                             :underline nil
                             :bold t)
-;; ffap
-(when (require 'ffap nil t)
-  (ffap-bindings))
+;; ;; ffap
+;; ;; find file (or URL) at point
+;; ;; http://www.bookshelf.jp/soft/meadow_23.html#SEC231
+;; (when (require 'ffap nil t)
+;;   (ffap-bindings))
 
 ;; match-paren
 (global-set-key "\C-c\C-o" 'match-paren)
@@ -695,24 +697,65 @@
   (ad-activate 'flymake-goto-prev-error 'flymake-goto-prev-error-display-message)
   (ad-activate 'flymake-goto-next-error 'flymake-goto-next-error-display-message)
   (global-set-key "\M-e" 'flymake-goto-next-error)
-  (global-set-key "\M-E" 'flymake-goto-prev-error))
+  (global-set-key "\M-E" 'flymake-goto-prev-error)
+  ;; faces
+  (custom-set-faces
+   '(flymake-errline ((t (:background "#5f0000"))))
+   '(flymake-warnline ((t (:background "#5f5f00")))))
+
+  (defun flymake-show-and-sit ()
+    "Displays the error/warning for the current line in the minibuffer"
+    (interactive)
+    (progn
+      (let* ((line-no (flymake-current-line-no))
+             (line-err-info-list (nth 0 (flymake-find-err-info
+                                         flymake-err-info line-no)))
+             (count (length line-err-info-list)))
+        (while (> count 0)
+          (when line-err-info-list
+            (let* ((file (flymake-ler-file
+                          (nth (1- count) line-err-info-list)))
+                   (full-file (flymake-ler-full-file
+                               (nth (1- count) line-err-info-list)))
+                   (text (flymake-ler-text (nth (1- count) line-err-info-list)))
+                   (line (flymake-ler-line (nth (1- count) line-err-info-list))))
+              (message "[%s] %s" line text)))
+          (setq count (1- count)))))
+    (sit-for 60.0))
+  (global-set-key "\C-cd" 'flymake-show-and-sit)
+  ;; for C
+  (defun flymake-c-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+           (local-file (file-relative-name
+                        temp-file
+                        (file-name-directory buffer-file-name))))
+      (list "gcc" (list "-Wall" "-Wextra" "-fsyntax-only" local-file))))
+  (push '("\\.c$" flymake-c-init) flymake-allowed-file-name-masks)
+
+  (add-hook 'c-mode-hook
+            '(lambda ()
+               (flymake-mode t)))
+  ;; for C++
+  (defun flymake-cc-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+           (local-file (file-relative-name
+                        temp-file
+                        (file-name-directory buffer-file-name))))
+      (list "g++" (list "-Wall" "-Wextra" "-fsyntax-only" local-file))))
+  (push '("\\.cc$" flymake-cc-init) flymake-allowed-file-name-masks)
+
+  (add-hook 'c++-mode-hook
+            '(lambda ()
+               (flymake-mode t))))
 
 ;; JavaScript
 ;; js-mode
 (when (autoload-if-found 'js-mode "js" "major mode for JavaScript" t)
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js-mode))
-  (defun indent-and-back-to-indentation ()
-    (interactive)
-    (indent-for-tab-command)
-    (let ((point-of-indentation
-           (save-excursion
-             (back-to-indentation)
-             (point))))
-      (skip-chars-forward "\s " point-of-indentation)))
   ;; check syntax by jslint
   ;; http://d.hatena.ne.jp/sugyan/20110510/1305036104
   (when (and (require 'flymake nil t) (executable-find "node"))
-    (add-to-list 'flymake-allowed-file-name-masks '("\\.js\\'" flymake-js-init))
     (defun flymake-js-init ()
       (let* ((temp-file (flymake-init-create-temp-buffer-copy
                          'flymake-create-temp-inplace))
@@ -727,9 +770,18 @@
                     nil 1 2 3)
                   flymake-err-line-patterns))
       (flymake-mode t))
-    (add-hook 'js-mode-hook
-              (lambda ()
-                (flymake-js-load))))
+    (add-to-list 'flymake-allowed-file-name-masks '("\\.js\\'" flymake-js-init))
+    (add-hook 'js-mode-hook 'flymake-js-load))
+  ;; js-mode settings
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js-mode))
+  (defun indent-and-back-to-indentation ()
+    (interactive)
+    (indent-for-tab-command)
+    (let ((point-of-indentation
+           (save-excursion
+             (back-to-indentation)
+             (point))))
+      (skip-chars-forward "\s " point-of-indentation)))
   (eval-after-load "js"
     '(progn
        (setq js-cleanup-whitespace nil
@@ -901,13 +953,13 @@
        (define-key change-log-mode-map "\C-c\C-g" 'clgrep)
        (define-key change-log-mode-map "\C-c\C-t" 'clgrep-title))))
 
-;; highlight-completion
-(when emacs22-p
-  (global-set-key "\C-\\" 'toggle-input-method)
-  (when (require 'highlight-completion nil t)
-    ;;(setq hc-ctrl-x-c-is-completion t)
-    ;;(highlight-completion-mode 1)
-    ))
+;; ;; highlight-completion
+;; (when emacs22-p
+;;   (global-set-key "\C-\\" 'toggle-input-method)
+;;   (when (require 'highlight-completion nil t)
+;;     ;;(setq hc-ctrl-x-c-is-completion t)
+;;     ;;(highlight-completion-mode 1)
+;;     ))
 
 ;; ireplace
 (require 'ireplace nil t)
@@ -1202,30 +1254,6 @@
 
 ;; howm (Hitori Otegaru Wiki Modoki)
 ;; info: memo tool
-(defvar my-howm-schedule-page "TITLE") ; 予定を入れるメモのタイトル
-;; for cfw
-(defun my-cfw-open-schedule-buffer ()
-  (interactive)
-  (let*
-      ((date (cfw:cursor-to-nearest-date))
-       (howm-items
-        (howm-folder-grep
-         howm-directory
-         (regexp-quote my-howm-schedule-page))))
-    (cond
-     ((null howm-items) ; create
-      (howm-create-file-with-title my-howm-schedule-page nil nil nil nil))
-     (t
-      (howm-view-open-item (car howm-items))))
-    (goto-char (point-max))
-    (unless (bolp) (insert "\n"))
-    (insert
-     (format "[%04d-%02d-%02d]@ "
-             (calendar-extract-year date)
-             (calendar-extract-month date)
-             (calendar-extract-day date)))))
-(setq cfw:howm-schedule-summary-transformer
-  (lambda (line) (split-string (replace-regexp-in-string "^[^@!]+[@!] " "" line) " / ")))
 ;; autoload
 (when (autoload-if-found (list 'howm-menu 'howm-mode)
                          "howm" "Hitori Otegaru Wiki Modoki" t)
@@ -1251,6 +1279,32 @@
   ;; The link is traced in the tab.
   (eval-after-load "howm-menu"
     '(progn
+       ;; 予定を入れるメモのタイトル
+       (defvar my-howm-schedule-page "TITLE")
+       ;; for cfw
+       (defun my-cfw-open-schedule-buffer ()
+         (interactive)
+         (let*
+             ((date (cfw:cursor-to-nearest-date))
+              (howm-items
+               (howm-folder-grep
+                howm-directory
+                (regexp-quote my-howm-schedule-page))))
+           (cond
+            ((null howm-items) ; create
+             (howm-create-file-with-title my-howm-schedule-page nil nil nil nil))
+            (t
+             (howm-view-open-item (car howm-items))))
+           (goto-char (point-max))
+           (unless (bolp) (insert "\n"))
+           (insert
+            (format "[%04d-%02d-%02d]@ "
+                    (calendar-extract-year date)
+                    (calendar-extract-month date)
+                    (calendar-extract-day date)))))
+       (setq cfw:howm-schedule-summary-transformer
+             (lambda (line) (split-string (replace-regexp-in-string "^[^@!]+[@!] " "" line) " / ")))
+
        ;; calfw for howm
        (require 'calfw-howm)
        (cfw:install-howm-schedules)
@@ -1376,7 +1430,9 @@
 ;; w3m
 (when (executable-find "w3m")
   (when (autoload-if-found 'w3m "w3m" nil t)
-    (setq w3m-icon-directory "~/.emacs.d/etc/w3m/icons")))
+    (eval-after-load "w3m"
+      '(progn
+         (setq w3m-icon-directory "~/.emacs.d/etc/w3m/icons")))))
 
 ;; hatena keyword
 (when (autoload-if-found 'hatekey "hatena-keyword" nil t)
@@ -1534,15 +1590,23 @@
 ;; ido-mode
 (when (require 'ido  nil t)
   (ido-mode t)
-  (global-set-key (kbd "C-x C-f") 'ido-find-file)
-  (global-set-key (kbd "C-x b") 'ido-switch-buffer)
-  (global-set-key (kbd "C-x d") 'ido-dired)
+  (ido-everywhere t)
   (setq ido-save-directory-list-file "~/.saves/.ido.last")
+  (custom-set-variables '(ido-max-directory-size 'const))
+  (custom-set-variables '(ido-enter-matching-directory 'first))
+  (custom-set-variables '(ido-ignore-files (cons '"\\`\\." ido-ignore-files)))
+  (define-key ido-file-dir-completion-map (kbd "SPC") 'ido-exit-minibuffer)
+  (define-key ido-file-dir-completion-map (kbd "C-h") 'ido-delete-backward-updir)
+  ;; hook
   (add-hook 'ido-setup-hook
             (lambda ()
               (message "setup ido")
               (define-key ido-completion-map "\C-h" 'backward-delete-char-untabify)
               (define-key ido-completion-map " " 'ido-next-match))))
+
+;; popwin
+(when (require 'popwin nil t)
+  (setq display-buffer-function 'popwin:display-buffer))
 
 ;; trac-wiki
 (autoload-if-found 'trac-wiki-mode "trac-wiki" "Trac Wiki Mode" t)
@@ -1557,7 +1621,11 @@
 (when (require 'judge-indent nil t)
   ;;(global-judge-indent-mode t)
   (setq judge-indent-major-modes
-        '(c-mode c++-mode python-mode
-                 nxml-mode html-helper-mode css-mode
-                 ;;js2-mode
-                 sh-mode)))
+        '(c-mode
+          c++-mode
+          python-mode
+          nxml-mode
+          html-helper-mode
+          css-mode
+          ;;js2-mode
+          sh-mode)))
