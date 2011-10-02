@@ -35,11 +35,11 @@
   ;; charset encoding
   (setq migemo-coding-system 'utf-8-unix))
 
-;; ce-scroll
-;; info: 一行毎にスクロール
-;; windows 環境だとキーリートしたときに画面描画されないためLinuxのみ
-(load "ce-scroll" t)
-(setq ce-smooth-scroll nil)
+;; ;; ce-scroll
+;; ;; info: 一行毎にスクロール
+;; ;; windows 環境だとキーリートしたときに画面描画されないためLinuxのみ
+;; (load "ce-scroll" t)
+;; (setq ce-smooth-scroll nil)
 
 ;; emacs23.1 用フォント設定
 (when emacs23.1-p

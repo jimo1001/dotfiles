@@ -213,7 +213,7 @@ setopt print_eight_bit
 setopt no_flow_control
 
 ## directory color
-export LS_DOLORS=$BLUE
+#export LS_DOLORS=$BLUE
 
 ## list (^I)
 setopt auto_list

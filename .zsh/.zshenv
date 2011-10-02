@@ -3,14 +3,22 @@
 # users generic .zshenv file for zsh
 ###################################################
 
-#--------------------------------------------------
-# Environment variable configuration
-#--------------------------------------------------
-# charactor set
+pathmunge () {
+    if ! echo $PATH | /bin/egrep -q "(^|:)$1($|:)" ; then
+        if [ "$2" = "after" ] ; then
+            PATH=$PATH:$1
+        else
+            PATH=$1:$PATH
+        fi
+    fi
+}
+
+# Language
 export LANG=ja_JP.UTF-8
+export LC_ALL=ja_JP.UTF-8
 # export LANG=ja_JP.EUC-JP
 
-## zsh home directory
+## zsh directory
 export ZDOTDIR=${HOME}/.zsh
 
 ## Mail directory
@@ -77,9 +85,14 @@ export LV='-Ou8 -c'
 #--------------------------------------------------
 # Add PATH
 #--------------------------------------------------
-PATH=$HOME/local/bin:$HOME/bin:$PATH
-if [[ $UID = 1 ]]; then
-    PATH=$PATH:/usr/sbin
+pathmunge $HOME/local/bin
+pathmunge $HOME/bin
+if [ "$UID" = "0" ]; then
+    pathmunge /usr/local/sbin
+    pathmunge /usr/sbin
+    pathmunge /sbin
 fi
-export PATH=$PATH
+export PATH
 export MANPATH=$MANPATH:$HOME/local/man:$HOME/man:/usr/local/man:/opt/local/man
+
+unset pathmunge

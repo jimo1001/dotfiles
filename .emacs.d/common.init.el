@@ -147,6 +147,8 @@
 ;; (partial-completion-mode 1)
 ;; (icomplete-mode 1)
 
+;; dired-x
+(require 'dired-x nil t)
 
 ;; describe face at point
 (defun describe-face-at-point ()
@@ -748,7 +750,8 @@
 
   (add-hook 'c++-mode-hook
             '(lambda ()
-               (flymake-mode t))))
+               (flymake-mode t)))
+  )
 
 ;; JavaScript
 ;; js-mode
@@ -1606,6 +1609,16 @@
 
 ;; popwin
 (when (require 'popwin nil t)
+  ;;(push '("*Ido Completions*" :noselect t) popwin:special-display-config)
+  (setq popwin:special-display-config
+        (append '(("*Ido Completions*" :noselect t)
+                  ("*Python Output*" :noselect t)
+                  ("*Compile-Log*" :noselect t)) popwin:special-display-config))
+  ;; anything
+  (setq anything-samewindow nil)
+  (push '("*anything*" :height 20) popwin:special-display-config)
+  ;; Dired
+  (push '(dired-mode :position top) popwin:special-display-config)
   (setq display-buffer-function 'popwin:display-buffer))
 
 ;; trac-wiki
@@ -1629,3 +1642,7 @@
           css-mode
           ;;js2-mode
           sh-mode)))
+
+;; ediff
+(when (require 'ediff nil t)
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain))

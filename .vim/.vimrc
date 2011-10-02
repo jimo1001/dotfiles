@@ -23,10 +23,11 @@ set modelines=0                  " モードラインは無効
 
 " OSのクリップボードを使用する
 set clipboard+=unnamed
+
 " ターミナルでマウスを使用できるようにする
-set mouse=a
-set guioptions+=a
-set ttymouse=xterm2
+" set mouse=a
+" set guioptions+=a
+" set ttymouse=xterm2
 
 "ヤンクした文字は、システムのクリップボードに入れる"
 set clipboard=unnamed

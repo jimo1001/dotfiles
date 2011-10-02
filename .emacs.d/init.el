@@ -130,3 +130,7 @@
     ))
 (add-hook 'after-init-hook 'after-init-setup)
 (put 'narrow-to-region 'disabled nil)
+
+;; package.el ELPA
+(when (require 'package nil t)
+  (package-initialize))

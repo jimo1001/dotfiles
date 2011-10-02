@@ -26,10 +26,16 @@
 
 ;; Migemo
 (when (featurep 'migemo)
-  ;; PATH of migemo dictionary
+  (when (executable-find "cmigemo")
+    (setq migemo-command "cmigemo")
+    (setq migemo-options '("-q" "--emacs")))
+  ;; set path for migemo-dict
   (setq migemo-dictionary "C:/cygwin/usr/local/share/migemo/utf-8/migemo-dict")
-  ;; charset encoding
+  (setq migemo-user-dictionary nil)
+  (setq migemo-regex-dictionary nil)
+  ;; charset encoding for migemo
   (setq migemo-coding-system 'utf-8-unix)
+  (load-library "migemo")
   (migemo-init))
 
 ;; for ssl
@@ -186,21 +192,22 @@
   ;; (modify-all-frames-parameters
   ;; (list (cons 'alpha  '(90 nil nil nil))))
 
-  ;; Full Screen
-  (defvar my-frame-state-alist nil)
-  (defun my-toggle-frame-size ()
-    (interactive)
-    (let ((state (assq (selected-frame) my-frame-state-alist)))
-      (if state
-          (if (cdr state)
-              (w32-restore-frame)
-            (w32-maximize-frame))
-        (setq state (cons (selected-frame) nil))
-        (setq my-frame-state-alist
-              (cons state my-frame-state-alist))
-        (w32-maximize-frame))
-      (setcdr state (null (cdr state)))))
-  (global-set-key "\C-c\C-m" 'my-toggle-frame-size))
+  ;; ;; Full Screen
+  ;; (defvar my-frame-state-alist nil)
+  ;; (defun my-toggle-frame-size ()
+  ;;   (interactive)
+  ;;   (let ((state (assq (selected-frame) my-frame-state-alist)))
+  ;;     (if state
+  ;;         (if (cdr state)
+  ;;             (w32-restore-frame)
+  ;;           (w32-maximize-frame))
+  ;;       (setq state (cons (selected-frame) nil))
+  ;;       (setq my-frame-state-alist
+  ;;             (cons state my-frame-state-alist))
+  ;;       (w32-maximize-frame))
+  ;;     (setcdr state (null (cdr state)))))
+  ;; (global-set-key "\C-c\C-m" 'my-toggle-frame-size)
+  )
 
 
 ;;
@@ -215,9 +222,8 @@
              (cursor-color  . "blue")
              (alpha . (100 100)))
            default-frame-alist))
-
-    ;; NT Emacs 用フォント設定
-    ;; MeiryoKe_Gothic
+    ;; ;; NT Emacs 用フォント設定
+    ;; ;; MeiryoKe_Gothic
     ;; (set-face-attribute 'default
     ;; 		      nil
     ;; 		      :family "MeiryoKe_Gothic"
@@ -225,21 +231,19 @@
     ;; (set-fontset-font "fontset-default"
     ;; 		    'japanese-jisx0208
     ;; 		    '("MeiryoKe_Gothic" . "jisx0208-sjis"))
-
-    ;; ARISAKA(Mono)
-    (set-face-attribute 'default
-                        nil
-                        :family "ARISAKA_Mono"
-                        :height 100)
-    (set-fontset-font "fontset-default"
-                      'japanese-jisx0208
-                      '("ARISAKA_Mono" . "jisx0208-sjis"))
-
-    ;; Ricty
-    ;; (set-face-attribute 'default nil
-    ;;                     :family "Ricty"
-    ;;                     :height 120)
+    ;; ;; ARISAKA(Mono)
+    ;; (set-face-attribute 'default
+    ;;                     nil
+    ;;                     :family "ARISAKA_Mono"
+    ;;                     :height 100)
     ;; (set-fontset-font "fontset-default"
     ;;                   'japanese-jisx0208
-    ;;                   (font-spec :family "Ricty"))
+    ;;                   '("ARISAKA_Mono" . "jisx0208-sjis"))
+    ;; Ricty
+    (set-face-attribute 'default nil
+                        :family "Ricty"
+                        :height 120)
+    (set-fontset-font "fontset-default"
+                      'japanese-jisx0208
+                      (font-spec :family "Ricty"))
     ))

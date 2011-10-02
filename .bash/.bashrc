@@ -1,4 +1,21 @@
 # -*- coding: utf-8 -*-
+# .bashrc
+
+pathmunge () {
+    if ! echo $PATH | /bin/egrep -q "(^|:)$1($|:)" ; then
+        if [ "$2" = "after" ] ; then
+            PATH=$PATH:$1
+        else
+            PATH=$1:$PATH
+        fi
+    fi
+}
+
+# Language
+export LANG=ja_JP.UTF-8
+#export LANG=ja_JP.SJIS
+export LC_ALL=ja_JP.UTF-8
+#export LC_ALL=ja_JP.SJIS
 
 export PS1='\u@\h \t \W \\$ '
 export PATH=/opt/local/bin:$PATH
@@ -6,7 +23,17 @@ export TERM='xterm-256color'
 export LESS='-R'
 export LV='-Ou8 -c'
 
-# aliases
+# PATH
+pathmunge $HOME/local/bin
+pathmunge /usr/local/bin
+if [ "$UID" = "0" ]; then
+    pathmunge /usr/local/sbin
+    pathmunge /usr/sbin
+    pathmunge /sbin
+fi
+export PATH
+
+# Aliases
 alias ll='ls -la'
 alias ls='ls -F --color=always'
 alias rm='rm -i'
@@ -19,8 +46,19 @@ alias ...='cd -'
 stty erase '^H' >& /dev/null
 stty stop undef >& /dev/null
 
-# for python
-export PYTHONSTARTUP=$HOME/.pythonrc.py
+# Python
+if [ -e "$PYTHONSTARTUP" ]; then
+    export PYTHONSTARTUP=$HOME/.pythonrc.py
+fi
 
-# for Git
+# Git
 export GIT_SSL_NO_VERIFY=true
+
+# Proxy
+proxy=""
+if [ $proxy ]; then
+    export HTTP_PROXY=$proxy
+    export http_proxy=$proxy
+fi
+
+unset pathmunge
