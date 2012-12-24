@@ -1,8 +1,9 @@
 ;; -*- coding: utf-8; mode: emacs-lisp; -*-
+;;
 ;; darwin.init.el
-;;=======================================================================
-;;             Initialization file for Emacs of OSX
-;;=======================================================================
+;;
+;; Initialization file for GNU Emacs on Mac OSX
+;; ============================================
 
 ;;-----------------------------------------------------------------------
 ;; Common configurations
@@ -55,8 +56,8 @@
 
 ;; ce-scroll
 ;; info: one line scroll
-(load "ce-scroll" t)
-(setq ce-smooth-scroll nil)
+;; (load "ce-scroll" t)
+;; (setq ce-smooth-scroll nil)
 
 ;; ;; for Java
 ;; (custom-set-variables
@@ -144,12 +145,12 @@
     ;;         (".*Droid_Sans_Fallback-medium.*" . 1.3)))
 
     ;; Ricty
-    ;;(add-to-list 'default-frame-alist '(font . "ricty-15"))
-    ;;(set-frame-font "ricty-15")
+    ;; (add-to-list 'default-frame-alist '(font . "ricty-13.5"))
+    ;; (set-frame-font "ricty-13.5")
     (set-face-attribute 'default nil
-                        :family "Ricty"
-                        :height 175)
+                        :family "Ricty Discord"
+                        :height 135)
     (set-fontset-font nil
                       'japanese-jisx0208
-                      (font-spec :family "Ricty"))
+                      (font-spec :family "Ricty Discord"))
     ))

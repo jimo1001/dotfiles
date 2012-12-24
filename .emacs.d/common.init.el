@@ -1,9 +1,8 @@
 ;; -*- coding: utf-8; mode: emacs-lisp; -*-
-;; common.init.el
-;;
-;; Initialization file for Emacs of all packages.
-;; ==============================================
-;;
+
+;;; common.init.el --- Initialization file for GNU Emacs
+
+
 ;; The linguistic environment is set to Japanese.
 (when (not cygwin-p)
   (set-language-environment "Japanese"))
@@ -11,12 +10,12 @@
 ;; non-displayed tool bar
 (when (require 'tool-bar nil t)
   (when tool-bar-mode
-    (tool-bar-mode nil)))
+    (tool-bar-mode 0)))
 
 ;; non-displayed menu bar
 (when (require 'menu-bar nil t)
-  (when menu-bar-mode
-    (menu-bar-mode nil)))
+  (when (not window-system)
+    (menu-bar-mode 0)))
 
 ;; show column number at mode-line
 (when (not column-number-mode)
@@ -28,10 +27,11 @@
 
 ;; The scroll bar is non-displayed.
 (if (fboundp 'scroll-bar-mode)
-    (scroll-bar-mode nil))
+    (scroll-bar-mode 0))
 
 ;; auto-save-list saved path.
-(setq auto-save-list-file-prefix (expand-file-name "~/.saves"))
+(setq auto-save-list-file-name nil)
+(setq auto-save-list-file-prefix nil)
 
 ;; not make backup file
 (setq make-backup-files nil)
@@ -210,7 +210,8 @@
 (when (require 'anything nil t)
   (require 'anything-config)
   ;; anything-sources の定義
-  (setq anything-sources '(anything-c-source-buffers+
+  (setq anything-sources '(anything-c-source-elscreen
+                           anything-c-source-buffers+
                            anything-c-source-recentf
                            anything-c-source-files-in-current-dir+
                            anything-c-source-files-in-all-dired
@@ -275,11 +276,11 @@
   ;; set-face for anything
   (eval-after-load "anything-config"
     '(progn
-       (set-face-attribute 'anything-dir-priv nil
+       (set-face-attribute 'anything-ff-directory nil
                            :foreground "#00cdcd"
                            :background "#000000"
                            :underline nil)
-       (set-face-attribute 'anything-file-name nil
+       (set-face-attribute 'anything-ff-file nil
                            :foreground "#5fd75f"
                            :background "#000000"
                            :underline nil)
@@ -396,7 +397,20 @@
     (global-set-key (kbd "C-c I") 'anything-auto-install))
 
   ;; anything-complete
-  (require 'anything-complete))
+  (require 'anything-complete)
+
+  ;; anything in dired
+  ;; http://d.hatena.ne.jp/syohex/20120105/1325770778
+  (defun my/anything-dired ()
+    (interactive)
+    (let ((curbuf (current-buffer)))
+      (if (anything-other-buffer
+           '(anything-c-source-files-in-current-dir+)
+           " *anything-dired*")
+          (kill-buffer curbuf))))
+
+  (define-key dired-mode-map (kbd "P") 'my/anything-dired))
+
 
 ;; ウィンドウ分割を制御
 ;; split-root
@@ -605,18 +619,28 @@
   ;; charactor encoding
   (setq skk-jisyo-code 'euc-jp-unix)
   ;; Specify dictonary location
-  (setq skk-large-jisyo "~/.emacs.d/elisp/skk/dict/SKK-JISYO.L")
+  (setq skk-large-jisyo "~/.emacs.d/share/skk/dict/SKK-JISYO.L")
   ;; Specify tutorial Location
-  (setq skk-tut-file "~/.emacs.d/elisp/skk/SKK.tut")
+  (setq skk-tut-file "~/.emacs.d/etc/skk/SKK.tut")
+  ;; SKK の個人辞書
+  (setq skk-jisyo "~/.saves/.skk-jisyo")
+  (setq skk-backup-jisyo "~/.saves/.skk-jisyo.BAK")
+  (setq skk-record-file "~/.saves/.skk-record")
   ;; stickey shift
   (setq skk-sticky-key ";")
   ;; より洗練されたインライン候補表示
   (setq skk-show-inline 'vertical)
+  (when skk-show-inline
+    ;; 変数 skk-treat-candidate-appearance-function を利用して自前で候補に
+    ;; 色を付ける場合はこの変数を nil に設定する。
+    (setq skk-inline-show-face nil)
+    (setq skk-inline-show-foreground-color "#e5e5e5")
+    (setq skk-inline-show-background-color "#303030"))
   ;; 変換時，改行でも確定
   (setq skk-egg-like-newline t)
   ;; 句読点
   (setq skk-kuten-touten-alist
-        '((jp . ("．" . "，")) ;(jp . ("。" . "、" ))
+        '((jp . ("。" . "、" )) ;(jp . ("．" . "，"))
           (en . ("．" . "，"))))
   ;; jp にすると「。、」を使います
   (setq-default skk-kutouten-type 'jp)
@@ -641,7 +665,15 @@
   (setq css-indent-function #'cssm-c-style-indenter))
 
 ;; HTML
-(add-to-list 'auto-mode-alist '("\\.html\\'" . html-mode))
+(when (require 'sgml-mode nil t)
+  (add-to-list 'auto-mode-alist '("\\.html\\'" . html-mode))
+  (add-hook 'html-mode-hook
+            (lambda ()
+              ;; Default indentation is usually 2 spaces, changing to 4.
+              (set (make-local-variable 'sgml-basic-offset) 4))))
+
+;; HTML helper
+(autoload 'html-helper-mode "html-helper-mode" "Yay HTML" t)
 
 ;; XML
 (when (autoload-if-found 'xml-mode "xml" "Major mode to edit XML files." t)
@@ -754,29 +786,50 @@
   )
 
 ;; JavaScript
-;; js-mode
-(when (autoload-if-found 'js-mode "js" "major mode for JavaScript" t)
+;; js2-mode
+;(autoload-if-found 'js-mode "js" "major mode for JavaScript" t)
+(when (autoload-if-found 'js2-mode "js2-mode" "major mode for JavaScript" t)
   ;; check syntax by jslint
   ;; http://d.hatena.ne.jp/sugyan/20110510/1305036104
+  ;; (when (and (require 'flymake nil t) (executable-find "node"))
+  ;;   (defun flymake-jslint-init ()
+  ;;     (let* ((temp-file (flymake-init-create-temp-buffer-copy
+  ;;                        'flymake-create-temp-inplace))
+  ;;            (local-file (file-relative-name
+  ;;                         temp-file
+  ;;                         (file-name-directory buffer-file-name))))
+  ;;       (list "jslint" (list "--maxerr=16" local-file))))
+  ;;   (setq flymake-err-line-patterns
+  ;;         (cons '("\\(#.+\\) // Line \\([[:digit:]]+\\), Pos \\([[:digit:]]+\\)$"
+  ;;                 nil 2 3 1)
+  ;;               flymake-err-line-patterns))
+  ;;   (add-to-list 'flymake-allowed-file-name-masks
+  ;;                '("\\.js\\'" flymake-jslint-init))
+  ;;   (add-hook 'js-mode-hook
+  ;;             (lambda ()
+  ;;               (flymake-mode t))))
+  ;; flymake-mode by jshint
   (when (and (require 'flymake nil t) (executable-find "node"))
-    (defun flymake-js-init ()
+    (defun flymake-jslint-init ()
       (let* ((temp-file (flymake-init-create-temp-buffer-copy
                          'flymake-create-temp-inplace))
              (local-file (file-relative-name
                           temp-file
                           (file-name-directory buffer-file-name))))
-        (list "jslint" (list "--no-es5" local-file))))
-    (defun flymake-js-load ()
-      (interactive)
-      (setq flymake-err-line-patterns
-            (cons '("^ *[[:digit:]] \\([[:digit:]]+\\),\\([[:digit:]]+\\)\: \\(.+\\)$"
-                    nil 1 2 3)
-                  flymake-err-line-patterns))
-      (flymake-mode t))
-    (add-to-list 'flymake-allowed-file-name-masks '("\\.js\\'" flymake-js-init))
-    (add-hook 'js-mode-hook 'flymake-js-load))
-  ;; js-mode settings
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js-mode))
+        (list "jshint" (list local-file))))
+
+    (setq flymake-err-line-patterns
+          (cons '("line \\([[:digit:]]+\\), col \\([[:digit:]]+\\), \\(.*\\)$"
+                  nil 1 2 3)
+                flymake-err-line-patterns))
+
+    (add-to-list 'flymake-allowed-file-name-masks
+                 '("\\.js\\'" flymake-jslint-init))
+    (add-hook 'js-mode-hook
+              (lambda ()
+                (flymake-mode t))))
+  ;; js2-mode settings
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
   (defun indent-and-back-to-indentation ()
     (interactive)
     (indent-for-tab-command)
@@ -785,14 +838,19 @@
              (back-to-indentation)
              (point))))
       (skip-chars-forward "\s " point-of-indentation)))
-  (eval-after-load "js"
+  (eval-after-load "js2-mode"
     '(progn
        (setq js-cleanup-whitespace nil
              js-mirror-mode nil
              js-bounce-indent-flag nil
-             js-indent-level 2)
+             js-indent-level 4)
        ;; (define-key js-mode-map "\C-i" 'indent-and-back-to-indentation)
-       (define-key js-mode-map "\C-m" 'newline-and-indent))))
+       ;; (define-key js-mode-map "\C-m" 'newline-and-indent)
+       (set-face-attribute 'js2-external-variable-face nil
+                           :foreground "orange"
+                           :underline t)
+       (set-face-attribute 'font-lock-doc-face nil
+                           :foreground "#af8700"))))
 
 ;; php-mode
 (when (autoload-if-found 'php-mode "php-mode" "Major mode to edit HTML files." t)
@@ -900,7 +958,9 @@
 
 ;; C/Migemo -- incremental searches by ro-maji
 ;; base
-(when (require 'migemo nil t)
+(when (and (or (executable-find "migemo")
+               (executable-find "cmigemo"))
+           (require 'migemo nil t))
   (when (executable-find "cmigemo")
     (setq migemo-command "cmigemo")
     (setq migemo-options '("-q" "--emacs")))
@@ -992,7 +1052,8 @@
                                   :bold nil))))
 
 ;; dsvn.el
-(autoload-if-found (list 'svn-status 'svn-update) "dsvn" "Run `svn status/update'." t)
+(autoload-if-found (list 'svn-status 'svn-update)
+                   "dsvn" "Run `svn status/update'." t)
 
 ;; perl-electric
 ;; info: ( complite quart ["]['] & arc [)] )
@@ -1036,12 +1097,9 @@
 ;; info: highlight cursor line.
 (when (require 'hl-line nil t)
   (copy-face 'highlight 'my-hl-line)
-  (set-face-background 'my-hl-line "#1c1c1c")
+  (set-face-attribute 'my-hl-line nil :background "#1c1c1c" :foreground nil)
   (setq hl-line-face 'my-hl-line)
   (global-hl-line-mode t))
-
-;; html-helper-mode
-(autoload 'html-helper-mode "html-helper-mode" "Yay HTML" t)
 
 ;;; install-elisp
 (when (autoload-if-found '(install-elisp
@@ -1133,12 +1191,22 @@
                     :underline nil
                     :bold nil)
 
-;; surround.el
-(when (require 'surround nil t)
-  (surround-mode t)
-  (defadvice cua-set-mark (around extended-CUA-set-mark activate)
-    (if mark-active
-        (surround-set-mark)
+;; ;; surround.el
+;; (when (require 'surround nil t)
+;;   (surround-mode t)
+;;   (defadvice cua-set-mark (around extended-CUA-set-mark activate)
+;;     (if mark-active
+;;         (surround-set-mark)
+;;       ad-do-it)))
+
+;; expand-region.el
+(when (require 'expand-region nil t)
+  (global-set-key (kbd "C-SPC") 'er/expand-region)
+  (global-set-key (kbd "C-@") 'er/expand-region)
+  (global-set-key (kbd "C-M-@") 'er/contract-region)
+  (defadvice er/expand-region (around er-set-mark activate)
+    (if (not mark-active)
+        (cua-set-mark)
       ad-do-it)))
 
 ;; backward-delete-char-untabify
@@ -1210,6 +1278,7 @@
                   ("\\.rest\\'" . rst-mode)) auto-mode-alist))
   (eval-after-load "rst"
     '(progn
+       (local-set-key (kbd "C-c .") 'rst-toc)
        (custom-set-faces
         '(rst-level-1-face ((t (:foreground "#afcdcd" :background "#000000" :weight bold))))
         '(rst-level-2-face ((t (:foreground "#87cdcd" :background "#000000" :weight bold))))
@@ -1270,15 +1339,19 @@
         howm-menu-schedule-days-before 2
         howm-menu-schedule-days 7
         howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.howm")
+  ;; Global mode
   (add-to-list 'auto-mode-alist '("\\.howm\\'" . org-mode))
+  ;;(add-to-list 'auto-mode-alist '("\\.howm\\'" . rst-mode))
+  ;; (add-hook 'text-mode-hook
+  ;;           (lambda ()
+  ;;             (setq indent-tabs-mode nil)))
+
   ;; (setq howm-view-use-grep t)
   ;; (setq howm-view-grep-parse-line
   ;;    "^\\(\\([a-zA-Z]:/\\)?[^:]*\\.howm\\):\\([0-9]*\\):\\(.*\\)$")
   (setq howm-excluded-file-regexp
         "/\\.#\\|[~#]$\\|\\.bak$\\|/CVS/\\|\\.doc$\\|\\.pdf$\\|\\.ppt$\\|\\.xls$")
-  (add-hook 'text-mode-hook
-            (lambda ()
-              (setq indent-tabs-mode nil)))
+
   ;; The link is traced in the tab.
   (eval-after-load "howm-menu"
     '(progn
@@ -1311,7 +1384,9 @@
        ;; calfw for howm
        (require 'calfw-howm)
        (cfw:install-howm-schedules)
-       (define-key howm-mode-map (kbd "M-C") 'cfw:elscreen-open-howm-calendar)
+       (if (featurep 'elscreen)
+           (define-key howm-mode-map (kbd "M-C") 'cfw:elscreen-open-howm-calendar)
+         (define-key howm-mode-map (kbd "M-C") 'cfw:open-howm-calendar))
        (define-key cfw:howm-schedule-map (kbd "i") 'my-cfw-open-schedule-buffer)
        (define-key cfw:howm-schedule-inline-keymap (kbd "i") 'my-cfw-open-schedule-buffer)
        ;; change faces
@@ -1331,8 +1406,9 @@
         '(cfw:face-toolbar ((t (:foreground "#808080" :background "#303030"))))
         '(cfw:face-toolbar-button-off ((t (:foreground "#585858" :background "#303030"))))
         '(cfw:face-toolbar-button-on ((t (:foreground "#c6c6c6" :background "#303030" :bold t)))))
-       ;; Elescreen
-       (require 'elscreen-howm nil t)
+       ;; for elscreen
+       (when (featurep 'elscreen)
+         (require 'elscreen-howm nil t))
        ;;(define-key howm-mode-map [tab] 'action-lock-goto-next-link)
        ;;(define-key howm-mode-map [(meta tab)] 'action-lock-goto-previous-link)
        (set-face-attribute 'howm-reminder-normal-face nil
@@ -1390,7 +1466,9 @@
        '(wl wl-other-frame) "wl" "Wanderlust" t)
   (eval-after-load "wl"
     '(progn
-       (require 'elscreen-wl nil t)
+       ;; for elscreen
+       (when (featurep 'elscreen)
+         (require 'elscreen-wl nil t))
        (if (boundp 'mail-user-agent)
            (setq mail-user-agent 'wl-user-agent))
        (if (fboundp 'define-mail-user-agent)
@@ -1473,9 +1551,9 @@
                    (interactive)
                    (hatenahelper-mode t))))))
 
-;; ky-indent
-;; info: http://d.hatena.ne.jp/mzp/20090620/indent
-(autoload 'ky-indent "ky-indent" nil t)
+;; ;; ky-indent
+;; ;; info: http://d.hatena.ne.jp/mzp/20090620/indent
+;; (autoload 'ky-indent "ky-indent" nil t)
 
 ;; goby
 ;; http://www.mew.org/~kazu/proj/goby/ja/
@@ -1489,7 +1567,7 @@
 ;; id-manager
 (when (autoload-if-found 'id-manager "id-manager" nil t)
   (setq epa-file-cache-passphrase-for-symmetric-encryption t)
-  (setq idm-database-file "~/.emacs.d/etc/.idm-db.gpg")
+  (setq idm-database-file "~/.saves/.idm-db.gpg")
   (setenv "GPG_AGENT_INFO" nil)
   (global-set-key (kbd "\C-c7") 'id-manager))
 
@@ -1503,7 +1581,6 @@
     (setq eldoc-idle-delay 0)
     (setq eldoc-echo-area-use-multiline-p t)))
 
-
 ;; shell-pop
 (when (autoload-if-found 'shell-pop "shell-pop" nil t)
   (setq system-uses-terminfo nil)
@@ -1514,29 +1591,32 @@
        (shell-pop-set-internal-mode-shell "/bin/zsh")
        (shell-pop-set-window-height 60))))
 
-
 ;; python-mode
 (when (autoload-if-found 'python-mode "python-mode" "Python editing mode." t)
+  ;; for Auto-Complete
+  ;; (when (featurep 'auto-complete)
+  ;;   (require 'ac-python))
   ;; pylint
-  (load-library "pylint")
-  ;; http://pylint-messages.wikidot.com/all-messages
-  ;; C0103: Invalid name "%s" (should match %s)
-  ;; C0111: Missing docstring
-  ;; E1101: %s %r has no %r member
-  (setq pylint-options "-f parseable -d C0103,C0111,E1101,C0301")
-  (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-  (setq interpreter-mode-alist (cons '("python" . python-mode)
-                                     interpreter-mode-alist))
-  (when (and (require 'flymake nil t) (executable-find "epylint"))
-    (defun flymake-pylint-init ()
-      (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                         'flymake-create-temp-inplace))
-             (local-file (file-relative-name
-                          temp-file
-                          (file-name-directory buffer-file-name))))
-        (list "epylint" (list local-file))))
-    (add-to-list 'flymake-allowed-file-name-masks
-                 '("\\.py\\'" flymake-pylint-init)))
+  (when (executable-find "pylint")
+    (load-library "pylint")
+    ;; http://pylint-messages.wikidot.com/all-messages
+    ;; C0103: Invalid name "%s" (should match %s)
+    ;; C0111: Missing docstring
+    ;; E1101: %s %r has no %r member
+    (setq pylint-options "-f parseable -d C0103,C0111,E1101,C0301")
+    (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+    (setq interpreter-mode-alist (cons '("python" . python-mode)
+                                       interpreter-mode-alist))
+    (when (and (require 'flymake nil t) (executable-find "epylint"))
+      (defun flymake-pylint-init ()
+        (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                           'flymake-create-temp-inplace))
+               (local-file (file-relative-name
+                            temp-file
+                            (file-name-directory buffer-file-name))))
+          (list "epylint" (list local-file))))
+      (add-to-list 'flymake-allowed-file-name-masks
+                   '("\\.py\\'" flymake-pylint-init))))
   (eval-after-load "python-mode"
     '(progn
        (add-hook 'python-mode-hook
@@ -1604,45 +1684,99 @@
   (add-hook 'ido-setup-hook
             (lambda ()
               (message "setup ido")
-              (define-key ido-completion-map "\C-h" 'backward-delete-char-untabify)
+              ;;(define-key ido-completion-map "\C-h" 'backward-delete-char-untabify)
               (define-key ido-completion-map " " 'ido-next-match))))
 
 ;; popwin
+;; https://github.com/m2ym/popwin-el
 (when (require 'popwin nil t)
   ;;(push '("*Ido Completions*" :noselect t) popwin:special-display-config)
   (setq popwin:special-display-config
         (append '(("*Ido Completions*" :noselect t)
                   ("*Python Output*" :noselect t)
-                  ("*Compile-Log*" :noselect t)) popwin:special-display-config))
+                  ("*Compile-Log*" :noselect t)
+                  ("*Table of Contents*" :noselect t)) popwin:special-display-config))
   ;; anything
   (setq anything-samewindow nil)
   (push '("*anything*" :height 20) popwin:special-display-config)
   ;; Dired
   (push '(dired-mode :position top) popwin:special-display-config)
-  (setq display-buffer-function 'popwin:display-buffer))
+  (setq display-buffer-function 'popwin:display-buffer)
+  (setq special-display-function 'popwin:special-display-popup-window))
+
+;; direx
+;; src: https://github.com/m2ym/direx-el
+;; doc: http://cx4a.blogspot.com/2011/12/popwineldirexel.html
+;; (install-elisp "https://raw.github.com/m2ym/direx-el/master/direx.el")
+(when (require 'direx nil t)
+  ;; icons
+  (setq direx:leaf-icon "  "
+        direx:open-icon "- "
+        direx:closed-icon "+ ")
+  ;; direx:direx-modeのバッファをウィンドウ左辺に幅25でポップアップ
+  ;; :dedicatedにtを指定することで、direxウィンドウ内でのバッファの切り替えが
+  ;; ポップアップ前のウィンドウに移譲される
+  (push '(direx:direx-mode :position left :width 30 :dedicated t)
+        popwin:special-display-config)
+  ;; keybind
+  (global-set-key (kbd "C-x C-j") 'direx:jump-to-directory-other-window))
 
 ;; trac-wiki
 (autoload-if-found 'trac-wiki-mode "trac-wiki" "Trac Wiki Mode" t)
 
-;; judge indent
-;; set indent style
-(setq c-default-style "bsd")
-(setq-default c-basic-offset 4)
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 8)
-;; enable judge-indent
-(when (require 'judge-indent nil t)
-  ;;(global-judge-indent-mode t)
-  (setq judge-indent-major-modes
-        '(c-mode
-          c++-mode
-          python-mode
-          nxml-mode
-          html-helper-mode
-          css-mode
-          ;;js2-mode
-          sh-mode)))
+;; ;; judge indent
+;; ;; set indent style
+;; (setq c-default-style "bsd")
+;; (setq-default c-basic-offset 4)
+;; (setq-default indent-tabs-mode nil)
+;; (setq-default tab-width 8)
+;; ;; enable judge-indent
+;; (when (require 'judge-indent nil t)
+;;   ;;(global-judge-indent-mode t)
+;;   (setq judge-indent-major-modes
+;;         '(c-mode
+;;           c++-mode
+;;           python-mode
+;;           nxml-mode
+;;           html-helper-mode
+;;           css-mode
+;;           ;;js2-mode
+;;           sh-mode)))
 
 ;; ediff
 (when (require 'ediff nil t)
   (setq ediff-window-setup-function 'ediff-setup-windows-plain))
+
+;; magit
+(when (executable-find "git")
+  (require 'magit))
+
+;; mark-multiple.el
+(when (require 'mark-more-like-this nil t)
+  (global-set-key (kbd "C-<") 'mark-previous-like-this)
+  (global-set-key (kbd "C->") 'mark-next-like-this))
+
+;; el-get
+(setq el-get-dir "~/.emacs.d/elisp/el-get/")
+(require 'el-get)
+;; move to rcp
+;; (setq el-get-sources
+;;       '(
+;;         (:name ruby-mode-trunk-head
+;;                :type http
+;;                :description "Major mode for editing Ruby files. (trunk-head)"
+;;                :url "http://bugs.ruby-lang.org/projects/ruby-trunk/repository/raw/misc/ruby-mode.el")
+;;         (:name php-mode-github
+;;                :type github
+;;                :website "https://github.com/ejmr/php-mode"
+;;                :description "Major mode for editing PHP files. (on Github based on SourceForge version))"
+;;                :pkgname "ejmr/php-mode")
+;;         ))
+;; (el-get 'sync)
+
+;; package.el
+;; ELPA
+(setq package-user-dir "~/.emacs.d/elisp/elpa")
+
+;; nodoka-mode
+(autoload-if-found 'nodoka-mode "nodoka-mode" nil t)

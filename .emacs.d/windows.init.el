@@ -1,12 +1,13 @@
 ;; -*- coding: utf-8; mode: emacs-lisp; -*-
+;;
 ;; windows.init.el
 ;;
-;; Initialization file for Emacs of Windows
-;; ========================================
-;;
+;; Initialization file for GNU Emacs on Windows
+;; ============================================
+
 ;; Common configurations
 ;; ---------------------
-;;
+
 ;; Path
 (setq exec-path (append (list
                          "C:/opt/python-2.6.6/Scripts"
@@ -222,7 +223,18 @@
              (cursor-color  . "blue")
              (alpha . (100 100)))
            default-frame-alist))
-    ;; ;; NT Emacs 用フォント設定
+    ;; NT Emacs 用フォント設定
+    ;; Consolas + MeiryoKe_Gothic
+    (set-face-attribute 'default
+                        nil
+                        :family "Consolas"
+                        :height 100)
+    (set-fontset-font "fontset-default"
+                      'ascii
+                      '("Consolas" . "ascii"))
+    (set-fontset-font "fontset-default"
+                      'japanese-jisx0208
+                      '("MeiryoKe_Gothic" . "jisx0208-sjis"))
     ;; ;; MeiryoKe_Gothic
     ;; (set-face-attribute 'default
     ;; 		      nil
@@ -239,11 +251,11 @@
     ;; (set-fontset-font "fontset-default"
     ;;                   'japanese-jisx0208
     ;;                   '("ARISAKA_Mono" . "jisx0208-sjis"))
-    ;; Ricty
-    (set-face-attribute 'default nil
-                        :family "Ricty"
-                        :height 120)
-    (set-fontset-font "fontset-default"
-                      'japanese-jisx0208
-                      (font-spec :family "Ricty"))
+    ;; ;; Ricty
+    ;; (set-face-attribute 'default nil
+    ;;                     :family "Ricty"
+    ;;                     :height 120)
+    ;; (set-fontset-font "fontset-default"
+    ;;                   'japanese-jisx0208
+    ;;                   (font-spec :family "Ricty"))
     ))

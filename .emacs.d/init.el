@@ -1,9 +1,6 @@
 ;; -*- coding: utf-8; mode: emacs-lisp; -*-
-;; init.el
-;;
-;; Initialization default file (.emacs.el)
-;; =======================================
-;;
+;;; init.el --- Initialization file for GNU Emacs
+
 ;; Recursively add load-path
 (defun load-my-lisp-dir ()
   (let* ((my-lisp-dir "~/.emacs.d/elisp/")
@@ -66,6 +63,19 @@
 ;; '(emacs22-p emacs23-p emacs23.0-p
 ;; emacs23.1-p emacs23.2-p emacs23.3-p))
 
+;; theme
+(if (functionp 'load-theme)
+    ;; built-in (Since: 24.1)
+    (when (load "~/.emacs.d/etc/themes/theme-jimo1001.el" t)
+      (enable-theme 'jimo1001))
+  ;; use color-theme
+  (when (require 'color-theme nil t)
+    (eval-after-load "color-theme"
+      (progn
+        (color-theme-initialize)
+        (autoload 'my-color-theme "my-color-theme" t)
+        (my-color-theme)))))
+
 ;; system-type predicates
 (setq darwin-p (eq system-type 'darwin)
       ns-p (eq window-system 'ns)
@@ -84,6 +94,12 @@
       nt-p (eq system-type 'windows-nt)
       meadow-p (featurep 'meadow)
       windows-p (or cygwin-p nt-p meadow-p))
+
+;; Add path
+(when (or darwin-p linux-p)
+  (progn
+    (setq exec-path
+      (append (list "/usr/local/bin" ) exec-path))))
 
 ;; Load initialization files
 (load "~/.emacs.d/common.init.el" t)
@@ -119,14 +135,7 @@
     ;; (set-file-name-coding-system 'utf-8-unix)
     ;; not display error message
     (setq debug-on-error nil)
-    ;; color theme
-    (when (require 'color-theme nil t)
-      (eval-after-load "color-theme"
-        (progn
-          (color-theme-initialize)
-          (autoload 'my-color-theme "my-color-theme" t)
-          (my-color-theme))))
-    ;;(read-scratch-data)
+    ;; (read-scratch-data)
     ))
 (add-hook 'after-init-hook 'after-init-setup)
 (put 'narrow-to-region 'disabled nil)
