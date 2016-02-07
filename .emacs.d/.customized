@@ -22,6 +22,8 @@
  '(cfw:face-toolbar-button-off ((t (:foreground "#585858" :background "#303030"))))
  '(cfw:face-toolbar-button-on ((t (:foreground "#c6c6c6" :background "#303030" :bold t))))
  '(col-highlight ((t (:background "#343434"))))
+ '(elscreen-tab-current-screen-face ((t (:background "dark red" :foreground "gray100"))))
+ '(elscreen-tab-other-screen-face ((t (:background "#333333"))))
  '(flycheck-error ((t (:background "#5c0000" :foreground nil :underline nil))))
  '(flycheck-warning ((t (:background "#5f5f00" :foreground nil :underline nil))))
  '(flymake-errline ((t (:background "#5f0000"))))

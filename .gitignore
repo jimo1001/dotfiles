@@ -2,7 +2,11 @@
 .emacs.d/*.elc
 .emacs.d/etc/
 .emacs.d/tmp/
-.emacs.d/.saves/*
+.emacs.d/.saves/
+.emacs.d/share/
+.emacs.d/.cask/
+.emacs.d/*.dat
+.emacs.d/recentf
 .ipython/
 .oh-my-zsh/
 .zsh/.zcompdump
