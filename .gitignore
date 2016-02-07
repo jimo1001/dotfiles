@@ -3,5 +3,7 @@
 .emacs.d/etc/
 .emacs.d/tmp/
 .emacs.d/.saves/*
+.ipython/
+.oh-my-zsh/
 .zsh/.zcompdump
 

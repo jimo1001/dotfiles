@@ -1,2 +1,0 @@
-#!/bin/sh
-exec $HOME/sbin/getmailcount.rb >> $HOME/tmp/getmailcount.log 2>&1 &
