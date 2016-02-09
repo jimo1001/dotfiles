@@ -101,7 +101,9 @@
 ;; redo
 (when (require 'undo-tree nil t)
   (global-undo-tree-mode t)
-  (global-set-key (kbd "M-/") 'undo-tree-redo))
+  (global-set-key (kbd "M-/") 'undo-tree-redo)
+  ;; undo-tree
+  (push '(" *undo-tree*" :width 0.3 :position right) popwin:special-display-config))
 
 ;; linum-mode
 ;; info: 左側に行数を表示
