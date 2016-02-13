@@ -22,12 +22,12 @@
 (global-set-key "\C-cc" 'comment-region)
 
 ;; non-displayed tool bar
-(when (require 'tool-bar nil t)
+(when (featurep 'tool-bar)
   (when tool-bar-mode
     (tool-bar-mode 0)))
 
 ;; non-displayed menu bar
-(when (require 'menu-bar nil t)
+(when (featurep 'menu-bar)
   (when (not window-system)
     (menu-bar-mode 0)))
 
@@ -40,7 +40,7 @@
   (delete-selection-mode t))
 
 ;; The scroll bar is non-displayed.
-(if (fboundp 'scroll-bar-mode)
+(when (featurep 'scroll-bar)
     (scroll-bar-mode 0))
 
 ;; auto-save-list saved path.
@@ -85,7 +85,7 @@
 (progn
   (setq display-time-string-forms
         '((let ((system-time-locale "en"))
-            (format-time-string "%Y/%m/%d(%a) %p %l:%M" now))))
+            (format-time-string "%Y-%m-%d (%a) %H:%M" now))))
   (display-time))
 
 ;; default encoding
@@ -101,11 +101,16 @@
 
 ;; revert-mode
 ;; info: 自動的に最新に
-(add-hook 'text-mode-hook (lambda()
-                            (global-auto-revert-mode t)))
+(add-hook 'after-init-hook 'global-auto-revert-mode)
 
 ;; load .customized
-(setq custom-file (expand-file-name "~/.emacs.d/.customized"))
-(load custom-file t)
+(setq custom-file "~/.emacs.d/etc/.customized")
+(add-hook 'after-init-hook
+          (lambda ()
+            (load custom-file t)))
+
+;; recentf-mode
+(when (require 'recentf nil t)
+  (setq recentf-save-file "~/.emacs.d/tmp/.recentf"))
 
 ;;; 10-global.el ends here

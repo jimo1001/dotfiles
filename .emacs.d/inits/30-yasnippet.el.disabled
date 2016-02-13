@@ -1,9 +1,0 @@
-;;; 30-yasnippet --- inits
-;;; Commentary:
-
-;;; Code:
-
-(when (require 'yasnippet nil t)
-  (yas-global-mode 1))
-
-;;; 30-yasnippet.el ends here

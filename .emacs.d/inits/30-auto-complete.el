@@ -5,6 +5,8 @@
 
 (when (require 'auto-complete-config nil t)
   (add-to-list 'ac-dictionary-directories "~/.emacs.d/etc/auto-complete/dict")
+  (setq ac-comphist-file "~/.emacs.d/tmp/ac-comphist.dat")
+
   (ac-config-default)
 
   (setq ac-use-menu-map t)

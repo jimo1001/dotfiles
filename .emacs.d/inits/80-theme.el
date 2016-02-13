@@ -4,8 +4,8 @@
 ;;; Code:
 (if (functionp 'load-theme)
     ;; built-in (Since: 24.1)
-    (when (load "~/.emacs.d/etc/themes/theme-jimo1001.el" t)
-      (enable-theme 'jimo1001)))
+    (when (load "~/.emacs.d/themes/theme-darcula.el" t)
+      (enable-theme 'darcula)))
 ;; powerline theme
 (when (require 'powerline nil t)
   (powerline-default-theme))

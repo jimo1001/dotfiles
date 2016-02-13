@@ -16,8 +16,10 @@
   (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
   (eval-after-load "json-mode"
     (add-hook 'json-mode-hook
-              (lambda ()
-                (make-local-variable 'js-indent-level)
-                (setq js-indent-level 2)))))
+              '(lambda ()
+                 (auto-complete-mode t)
+                 (make-local-variable 'js-indent-level)
+                 (setq js-indent-level 2)))))
+
 
 ;;; 50-textmodes.el ends here

@@ -1,8 +1,13 @@
-(deftheme jimo1001
+;;; theme-darcula --- custom theme
+;;; Commentary:
+
+;;; Code:
+
+(deftheme darcula
   "custom theme")
 
 (custom-theme-set-faces
- 'jimo1001
+ 'darcula
 
  ;; default colors
  '(black ((t (:foreground "#000000"))))
@@ -30,8 +35,8 @@
  '(region ((t (:background "#870000"))))
 
  ;; mode line
- '(mode-line ((t (:background "#303030" :foreground "#e5e5e5"))))
- '(mode-line-buffer-id ((t (:background "#303030" :foreground "#ffffff"))))
+ '(mode-line ((t (:background "#444444" :foreground "#e5e5e5"))))
+ '(mode-line-buffer-id ((t (:background "#444444" :foreground "#ffffff"))))
  '(mode-line-emphasis ((t (:bold t :weight bold))))
  '(mode-line-highlight ((t (:box (:line-width 2 :color "#444444" :style released-button)))))
  '(mode-line-inactive ((t (:background "#303030" :foreground "#c6c6c6" :box (:line-width -1 :color "#444444" :style nil) :weight light))))
@@ -180,4 +185,6 @@
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
 
-(provide-theme 'jimo1001)
+(provide-theme 'darcula)
+
+;;; theme-darcula.el ends here

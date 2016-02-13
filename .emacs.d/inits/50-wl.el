@@ -1,9 +1,7 @@
-;;; 50-wl --- inits
-;;; Commentary:
-;;; Mailer
+;; wanderlust
+;; info: Mailer
 
 ;;; Code:
-
 (when (autoload-if-found '(wl wl-other-frame) "wl" "Wanderlust" t)
   (eval-after-load "wl"
     '(progn
@@ -22,5 +20,3 @@
   (global-set-key (kbd "C-c m m") 'wl))
 (autoload-if-found '(wl-draft wl-user-agent-compose)
                    "wl-draft" "Write draft with Wanderlust." t)
-
-;;; 50-wl.el ends here
