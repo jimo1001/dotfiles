@@ -111,6 +111,7 @@
 
 ;; recentf-mode
 (when (require 'recentf nil t)
+  (setq recentf-max-saved-items 100)
   (setq recentf-save-file "~/.emacs.d/tmp/.recentf"))
 
 ;;; 10-global.el ends here

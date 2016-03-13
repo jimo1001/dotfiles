@@ -4,7 +4,7 @@
 ;;; Code:
 
 ;; HTML
-(when (require 'web-mode nil t)
+(when (autoload-if-found 'web-mode "web-mode" nil t)
   (add-to-list 'auto-mode-alist '("\\.\\(hbs\\|ftl\\|html\\)\\'" . web-mode)))
 
 ;;; 50-markup.el ends here
