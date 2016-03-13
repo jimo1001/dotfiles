@@ -1,41 +1,23 @@
-# -*- coding: utf-8; mode: shell-script; -*-
-###################################################
-# users generic .zlogin file for zsh
-###################################################
+#
+# Executes commands at login post-zshrc.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
 
-# wipe out dead screens
-#if [ -x `which screen 2> /dev/null` ]; then
-#  screen -q -wipe
-#fi
+# Execute code that does not affect the current session in the background.
+{
+  # Compile the completion dump to increase startup speed.
+  zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
+  if [[ -s "$zcompdump" && (! -s "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc") ]]; then
+    zcompile "$zcompdump"
+  fi
+} &!
 
-# display (or not) messages from other users
-mesg y
-
-# show system status
-# uptime
-# echo '-----------------------------------------------------------------'
-
-# echo "Welcome to '${HOST}' !"
-# #echo "\t-> OS is `uname -rs`."
-# perl -e 'chomp($u=qx(uname -rs));printf "\t-> OS is %s.\n", $u'
-# perl -e '($t=qx(ac))=~s/^.*?(\d+?)\..*?$/$1/;printf"\t-> Your total login time is about %d day %d hrs.\n",int($t/24),int($t%24)'
-# echo '-----------------------------------------------------------------'
-# who | sort
-# echo '-----------------------------------------------------------------'
-
-# execute when screen.
-# get num of unread mail.
-# if [ ${GNU_SCREEN} ]; then
-#     if [ -x `which getmailcount.rb 2> /dev/null` ]; then
-# 	exec getmailcount.rb &
-#     fi
-
-# get num of unread feed.
-#     if [ -x `which getfeedcount.rb 2> /dev/null` ]; then
-# 	exec getfeedcount.rb &
-#     fi
-# fi
-
-# # launch ssh-agent1
-# eval `ssh-agent -c`
-# ssh-add ~/.ssh/id_dsa
+# Print a random, hopefully interesting, adage.
+if (( $+commands[fortune] )); then
+  if [[ -t 0 || -t 1 ]]; then
+    fortune -s
+    print
+  fi
+fi

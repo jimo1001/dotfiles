@@ -1,9 +1,13 @@
-# -*- coding: utf-8; mode: shell-script; -*-
+#
+# Executes commands at logout.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
 
-# if [ -x `ps -A | grep getmailcount.rb 2> /dev/null` ]; then
-#     `kill -KILL -s getmailcount.rb`
-# fi
+# Print the message.
+cat <<-EOF
 
-# if [ -x `ps -A | grep getfeedcount.rb 2> /dev/null` ]; then
-#     `kill -KILL -s getfeedcount.rb`
-# fi
+Thank you. Come again!
+  -- Dr. Apu Nahasapeemapetilon
+EOF

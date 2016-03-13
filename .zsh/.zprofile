@@ -1,43 +1,74 @@
-# -*- coding: utf-8; mode: shell-script; -*-
+#
+# Executes commands at login pre-zshrc.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
 
-#stty stop undef
+#
+# Browser
+#
 
-### Select OS type
-case $OSTYPE {
-  sunos*)export SYSTEM=sun ;;
-  solaris*)export SYSTEM=sol ;;
-  irix*)export SYSTEM=sgi ;;
-  osf*)export SYSTEM=dec ;;
-  linux*)export SYSTEM=gnu ;;
-  freebsd*)export SYSTEM=bsd ;;
-  darwin*)export SYSTEM=darwin ;;    # MacOSX
-}
-
-# ZDOTDIR は zsh の個人用設定ファイルを探すディレクトリを指定する
-if [ -z $ZDOTDIR ]; then
-  export ZDOTDIR=${HOME}/.zsh
+if [[ "$OSTYPE" == darwin* ]]; then
+  export BROWSER='open'
 fi
 
-# 切り分けた設定ファイルを読み込むディレクトリを指定する
-export ZUSERDIR=$ZDOTDIR
+#
+# Editors
+#
 
+export EDITOR='nano'
+export VISUAL='nano'
+export PAGER='less'
 
-### System specific environment
+#
+# Language
+#
 
-# 環境変数（PATH など）の OS 別設定ファイルを読み込む
-if [ -f $ZUSERDIR/$SYSTEM.zshrc ]; then
-  source $ZUSERDIR/$SYSTEM.zshrc
+if [[ -z "$LANG" ]]; then
+  export LANG='en_US.UTF-8'
 fi
 
+#
+# Paths
+#
 
-### environment variables
+# Ensure path arrays do not contain duplicates.
+typeset -gU cdpath fpath mailpath path
 
-# 共通する環境変数を設定する
-#export LESSCHARSET=japanese-euc
-export LESSCHARSET=japanese
-#export LESS='-irqMM'
-export LESS='-iqMM'
-unset  LESSOPEN
-export GZIP='-v9N'
-export XMODIFIERS=@im=kinput2
-#export XMODIFIERS=@im=_XWNMO
+# Set the the list of directories that cd searches.
+# cdpath=(
+#   $cdpath
+# )
+
+# Set the list of directories that Zsh searches for programs.
+path=(
+  /usr/local/{bin,sbin}
+  $path
+)
+
+#
+# Less
+#
+
+# Set the default Less options.
+# Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
+# Remove -X and -F (exit if the content fits on one screen) to enable it.
+export LESS='-F -g -i -M -R -S -w -X -z-4'
+
+# Set the Less input preprocessor.
+# Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
+if (( $#commands[(i)lesspipe(|.sh)] )); then
+  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+fi
+
+#
+# Temporary Files
+#
+
+if [[ ! -d "$TMPDIR" ]]; then
+  export TMPDIR="/tmp/$LOGNAME"
+  mkdir -p -m 700 "$TMPDIR"
+fi
+
+TMPPREFIX="${TMPDIR%/}/zsh"
