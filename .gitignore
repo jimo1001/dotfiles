@@ -10,3 +10,4 @@
 .emacs.d/.python-environments
 .config/hub
 .config/configstore
+history.sqlite
