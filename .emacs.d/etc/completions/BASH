@@ -1,0 +1,16 @@
+for
+while
+do
+until
+select
+if
+else
+case
+switch
+done
+fi
+esac
+continue
+break
+eval
+test

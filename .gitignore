@@ -3,7 +3,6 @@
 .emacs.d/*~
 .emacs.d/site-lisp/*
 .emacs.d/.cask
-.emacs.d/etc
 .emacs.d/tmp/
 .emacs.d/url/
 .emacs.d/share/
