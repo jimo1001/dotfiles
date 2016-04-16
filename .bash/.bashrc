@@ -13,9 +13,7 @@ pathmunge () {
 
 # Language
 export LANG=ja_JP.UTF-8
-#export LANG=ja_JP.SJIS
 export LC_ALL=ja_JP.UTF-8
-#export LC_ALL=ja_JP.SJIS
 
 export PS1='\u@\h \t \W \\$ '
 export PATH=/opt/local/bin:$PATH
@@ -35,7 +33,7 @@ export PATH
 
 # Aliases
 alias ll='ls -la'
-alias ls='ls -F --color=always'
+alias ls='ls -FG'
 alias rm='rm -i'
 alias mv='mv -i'
 alias cp='cp -i'
