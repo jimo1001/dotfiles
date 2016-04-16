@@ -8,7 +8,7 @@
  '(ac-selection-face ((t (:foreground "#e5e5e5" :background "#5f0000" :underline nil))))
  '(col-highlight ((t (:background "#343434"))))
  '(elscreen-tab-background-face ((t (:background "#303030"))))
- '(elscreen-tab-current-screen-face ((t (:background "#3366ff" :foreground "#ffffff"))))
+ '(elscreen-tab-current-screen-face ((t (:background "#005fd7" :foreground "#ffffff"))))
  '(elscreen-tab-other-screen-face ((t (:background "#606060" :foreground "#ffffff"))))
  '(flycheck-error ((t (:background "#5c0000" :foreground nil :underline nil))))
  '(flycheck-warning ((t (:background "#5f5f00" :foreground nil :underline nil))))
