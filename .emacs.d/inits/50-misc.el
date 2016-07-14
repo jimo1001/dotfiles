@@ -251,5 +251,10 @@
   (require 'all-ext nil t)
   (push '("*All*" :regexp t :height .5) popwin:special-display-config))
 
+;; emoji
+;; (when (require 'emojify nil t)
+;;   (global-emojify-mode))
+(emoji-fontset/turn-on)
+
 
 ;;; 50-misc.el ends here

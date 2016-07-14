@@ -1,12 +1,4 @@
 .DS_Store
-.emacs.d/*.elc
-.emacs.d/*~
-.emacs.d/site-lisp/*
-.emacs.d/.cask
-.emacs.d/tmp/
-.emacs.d/url/
-.emacs.d/share/
-.emacs.d/.python-environments
 .config/hub
 .config/configstore
 history.sqlite

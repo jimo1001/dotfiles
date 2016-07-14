@@ -1,0 +1,10 @@
+emojis/
+site-lisp/
+.cask/
+etc/
+tmp/
+url/
+share/
+.python-environments/
+*.elc
+*~

@@ -34,13 +34,10 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'git' \
   'osx' \
-  'emacs' \
-  'environment' \
-  'node' \
-  'python' \
   'ssh' \
   'syntax-highlighting' \
-  'prompt'
+  'prompt' \
+  'tmux'
 
 #
 # Autosuggestions
