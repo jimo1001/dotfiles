@@ -36,8 +36,7 @@ zstyle ':prezto:load' pmodule \
   'osx' \
   'ssh' \
   'syntax-highlighting' \
-  'prompt' \
-  'tmux'
+  'prompt'
 
 #
 # Autosuggestions

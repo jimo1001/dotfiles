@@ -1,0 +1,3 @@
+[submodule ".tmux.d/plugins/logging"]
+	path = .tmux.d/plugins/logging
+	url = https://github.com/tmux-plugins/tmux-logging

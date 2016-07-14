@@ -87,9 +87,6 @@ set -g set-titles-string "tmux: #S(#I/#P) @#h"
 ## ステータス行更新間隔(1で毎秒更新・既定値15)
 set -g status-interval 1
 
-## 通常利用するシェル
-set -g default-shell "/usr/local/bin/zsh"
-
 ## 画面の変更を通知(ステータスのウィンドウ項目の表示が変化する)
 setw -g monitor-activity on
 set -g visual-activity off
@@ -106,5 +103,5 @@ set -g @pipe_pane_filename "tmux-#S-#W-#P-%Y%m%dT%H%M%S.log"
 
 ## Powerline for tmux
 run-shell "powerline-daemon -q"
-source "/usr/local/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf"
+source "/usr/local/lib/python2.7/dist-packages/powerline/bindings/tmux/powerline.conf"
 
