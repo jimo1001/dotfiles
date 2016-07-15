@@ -64,6 +64,6 @@ if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
 fi
 
 # show profile
-if (which zprof > /dev/null); then
+if (type zprof > /dev/null); then
     zprof
 fi
