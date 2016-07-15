@@ -5,13 +5,18 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+# Private
+if [[ -s "${ZDOTDIR:-$HOME}/.zprivate" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprivate"
+fi
+
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
 # Customize to your needs...
-export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$HOME/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/share/npm/bin:/usr/local/sbin:/usr/sbin:/sbin"
+export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH"
 export MANPATH="/usr/local/man:$MANPATH"
 
 # alias
@@ -28,21 +33,30 @@ if [ -n "$TMUX" ]; then
   alias ssh='tmux new-window ssh'
 fi
 
-# JDK
-export JAVA_HOME=/Library/Java/Home
+# macOS / Linux
+case ${OSTYPE} in
+  darwin*)
+    export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+    # Swift
+    export PATH="/Library/Developer/Toolchains/swift-latest.xctoolchain/usr/bin:$PATH"
+    # Java
+    export JAVA_HOME=/Library/Java/Home
+    ;;
+  linux*)
+    # Java
+    export JAVA_HOME="/usr/java/latest"
+    ;;
+esac
 
 # Go
 export GOPATH=$HOME/work/goprojects
-export PATH=$PATH:$GOPATH/bin
-
-# Swift
-export PATH=/Library/Developer/Toolchains/swift-latest.xctoolchain/usr/bin:$PATH
+export PATH="$PATH:$GOPATH/bin"
 
 # Editor
 export EDITOR=vim
 export VISUAL=vim
 
-# Grep
+# grep
 export GREP_COLOR='1;31'            # BSD.
 export GREP_COLORS="mt=$GREP_COLOR" # GNU.
 
@@ -51,11 +65,6 @@ export GREP_COLORS="mt=$GREP_COLOR" # GNU.
 
 # Homebrew
 export HOMEBREW_NO_ANALYTICS=1
-
-# Private
-if [[ -s "${ZDOTDIR:-$HOME}/.zprivate" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprivate"
-fi
 
 # Virtualenvwrapper
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
@@ -67,3 +76,4 @@ fi
 if (type zprof > /dev/null); then
     zprof
 fi
+
