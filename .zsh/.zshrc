@@ -5,9 +5,14 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
-# Private
+# Source private profile.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprivate" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprivate"
+fi
+
+# Source alias
+if [[ -s "${ZDOTDIR:-$HOME}/.zalias" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zalias"
 fi
 
 # Source Prezto.
@@ -18,20 +23,6 @@ fi
 # Customize to your needs...
 export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH"
 export MANPATH="/usr/local/man:$MANPATH"
-
-# alias
-alias tmux='tmux -S ~/tmp/tmux.sock -2u'
-alias swproxy='source ~/.switch_proxyrc'
-alias update-zprezto='~/.zsh/update-zprezto.sh'
-if type hub > /dev/null 2>&1; then
-  alias git=hub
-fi
-if type colordiff > /dev/null 2>&1; then
-  alias diff=colordiff
-fi
-if [ -n "$TMUX" ]; then
-  alias ssh='tmux new-window ssh'
-fi
 
 # macOS / Linux
 case ${OSTYPE} in
