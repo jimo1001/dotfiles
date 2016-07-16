@@ -1,16 +1,22 @@
+#
 # alias
+#
+
 alias tmux='tmux -S ~/tmp/tmux.sock -2u'
-alias swproxy='source ~/.switch_proxyrc'
 alias update-zprezto='~/.zsh/update-zprezto.sh'
+
 if type hub > /dev/null 2>&1; then
   alias git=hub
 fi
+
 if type colordiff > /dev/null 2>&1; then
   alias diff=colordiff
 fi
+
 if [ -n "$TMUX" ]; then
     function tmux-new-window-ssh() {
-        \tmux new-window -a -n "ssh: @$1" ssh "$1"
+        tmux new-window -a -n "ssh: @$1" ssh "$1"
     }
     alias ssh='tmux-new-window-ssh'
+    compdef tmux-new-window-ssh='ssh'
 fi

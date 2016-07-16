@@ -4,4 +4,4 @@
 .zcompcache
 .zprezto
 .zplug
-.zprivate
+private.zsh

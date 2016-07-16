@@ -1,11 +1,8 @@
 #
 # Defines environment variables.
 #
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
 
-# Profile
+# zsh profile
 #zmodload zsh/zprof && zprof
 
 # ZDOTDIR
