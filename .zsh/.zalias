@@ -15,7 +15,8 @@ fi
 
 if [ -n "$TMUX" ]; then
     function tmux-new-window-ssh() {
-        \tmux new-window -n "ssh: $(\ssh -G $@ | awk '{data[$1]=$2} END {print data["user"] "@" data["hostname"]}')" \ssh $@
+        # \tmux new-window -n "ssh: $(\ssh -G $@ | awk '{data[$1]=$2} END {print data["user"] "@" data["hostname"]}')" \ssh $@
+        \tmux new-window -n "$(\ssh -G $@ | awk '$1=="hostname"{if(split($2,a,".")>2){s=a[1]"."a[2]}else{s=a[1]};print "@"s}')" \ssh $@
     }
     alias ssh='tmux-new-window-ssh'
     compdef tmux-new-window-ssh='ssh'
