@@ -3,6 +3,7 @@
 ;;;   howm (Hitori Otegaru Wiki Modoki)
 
 ;;; Code:
+
 (when (autoload-if-found (list 'howm-menu 'howm-mode)
                          "howm" "Hitori Otegaru Wiki Modoki" t)
   (setq howm-menu-lang 'ja
@@ -23,15 +24,12 @@
   (setq howm-excluded-file-regexp
         "/\\.#\\|[~#]$\\|\\.bak$\\|/CVS/\\|\\.doc$\\|\\.pdf$\\|\\.ppt$\\|\\.xls$")
 
-  (global-set-key "\C-c,," 'howm-menu)
+  (global-set-key (kbd "C-c , ,") 'howm-menu)
 
   ;; The link is traced in the tab.
-  (eval-after-load "howm-menu"
-    '(progn
-       ;; elscreen
-       (if (featurep 'elscreen)
-           (define-key howm-mode-map (kbd "M-C") 'cfw:elscreen-open-howm-calendar)
-         (define-key howm-mode-map (kbd "M-C") 'cfw:open-howm-calendar)
-         (require 'elscreen-howm nil t)))))
+  (with-eval-after-load "howm-mode"
+    (require 'elscreen-howm nil t)
+    (define-key howm-mode-map (kbd "M-C") 'cfw:elscreen-open-howm-calendar)
+    (define-key howm-mode-map (kbd "M-C") 'cfw:open-howm-calendar)))
 
 ;;; 50-howm.el ends here

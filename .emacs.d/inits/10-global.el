@@ -5,21 +5,21 @@
 
 ;; PATH
 ;; https://github.com/purcell/exec-path-from-shell
-(when (require 'exec-path-from-shell nil t)
-  (when (memq window-system '(mac ns))
-    (exec-path-from-shell-initialize)))
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
 
-;; language
+;; Language
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
 
-;; keybinds
+;; Global Keybinds
 (global-set-key [end] 'end-of-buffer)
 (global-set-key [home] 'beginning-of-buffer)
-(global-set-key "\C-cn" 'narrow-to-region)
-(global-set-key "\C-cw" 'widen)
-(global-set-key "\C-c\C-r" 'revert-buffer)
-(global-set-key "\C-cc" 'comment-region)
+(global-set-key (kbd "C-c n") 'narrow-to-region)
+(global-set-key (kbd "C-c w") 'widen)
+(global-set-key (kbd "C-c C-r") 'revert-buffer)
+(global-set-key (kbd "C-c c") 'comment-region)
+(global-set-key (kbd "C-h") 'backward-delete-char)
 
 ;; non-displayed tool bar
 (when (featurep 'tool-bar)
@@ -50,10 +50,10 @@
 ;; not make backup file
 (setq make-backup-files nil)
 
-;; Highlight region
+;; highlight region
 (setq transient-mark-mode t)
 
-;; The width of tab/indent to 4.
+;; tab/indent width
 (setq-default c-basic-offset 4
               tab-width 4
               standard-indent 4
@@ -62,10 +62,10 @@
 ;; flash nil
 (setq visible-bell nil)
 
-;; The boot image is non-displayed.
+;; Emacs startup message
 (setq inhibit-startup-message t)
 
-;; "yes or no" => "y or n"
+;; yes/no -> y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; delete auto save files when quit Emacs
@@ -74,7 +74,7 @@
 ;; dont create backup files
 (setq backup-inhibited t)
 
-;; Font-lock
+;; enable font-lock-mode
 (global-font-lock-mode t)
 (setq font-lock-support-mode 'jit-lock-mode
       jit-lock-stealth-verbose nil
@@ -82,11 +82,10 @@
       font-lock-maximum-decoration t)
 
 ;; display date/time in mode line
-(progn
-  (setq display-time-string-forms
-        '((let ((system-time-locale "en"))
-            (format-time-string "%Y-%m-%d (%a) %H:%M" now))))
-  (display-time))
+(setq display-time-string-forms
+      '((let ((system-time-locale "en"))
+          (format-time-string "%Y-%m-%d (%a) %H:%M" now))))
+(display-time)
 
 ;; default encoding
 (set-default-coding-systems 'utf-8-unix)
@@ -100,7 +99,7 @@
 (put 'narrow-to-region 'disabled nil)
 
 ;; revert-mode
-;; info: 自動的に最新に
+;; auto-revert
 (add-hook 'after-init-hook 'global-auto-revert-mode)
 
 ;; load .customized
@@ -109,9 +108,8 @@
           (lambda ()
             (load custom-file t)))
 
-;; recentf-mode
-(when (require 'recentf nil t)
-  (setq recentf-max-saved-items 100)
-  (setq recentf-save-file "~/.emacs.d/tmp/.recentf"))
+;; recent files
+(setq recentf-max-saved-items 1000)
+(setq recentf-save-file "~/.emacs.d/tmp/.recentf")
 
 ;;; 10-global.el ends here

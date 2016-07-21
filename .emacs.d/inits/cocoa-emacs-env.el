@@ -14,9 +14,6 @@
       (process-send-eof proc))))
 ;; (setq interprogram-cut-function 'paste-to-osx)
 ;; (setq interprogram-paste-function 'copy-from-osx)
-;; (when (featurep 'id-manager)
-;;   (setq idm-copy-action
-;;       (lambda (text) (paste-to-osx text))))
 
 ;; C/Migemo
 (when (featurep 'migemo)
