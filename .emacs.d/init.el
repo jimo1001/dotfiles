@@ -1,6 +1,22 @@
 ;; -*- coding: utf-8; mode: emacs-lisp; -*-
 ;;; init.el --- Initialization file for GNU Emacs
 
+;; cask
+(when (require 'cask nil t)
+  (cask-initialize))
+
+;; pallet
+(when (require 'pallet nil t)
+  (pallet-mode t))
+
+;; package.el
+(when (require 'package nil t)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
+  (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+  ;; initialzie
+  (package-initialize))
+
 ;; load ~/.emacs.d/site-lisp
 (let ((default-directory (expand-file-name "~/.emacs.d/site-lisp")))
   (add-to-list 'load-path default-directory)
