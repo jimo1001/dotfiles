@@ -25,7 +25,7 @@
   ;; 大文字・小文字を区別する
   (setq ac-ignore-case 'smart)
 
-  ;; keybinds
+  ;; key bindings
   (define-key ac-complete-mode-map (kbd "TAB") 'ac-expand)
   (define-key ac-complete-mode-map (kbd "M-TAB") 'ac-complete)
   (define-key ac-complete-mode-map (kbd "C-n") 'ac-next)

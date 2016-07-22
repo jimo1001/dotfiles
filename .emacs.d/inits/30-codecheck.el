@@ -5,7 +5,7 @@
 
 (when (require 'flycheck nil t)
   (add-hook 'after-init-hook #'global-flycheck-mode)
-  ;; keybinds
+  ;; key bindings
   (define-key flycheck-mode-map (kbd "M-e") 'flycheck-next-error)
   (define-key flycheck-mode-map (kbd "M-E") 'flycheck-previous-error))
 

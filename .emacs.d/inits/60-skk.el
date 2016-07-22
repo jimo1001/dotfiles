@@ -3,7 +3,7 @@
 
 ;;; Code:
 
-;; keybind
+;; key bindings
 (global-set-key (kbd "C-x j") 'skk-mode)
 
 ;; charactor encoding
@@ -44,7 +44,6 @@
 
 ;; より洗練されたインライン候補表示
 (setq skk-show-inline 'vertical)
-
 
 ;; 変換時，改行でも確定
 (setq skk-egg-like-newline t)

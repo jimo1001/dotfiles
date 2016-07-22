@@ -5,46 +5,16 @@
 
 ;; カーソルが遅くなる問題の対処(emacs-24から)
 (when emacs24-p
-  (progn
-    (setq-default bidi-display-reordering nil)))
+  (setq-default bidi-display-reordering nil))
 
-;; info: 選択範囲内でインデント
-(defun indent-selector ()
-  (interactive)
-  (progn
-    (if mark-active
-        (indent-region (region-beginning) (region-end) nil)
-      (indent-for-tab-command))))
-(global-set-key (kbd "C-i") 'indent-selector)
+;; scratch
+(setq scratch-save-file-path "~/.emacs.d/tmp/.scratch")
 
 ;; describe face at point
 (defun describe-face-at-point ()
   "Return face used at point."
   (interactive)
   (message "%s" (get-char-property (point) 'face)))
-
-;; 折り返し表示ON/OFF
-(defun toggle-truncate-lines ()
-  "折り返し表示をトグル動作します."
-  (interactive)
-  (if truncate-lines
-      (setq truncate-lines nil)
-    (setq truncate-lines t))
-  (recenter))
-(global-set-key (kbd "C-c l") 'toggle-truncate-lines)
-
-;; delete the empty file
-(if (not (memq 'delete-file-if-no-contents after-save-hook))
-    (setq after-save-hook
-          (cons 'delete-file-if-no-contents after-save-hook)))
-(defun delete-file-if-no-contents ()
-  (when (and
-         (buffer-file-name (current-buffer))
-         (= (point-min) (point-max)))
-    (when (y-or-n-p "Delete file and kill buffer?")
-      (delete-file
-       (buffer-file-name (current-buffer)))
-      (kill-buffer (current-buffer)))))
 
 ;; When open the folder, don't make a new buffer.
 (defvar my-dired-before-buffer nil)
@@ -80,41 +50,21 @@
       (paren-activate))))
 
 ;; highlight paren
-(show-paren-mode t)
-(setq show-paren-style 'mixed)
-(set-face-attribute 'show-paren-match nil
-                    :foreground "#e5e5e5"
-                    :background "#008700"
-                    :underline nil
-                    :bold t)
+(when (functionp 'show-paren-mode)
+  (show-paren-mode t)
+  (setq show-paren-style 'mixed))
 
-;; match-paren
-(global-set-key (kbd "C-c C-o") 'match-paren)
-(defun match-paren (arg)
-  "Go to the matching paren if on a paren; otherwise insert %."
-  (interactive "p")
-  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-        (t (self-insert-command (or arg 1)))))
-
-;; redo
+;; undo/redo
 (global-undo-tree-mode t)
 (global-set-key (kbd "M-/") 'undo-tree-redo)
-;; undo-tree
-(push '(" *undo-tree*" :width 0.3 :position right) popwin:special-display-config)
+(when (functionp 'popwin-mode)
+  (push '(" *undo-tree*" :width 0.3 :position right) popwin:special-display-config))
 
 ;; linum-mode
-(setq linum-format "%6d ")
-(global-set-key (kbd "C-c C-n") 'linum-mode)
-;;(global-linum-mode t)
-(add-hook 'linum-mode-hook
-          (lambda ()
-            ;; face
-            (set-face-attribute 'linum nil
-                                :foreground "#303030"
-                                :background "#000000"
-                                :underline nil
-                                :bold nil)))
+(when (functionp 'linum-mode)
+  (setq linum-format "%6d ")
+  ;;(global-linum-mode t)
+  (global-set-key (kbd "C-c C-n") 'linum-mode))
 
 ;; hl-line.el
 ;; info: highlight cursor line.
@@ -125,16 +75,12 @@
   (global-hl-line-mode t))
 
 ;; cua-mode
-(cua-mode t)
-(transient-mark-mode 1)
-(setq cua-keep-region-after-copy nil)
-(setq cua-enable-cua-keys nil)
-(define-key cua--region-keymap (kbd "C-c RET") 'cua-set-rectangle-mark)
-(set-face-attribute 'cua-rectangle nil
-                    :foreground "#e5e5e5"
-                    :background "#af005f"
-                    :underline nil
-                    :bold nil)
+(when (functionp 'cua-mode)
+  (setq cua-keep-region-after-copy nil)
+  (setq cua-enable-cua-keys nil)
+  (cua-mode t)
+  (transient-mark-mode 1)
+  (define-key cua--region-keymap (kbd "C-c RET") 'cua-set-rectangle-mark))
 
 ;; region
 ;; expand-region.el
@@ -150,14 +96,6 @@
 (when (functionp 'wrap-region-mode)
   (wrap-region-global-mode))
 
-;; backward-delete-char-untabify
-(defadvice backward-delete-char-untabify
-    (around ys:backward-delete-region activate)
-  (if (and transient-mark-mode mark-active)
-      (delete-region (region-beginning) (region-end))
-    ad-do-it))
-(global-set-key (kbd "C-h") 'backward-delete-char-untabify)
-
 ;; tramp
 (setq tramp-default-method "ssh")
 
@@ -168,56 +106,21 @@
 ;; w3m
 (setq w3m-icon-directory "~/.emacs.d/etc/w3m/icons")
 
-;; Use Emacs23's eldoc
+;; eldoc
 (setq eldoc-idle-delay 0)
 (setq eldoc-echo-area-use-multiline-p t)
 
-;; decodeUrl
-(defun url-decode-region (start end)
-  "Replace a region with the same contents, only URL decoded."
-  (interactive "r")
-  (let ((text (url-unhex-string (buffer-substring start end))))
-    (delete-region start end)
-    (insert text)))
-
-;; \C-aでインデントを飛ばした行頭に移動
-(defun beginning-of-indented-line (current-point)
-  "インデント文字を飛ばした行頭に戻る。ただし、ポイントから行頭までの間にインデント文字しかない場合は、行頭に戻る。"
-  (interactive "d")
-  (if (string-match
-       "^[ ¥t]+$"
-       (save-excursion
-         (buffer-substring-no-properties
-          (progn (beginning-of-line) (point))
-          current-point)))
-      (beginning-of-line)
-    (back-to-indentation)))
-
-(defadvice move-beginning-of-line
-    (around move-beginnging-of-indented-line activate)
-  (beginning-of-indented-line (point)))
-
 ;; direx
-;; src: https://github.com/m2ym/direx-el
-;; doc: http://cx4a.blogspot.com/2011/12/popwineldirexel.html
-;; (install-elisp "https://raw.github.com/m2ym/direx-el/master/direx.el")
 (setq direx:leaf-icon "  "
       direx:open-icon "- "
       direx:closed-icon "+ ")
-;; direx:direx-modeのバッファをウィンドウ左辺に幅25でポップアップ
-;; :dedicatedにtを指定することで、direxウィンドウ内でのバッファの切り替えが
-;; ポップアップ前のウィンドウに移譲される
-(push '(direx:direx-mode :position left :width 30 :dedicated t)
-      popwin:special-display-config)
-;; keybind
+(when (functionp 'popwin-mode)
+  (push '(direx:direx-mode :position left :width 30 :dedicated t)
+        popwin:special-display-config))
 (global-set-key (kbd "C-c C-d") 'direx:jump-to-directory-other-window)
 
 ;; ediff
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-
-;; mark-multiple.el
-(global-set-key (kbd "C-<") 'mark-previous-like-this)
-(global-set-key (kbd "C->") 'mark-next-like-this)
 
 ;; scroll bar
 (when (functionp 'yascroll-bar-mode)
