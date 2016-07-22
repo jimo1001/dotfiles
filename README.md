@@ -2,7 +2,7 @@
 
 ### Installation
 ```
-git clone --recursive https://gh.iiji.jp/yosinobu/dotfiles.git
+git clone --recursive https://github.com/jimo1001/dotfiles.git
 make
 ```
 
