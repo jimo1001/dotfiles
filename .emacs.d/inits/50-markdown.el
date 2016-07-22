@@ -5,11 +5,11 @@
 
 ;; Markdown
 
-(when (functionp 'markdown-mode)
+(when (locate-library "markdown-mode")
   (setq auto-mode-alist (cons '("\\.markdown" . markdown-mode) auto-mode-alist)))
 
 ;; reStructuredText
-(when (functionp 'rst-mode)
+(when (locate-library "rst")
   (setq auto-mode-alist
         (append '(("\\.rst\\'" . rst-mode)
                   ("\\.rest\\'" . rst-mode)) auto-mode-alist))

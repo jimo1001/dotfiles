@@ -10,7 +10,7 @@
 (setq js-cleanup-whitespace nil)
 
 ;; js2-mode
-(when (functionp 'js2-mode)
+(when (locate-library "js2-mode")
   (setq js2-mode-show-strict-warnings nil)
   ;;(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
   ;;(add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-jsx-mode))
@@ -29,7 +29,7 @@
                  (auto-complete-mode t)))))
 
 ;; web-mode
-(when (functionp 'web-mode)
+(when (locate-library "web-mode")
   ;; use eslint with web-mode for jsx files
   (setq-default flycheck-disabled-checkers
                 (append flycheck-disabled-checkers

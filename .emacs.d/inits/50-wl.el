@@ -2,7 +2,7 @@
 ;;; Commentary:
 
 ;;; Code:
-(when (functionp 'wl)
+(when (locate-library "wl")
   (global-set-key (kbd "C-c m m") 'wl)
   (with-eval-after-load "wl"
     ;; for elscreen

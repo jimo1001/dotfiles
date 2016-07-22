@@ -30,7 +30,7 @@
         helm-source-recentf
         helm-source-buffer-not-found))
 
-(when (functionp 'helm-descbinds)
+(when (locate-library "helm-descbinds")
   (helm-descbinds-mode)
   (global-set-key (kbd "C-c b") 'helm-descbinds))
 
@@ -57,7 +57,7 @@
                     (concat ".*" input-pattern))))))
 
 ;; http://rubikitch.com/2014/12/19/helm-migemo/
-(when (and (functionp 'helm-migemo) (featurep 'migemo))
+(when (and (locate-library "helm-migemo") (locate-library "migemo"))
   (with-eval-after-load "migemo"
     (helm-migemo-mode)))
 

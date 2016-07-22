@@ -3,6 +3,9 @@
 
 ;;; Code:
 
+;; not display error message
+(setq debug-on-error nil)
+
 ;; PATH
 ;; https://github.com/purcell/exec-path-from-shell
 (when (memq window-system '(mac ns))
@@ -92,9 +95,6 @@
 (set-buffer-file-coding-system 'utf-8-unix)
 ;; (set-clipboard-coding-system 'utf-8-unix)
 ;; (set-file-name-coding-system 'utf-8-unix)
-
-;; not display error message
-(setq debug-on-error nil)
 
 (put 'narrow-to-region 'disabled nil)
 

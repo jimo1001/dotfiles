@@ -4,7 +4,7 @@
 ;;; Code:
 
 ;; HTML
-(when (functionp 'web-mode)
+(when (locate-library "web-mode")
   (add-to-list 'auto-mode-alist '("\\.\\(hbs\\|ftl\\|html\\)\\'" . web-mode)))
 
 ;;; 50-markup.el ends here

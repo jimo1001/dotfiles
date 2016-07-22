@@ -2,7 +2,7 @@
 ;;; Commentary:
 
 ;;; Code:
-(when (functionp 'eshell)
+(when (locate-library "eshell")
   (setq eshell-cmpl-ignore-case t)
   (setq eshell-ask-to-save-history (quote always))
   (setq eshell-cmpl-cycle-completions t)

@@ -1,6 +1,7 @@
-;; -*- coding: utf-8; mode: emacs-lisp; -*-
-;;; init.el --- Initialization file for GNU Emacs
+;;; init --- Initialization file for GNU Emacs
+;;; Commentary:
 
+;;; Code:
 
 ;; load ~/.emacs.d/site-lisp
 (let ((default-directory (expand-file-name "~/.emacs.d/site-lisp")))
@@ -29,4 +30,4 @@
   (setq init-loader-show-log-after-init nil)
   (init-loader-load "~/.emacs.d/inits"))
 
-;; EOF
+;;; init.el ends here

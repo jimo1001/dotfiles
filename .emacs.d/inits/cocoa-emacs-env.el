@@ -16,15 +16,13 @@
 ;; (setq interprogram-paste-function 'copy-from-osx)
 
 ;; C/Migemo
-(when (featurep 'migemo)
+(when (locate-library "migemo")
   (setq migemo-command "/usr/local/bin/cmigemo")
   (setq migemo-options '("-q" "--emacs"))
   (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
-  (setq migemo-coding-system 'utf-8-unix)
-  (load-library "migemo")
-  (migemo-init))
+  (setq migemo-coding-system 'utf-8-unix))
 
-;; ring bell nil
+;; for GUI
 (when (window-system)
   ;; font - Ricty
   (set-face-attribute 'default nil
@@ -34,6 +32,6 @@
                     'japanese-jisx0208
                     (font-spec :family "Ricty Discord"))
   ;; Bell
-  (setq ring-bell-function (lambda () (message "!! Ring Bell !!"))))
+  (setq ring-bell-function nil))
 
 ;;; cocoa-emacs-env.el ends here

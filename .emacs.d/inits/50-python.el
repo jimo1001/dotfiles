@@ -2,13 +2,13 @@
 ;;; Commentary:
 
 ;;; Code:
-(when (functionp 'python-mode)
+(when (locate-library "python")
   (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
   (setq interpreter-mode-alist (cons '("python" . python-mode) interpreter-mode-alist))
 
   (with-eval-after-load "python-mode"
     ;; jedi
-    (when (functionp 'jedi:setup)
+    (when (locate-library "jedi")
       (setq jedi:complete-on-dot t)
       (add-hook 'python-mode-hook 'jedi:setup))
 

@@ -4,15 +4,15 @@
 ;;; Code:
 
 ;; YAML
-(when (functionp 'yaml-mode)
+(when (locate-library "yaml-mode")
   (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
 
 ;; SCSS
-(when (functionp 'scss-mode)
+(when (locate-library "scss-mode")
   (add-to-list 'auto-mode-alist '("\\.\\(css\\|scss\\)\\'" . scss-mode)))
 
 ;; JSON
-(when (functionp 'json-mode)
+(when (locate-library "json-mode")
   (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
   (with-eval-after-load "json-mode"
     (add-hook 'json-mode-hook

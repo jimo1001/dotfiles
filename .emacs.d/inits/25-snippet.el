@@ -3,7 +3,7 @@
 
 ;;; Code:
 
-(when (functionp 'yas-global-mode)
+(when (locate-library "yasnippet")
   (yas-global-mode 1)
   (global-set-key (kbd "C-c C-y") 'yas/insert-snippet))
 

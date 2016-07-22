@@ -41,7 +41,7 @@
 
 ;; show-paren-mode
 (when window-system
-  (when (functionp 'mic-paren)
+  (when (locate-library "mic-paren")
     (setq paren-match-face 'bold)
     ;; (setq paren-match-face 'underline)
     (setq paren-sexp-mode t)
@@ -50,32 +50,32 @@
       (paren-activate))))
 
 ;; highlight paren
-(when (functionp 'show-paren-mode)
+(when (locate-library "paren")
   (show-paren-mode t)
   (setq show-paren-style 'mixed))
 
 ;; undo/redo
 (global-undo-tree-mode t)
 (global-set-key (kbd "M-/") 'undo-tree-redo)
-(when (functionp 'popwin-mode)
+(when (special-variable-p 'popwin:special-display-config)
   (push '(" *undo-tree*" :width 0.3 :position right) popwin:special-display-config))
 
 ;; linum-mode
-(when (functionp 'linum-mode)
+(when (locate-library "linum")
   (setq linum-format "%6d ")
   ;;(global-linum-mode t)
   (global-set-key (kbd "C-c C-n") 'linum-mode))
 
 ;; hl-line.el
 ;; info: highlight cursor line.
-(when (functionp 'hl-line-mode)
+(when (locate-library "hl-line")
   (copy-face 'highlight 'my-hl-line)
   (set-face-attribute 'my-hl-line nil :background "#1c1c1c" :foreground nil)
   (setq hl-line-face 'my-hl-line)
   (global-hl-line-mode t))
 
 ;; cua-mode
-(when (functionp 'cua-mode)
+(when (locate-library "cua-base")
   (setq cua-keep-region-after-copy nil)
   (setq cua-enable-cua-keys nil)
   (cua-mode t)
@@ -84,7 +84,7 @@
 
 ;; region
 ;; expand-region.el
-(when (functionp 'er/expand-region)
+(when (locate-library "expand-region")
   (global-set-key (kbd "C-SPC") 'er/expand-region)
   (global-set-key (kbd "C-@") 'er/expand-region)
   (global-set-key (kbd "C-M-@") 'er/contract-region)
@@ -93,7 +93,7 @@
     (if (not mark-active)
         (cua-set-mark)
       ad-do-it)))
-(when (functionp 'wrap-region-mode)
+(when (locate-library "wrap-region")
   (wrap-region-global-mode))
 
 ;; tramp
@@ -114,7 +114,7 @@
 (setq direx:leaf-icon "  "
       direx:open-icon "- "
       direx:closed-icon "+ ")
-(when (functionp 'popwin-mode)
+(when (special-variable-p 'popwin:special-display-config)
   (push '(direx:direx-mode :position left :width 30 :dedicated t)
         popwin:special-display-config))
 (global-set-key (kbd "C-c C-d") 'direx:jump-to-directory-other-window)
@@ -123,18 +123,18 @@
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
 ;; scroll bar
-(when (functionp 'yascroll-bar-mode)
+(when (locate-library "yascroll")
   (global-yascroll-bar-mode 1))
 
 ;; all
-(when (functionp 'all-completions)
+(when (locate-library "all")
   (require 'all-ext nil t)
   (push '("*All*" :regexp t :height .5) popwin:special-display-config))
 
 ;; emoji
 ;; (when (require 'emojify nil t)
 ;;   (global-emojify-mode))
-(when (functionp 'emoji-fontset/turn-on)
-  (emoji-fontset/turn-on))
+(when (locate-library "emoji-fontset")
+  (emoji-fontset-enable))
 
 ;;; 50-misc.el ends here

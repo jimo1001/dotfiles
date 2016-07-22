@@ -2,15 +2,16 @@
 ;;; Commentary:
 
 ;;; Code:
-(when (functionp 'go-mode)
+(when (locate-library "go-mode")
   ;; GOPATH
   (exec-path-from-shell-copy-env "GOPATH")
   (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
 
-  ;; auto-complete
-  (require 'go-autocomplete)
-
   (with-eval-after-load "go-mode"
+    ;; auto-complete
+    (when (locate-library "go-autocomplete")
+      (load-library "go-autocomplete"))
+
     (add-hook 'before-save-hook 'gofmt-before-save)
     ;; go-def
     (define-key go-mode-map (kbd "M-.") 'godef-jump)
