@@ -5,15 +5,12 @@
 
 ;; popwin
 ;; https://github.com/m2ym/popwin-el
-(require 'popwin)
+(load-library "popwin")
 (popwin-mode 1)
 
 (push '("*Buffer List*" :height 0.5) popwin:special-display-config)
 (push '("*Compile-Log*" :noselect t) popwin:special-display-config)
 (push '("*Table of Contents*" :noselect t) popwin:special-display-config)
-
-;; M-x dired-jump-other-window
-(push '(dired-mode :position top) popwin:special-display-config)
 
 ;; M-!
 (push "*Shell Command Output*" popwin:special-display-config)

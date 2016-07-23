@@ -16,8 +16,12 @@
   (interactive)
   (message "%s" (get-char-property (point) 'face)))
 
+;;; dired
+(setq dired-dwim-target t)
+(setq dired-recursive-copies 'always)
+(setq dired-isearch-filenames t)(defvar my-dired-before-buffer nil)
+
 ;; When open the folder, don't make a new buffer.
-(defvar my-dired-before-buffer nil)
 (defadvice dired-find-file
     (before kill-dired-buffer activate)
   (setq my-dired-before-buffer (current-buffer)))

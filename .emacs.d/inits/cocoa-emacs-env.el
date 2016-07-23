@@ -15,6 +15,10 @@
 ;; (setq interprogram-cut-function 'paste-to-osx)
 ;; (setq interprogram-paste-function 'copy-from-osx)
 
+;; dired
+(let ((gls "/usr/local/bin/gls"))
+  (if (file-exists-p gls) (setq insert-directory-program gls)))
+
 ;; C/Migemo
 (when (locate-library "migemo")
   (setq migemo-command "/usr/local/bin/cmigemo")

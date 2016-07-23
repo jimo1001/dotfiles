@@ -8,6 +8,7 @@
 
 ;; PATH
 ;; https://github.com/purcell/exec-path-from-shell
+(setq exec-path-from-shell-check-startup-files nil)
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
