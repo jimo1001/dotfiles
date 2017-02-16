@@ -1,0 +1,186 @@
+#!/usr/bin/env zsh
+#
+# zprezto theme
+#
+
+# Load dependencies.
+pmodload 'helper'
+
+# Define variables.
+_prompt_powerline_nerd_current_bg='NONE'
+_prompt_powerline_nerd_start_time=$SECONDS
+
+_prompt_powerline_nerd_segment_separator_bl=""
+_prompt_powerline_nerd_segment_separator_br=""
+_prompt_powerline_nerd_segment_separator_wl=""
+_prompt_powerline_nerd_segment_separator_wr=""
+
+_prompt_powerline_nerd_editor_info_overwrite=""
+_prompt_powerline_nerd_editor_info_completing="..."
+
+_prompt_powerline_nerd_git_info_action="  %s"
+_prompt_powerline_nerd_git_info_branch=" %b"
+_prompt_powerline_nerd_git_info_commit=" %.7c"
+_prompt_powerline_nerd_git_info_ahead=" "
+_prompt_powerline_nerd_git_info_behind=" "
+_prompt_powerline_nerd_git_info_dirty=" "
+_prompt_powerline_nerd_git_info_clean=" "
+_prompt_powerline_nerd_git_info_modified=" "
+_prompt_powerline_nerd_git_info_stashed=" "
+_prompt_powerline_nerd_git_info_added=" "
+_prompt_powerline_nerd_git_info_deleted=" "
+_prompt_powerline_nerd_git_info_renamed=" "
+_prompt_powerline_nerd_git_info_unmerged=" "
+_prompt_powerline_nerd_git_info_untracked=" "
+_prompt_powerline_nerd_python_icon=""
+
+_prompt_powerline_nerd_os_icon=""
+_prompt_powerline_nerd_os_icon_darwin=""
+_prompt_powerline_nerd_os_icon_linux=""
+_prompt_powerline_nerd_os_icon_ubuntu=""
+_prompt_powerline_nerd_os_icon_windows=""
+
+case "${OSTYPE}" in
+    darwin*)
+        _prompt_powerline_nerd_os_icon=$_prompt_powerline_nerd_os_icon_darwin
+        ;;
+    linux*)
+        _prompt_powerline_nerd_os_icon=$_prompt_powerline_nerd_os_icon_linux
+        if [ "$(uname -a | grep Ubuntu 2> /dev/null)" ]; then
+            _prompt_powerline_nerd_os_icon=$_prompt_powerline_nerd_os_icon_ubuntu
+        fi
+        ;;
+    cygwin*|msys*|win32*)
+        _prompt_powerline_nerd_os_icon=$_prompt_powerline_nerd_os_icon_windows
+        ;;
+esac
+
+function prompt_powerline-nerd_start_segment {
+    local bg fg
+    [[ -n "$1" ]] && bg="%K{$1}" || bg="%k"
+    [[ -n "$2" ]] && fg="%F{$2}" || fg="%f"
+    if [[ "$_prompt_powerline_nerd_current_bg" != 'NONE' && "$1" != "$_prompt_powerline_nerd_current_bg" ]]; then
+        print -n " $bg%F{$_prompt_powerline_nerd_current_bg}$_prompt_powerline_nerd_segment_separator_bl$fg "
+    else
+        print -n "$bg$fg "
+    fi
+    _prompt_powerline_nerd_current_bg="$1"
+    [[ -n "$3" ]] && print -n "$3"
+}
+
+function prompt_powerline-nerd_end_segment {
+    if [[ -n "$_prompt_powerline_nerd_current_bg" ]]; then
+        print -n " %k%F{$_prompt_powerline_nerd_current_bg}$_prompt_powerline_nerd_segment_separator_bl"
+    else
+        print -n "%k"
+    fi
+    print -n "%f"
+    _prompt_powerline_nerd_current_bg=''
+}
+
+function prompt_powerline-nerd_build_prompt {
+    prompt_powerline-nerd_start_segment 252 238 "%(?.%{%F{0}%}.%{%F{124}%})%(!:%F{100}:)%(1j:%F{27}:)${_prompt_powerline_nerd_os_icon}"
+    if [[ -n "$PYENV_VIRTUALENV_INIT" ]]; then
+        prompt_powerline-nerd_start_segment 252 232 "${_prompt_powerline_nerd_segment_separator_wl} $(pyenv version-name)${_prompt_powerline_nerd_python_icon}"
+    fi
+    prompt_powerline-nerd_start_segment 236 16 "%F{228}%n%F{7}@%m%f"
+    prompt_powerline-nerd_start_segment 33 232 "$_prompt_powerline_nerd_pwd"
+    if [[ -n "$git_info" ]]; then
+        prompt_powerline-nerd_start_segment 112 0 "${(e)git_info[ref]}${(e)git_info[status]}"
+    fi
+    prompt_powerline-nerd_end_segment
+}
+
+function prompt_powerline-nerd_pwd {
+    local pwd="${PWD/#$HOME/~}"
+    if [[ "$pwd" == (#m)[/~] ]]; then
+        _prompt_powerline_nerd_pwd="$MATCH"
+        unset MATCH
+    else
+        _prompt_powerline_nerd_pwd="${${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}//\%/%%}/${${pwd:t}//\%/%%}"
+    fi
+}
+
+function prompt_powerline-nerd_print_elapsed_time {
+    local end_time=$(( SECONDS - _prompt_powerline_nerd_start_time ))
+    local hours minutes seconds remainder
+    if (( end_time >= 3600 )); then
+        hours=$(( end_time / 3600 ))
+        remainder=$(( end_time % 3600 ))
+        minutes=$(( remainder / 60 ))
+        seconds=$(( remainder % 60 ))
+        print -P "%B%F{9}>>> elapsed time ${hours}h${minutes}m${seconds}s%b"
+    elif (( end_time >= 60 )); then
+        minutes=$(( end_time / 60 ))
+        seconds=$(( end_time % 60 ))
+        print -P "%B%F{11}>>> elapsed time ${minutes}m${seconds}s%b"
+    elif (( end_time > 10 )); then
+        print -P "%B%F{10}>>> elapsed time ${end_time}s%b"
+    fi
+}
+
+function prompt_powerline-nerd_precmd {
+    setopt LOCAL_OPTIONS
+    unsetopt XTRACE KSH_ARRAYS
+
+    # Format PWD.
+    prompt_powerline-nerd_pwd
+
+    # Get Git repository information.
+    if (( $+functions[git-info] )); then
+        git-info
+    fi
+    # Calculate and print the elapsed time.
+    prompt_powerline-nerd_print_elapsed_time
+}
+
+function prompt_powerline-nerd_preexec {
+    _prompt_powerline_nerd_start_time="$SECONDS"
+}
+
+function prompt_powerline-nerd_setup {
+    setopt LOCAL_OPTIONS
+    unsetopt XTRACE KSH_ARRAYS
+    prompt_opts=(cr percent subst)
+
+    # Load required functions.
+    autoload -Uz add-zsh-hook
+
+    # Add hook for calling git-info before each command.
+    add-zsh-hook preexec prompt_powerline-nerd_preexec
+    add-zsh-hook precmd prompt_powerline-nerd_precmd
+
+    # Set editor-info parameters.
+    zstyle ':prezto:module:editor:info:completing' format "%B%F{9}${_prompt_powerline_nerd_editor_info_completing}%f%b"
+    zstyle ':prezto:module:editor:info:keymap:primary' format "%B%F{12}${_prompt_powerline_nerd_segment_separator_wl}%f%b"
+    zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format "%F{9}${_prompt_powerline_nerd_editor_info_overwrite}%f"
+    zstyle ':prezto:module:editor:info:keymap:alternate' format "%B%F{12}${_prompt_powerline_nerd_segment_separator_wr}%f%b"
+
+    # Set git-info parameters.
+    zstyle ':prezto:module:git:info' verbose 'yes'
+    zstyle ':prezto:module:git:info:action' format $_prompt_powerline_nerd_git_info_action
+    zstyle ':prezto:module:git:info:branch' format $_prompt_powerline_nerd_git_info_branch
+    zstyle ':prezto:module:git:info:commit' format $_prompt_powerline_nerd_git_info_commit
+    zstyle ':prezto:module:git:info:position' format "%p"
+    zstyle ':prezto:module:git:info:ahead' format $_prompt_powerline_nerd_git_info_ahead
+    zstyle ':prezto:module:git:info:behind' format $_prompt_powerline_nerd_git_info_behind
+    zstyle ':prezto:module:git:info:dirty' format $_prompt_powerline_nerd_git_info_dirty
+    zstyle ':prezto:module:git:info:clean' format $_prompt_powerline_nerd_git_info_clean
+    zstyle ':prezto:module:git:info:modified' format $_prompt_powerline_nerd_git_info_modified
+    zstyle ':prezto:module:git:info:stashed' format $_prompt_powerline_nerd_git_info_stashed
+    zstyle ':prezto:module:git:info:added' format $_prompt_powerline_nerd_git_info_added
+    zstyle ':prezto:module:git:info:deleted' format $_prompt_powerline_nerd_git_info_deleted
+    zstyle ':prezto:module:git:info:renamed' format $_prompt_powerline_nerd_git_info_renamed
+    zstyle ':prezto:module:git:info:unmerged' format $_prompt_powerline_nerd_git_info_unmerged
+    zstyle ':prezto:module:git:info:untracked' format $_prompt_powerline_nerd_git_info_untracked
+    zstyle ':prezto:module:git:info:keys' format \
+           'ref' '$(coalesce "%b" "%p" "%c")' \
+           'status' '%s%C%A%B%S%m%a%d%r%U%u'
+
+    # Define prompts.
+    PROMPT='${(e)$(prompt_powerline-nerd_build_prompt)}${prompt_newline}${editor_info[keymap]} '
+    RPROMPT='%B%F{12}${_prompt_powerline_nerd_segment_separator_wr}%f%b %F{245}%D{%H:%M:%S}%f'
+    SPROMPT='zsh: correct %F{9}%R%f to %F{10}%r%f [nyae]? '
+}
+
+prompt_powerline-nerd_setup "$@"

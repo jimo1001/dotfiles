@@ -1,0 +1,9 @@
+.configstore/
+fontforge/
+htop/
+omf/
+NuGet/
+stetic/
+xbuild/
+
+hub

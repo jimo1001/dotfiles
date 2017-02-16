@@ -1,0 +1,7 @@
+# -*- mode: shell-script -*-
+
+function zprezto-update () {
+    pushd ${ZDOTDIR:-$HOME}/.zprezto
+    git pull -v && git submodule update --recursive --remote
+    popd
+}

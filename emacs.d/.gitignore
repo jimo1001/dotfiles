@@ -1,0 +1,17 @@
+# unnecessary files
+*.elc
+*~
+recentf
+ac-comphist.dat
+company-statistics-cache.el
+network-security.data
+projectile-bookmarks.eld
+projectile.cache
+abbrev_defs
+tramp
+
+elpa/
+eshell/
+howm/
+tmp/
+persp-confs/

@@ -1,0 +1,16 @@
+[user]
+	name = Yoshinobu Fujimoto
+	email = jimo1001@gmail.com
+
+[color]
+	diff = true
+	status = true
+	log = true
+
+[gui]
+	encoding = utf-8
+
+[core]
+	autocrlf = input
+[push]
+	default = matching

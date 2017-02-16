@@ -1,0 +1,103 @@
+# -*- coding: utf-8 -*-
+
+set-environment -g NCURSES_NO_UTF8_ACS 0
+
+## keybind
+setw -g mode-keys emacs
+
+## ウィンドウの自動リネームは無効
+setw -g automatic-rename off
+
+## ウィンドウのリサイズを柔軟に
+setw -g aggressive-resize on
+
+## キーストロークのディレイを減らす
+set -sg escape-time 1
+
+## コンフィグの再読み込み
+bind r source-file ~/.tmux.conf \; display "Reloaded !!"
+
+# Prefix = Ctrl+t
+set -g prefix C-t
+unbind-key C-q
+bind-key C-q send-prefix
+
+## 既定の割り当てとして「Prefix - c」でウィンドウが作成できるが
+## Prefix - Ctrl+cでも作成できるようにする
+unbind ^C
+bind ^C new-window
+
+## Prefix - Ctrl+wでウィンドウ一覧選択を表示
+unbind ^W
+bind ^W choose-window
+
+## ウィンドにある全てのペインに入力
+bind E setw synchronize-panes on
+bind e setw synchronize-panes off
+
+## Prefix - Ctrl+tで先ほどアクティブだったウィンドウを表示
+unbind ^T
+bind ^T last-window
+
+## ウィンドウ番号を1から開始
+set -g base-index 1
+
+## ペインのインックスを1から始める
+setw -g pane-base-index 1
+
+## マウス操作
+#set -g mouse on
+
+## メッセージ表示時間(既定値は1000?)
+set -g display-time 2000
+
+## TERM 256 color
+set -g default-terminal "xterm-256color"
+
+## ペインのボーダー
+set -g pane-border-fg white
+set -g pane-border-bg colour234
+
+## アクティブなペインのボーダー
+set -g pane-active-border-fg blue
+set -g pane-active-border-bg colour234
+
+## メッセージ/プロンプト
+set -g message-fg default
+set -g message-bg default
+set -g message-attr bright
+
+## スクロールの右上やコピーモード選択範囲のスタイル
+setw -g mode-fg default
+setw -g mode-bg default
+setw -g mode-attr reverse
+
+# 既定値は10
+set -g status-left-length 40
+bind-key I set status-left " #[fg=colour9]!!! #S !!!#[default] @#h "
+
+## ウィンドウマネージャ向けのタイトル
+set -g set-titles on
+set -g set-titles-string "tmux: #S(#I/#P) @#h"
+
+## ステータス行更新間隔(1で毎秒更新・既定値15)
+set -g status-interval 1
+
+## 画面の変更を通知(ステータスのウィンドウ項目の表示が変化する)
+setw -g monitor-activity on
+set -g visual-activity off
+
+## ウィンドウ一覧を左揃えにする
+set -g status-justify left
+
+## ロギング
+run-shell ~/.tmux.d/plugins/logging/logging.tmux
+set -g @pipe_pane_path "$HOME/logs"
+set -g @pipe_pane_filename "tmux-#S-#W-#P-%Y%m%dT%H%M%S.log"
+# bind-key H pipe-pane 'ansifilter >> $HOME/logs/tmux-#S-#W-#P-%Y%m%dT%H%M%S.log' \; display-message 'Started logging to $HOME/logs/tmux-#S-#W-#P-%Y%m%dT%H%M%S.log'
+# bind-key h pipe-pane \; display-message 'Ended logging to $HOME/logs/tmux-#S-#W-#P-%Y%m%dT%H%M%S.log'
+
+## Powerline for tmux
+run-shell "powerline-daemon -q"
+run-shell "powerline-config tmux setup"
+

@@ -1,0 +1,13 @@
+
+%"e"[Remember] %"c"[New] Search:( %"s"[String] %"g"[reGexp] %"o"[Occur] %"m"[Migemo] )
+%"a"[All] %"r"[Update] %"l"[Recent] %"."[Today] %":"[Yesterday] %"h"[History] %"R"[Update Menu]
+--------------------------------------------------------------------------
+
+[Schedule / Todo] -- @schedule, !deadline, +todo, -reminder, ~defer (until %sdays days)
+%reminder
+
+
+[Recent Files]
+%recent
+ 
+ 
