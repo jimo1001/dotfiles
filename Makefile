@@ -54,22 +54,18 @@ $(HOME)/.tmux.conf: $(HOME)/.tmux.d
 $(HOME)/.tmux-powerline: $(HOME)/.tmux.d
 	cd $(HOME); /bin/ln -s .tmux.d/.tmux-powerlinerc .
 
-# Git
-$(HOME)/.gitconfig:
-	/bin/ln -s $(CURRENT_DIR)gitconfig $@
-
 # Targets
 uninstall:
 	@if [ -e $(HOME)/.zsh/.zprezto ]; then \
 	  rm -frv $(HOME)/.zsh/.zprezto; \
 	fi
-	@for p in .zshenv .zsh .bash_profile .bashrc .bash .emacs.d .vimrc .vim .config .tmux.conf .tmux.d .gitconfig; do \
+	@for p in .zshenv .zsh .bash_profile .bashrc .bash .emacs.d .vimrc .vim .config .tmux.conf .tmux.d; do \
 	  if [ -L $(HOME)/$$p ]; then \
 	    $(RM) -fv $(HOME)/$$p; \
 	  fi \
 	done
 
-install: bash zsh emacs vim dotconfig tmux git ;
+install: bash zsh emacs vim dotconfig tmux ;
 
 bash: $(HOME)/.bash_profile $(HOME)/.bashrc ;
 
@@ -82,5 +78,3 @@ vim: $(HOME)/.vimrc ;
 dotconfig: $(HOME)/.config ;
 
 tmux: $(HOME)/.tmux.conf ;
-
-git: $(HOME)/.gitconfig ;
