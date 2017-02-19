@@ -11,7 +11,6 @@
           #'(lambda () (message "elapsed time: %.6f sec" (elapsed-time))))
 
 (use-package auto-compile
-  :defer t
   :config
   (add-hook 'emacs-lisp-mode-hook #'auto-compile-mode))
 

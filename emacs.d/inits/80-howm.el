@@ -16,13 +16,14 @@
         howm-menu-file (locate-user-emacs-file "menu.howm")
         howm-menu-lang 'en
         howm-menu-name-format "*howm*"
+        howm-menu-refresh-after-save nil
         howm-menu-schedule-days 7
         howm-menu-schedule-days-before 2
+        howm-refresh-after-save nil
         howm-view-split-horizontally t
         howm-view-summary-persistent nil
         howm-view-title-regexp "^\\(=\\|#\\)\\( +[^-]\\(.*\\)\\|\\)$")
   :config
-  (add-to-list 'helm-boring-buffer-regexp-list "\\*howmM:")
   (custom-set-faces
    '(howm-menu-list-face ((t (:foreground "#a9a9a9"))))
    '(howm-reminder-normal-face ((t (:foreground "#ab82ff"))))
