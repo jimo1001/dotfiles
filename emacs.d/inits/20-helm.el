@@ -18,7 +18,7 @@
    ("C-c /" . helm-swoop)
    ("C-c ?" . helm-ag)
    ("C-c p h" . helm-projectile)
-   ("C-c p w" . helm-perspeen)
+   ("C-c z" . helm-perspeen)
    ("C-c v g" . helm-ls-git-ls)
    ("C-c v s" . helm-ls-svn-ls)
    ("<f1> b" . helm-descbinds)
@@ -39,17 +39,17 @@
   (use-package helm-perspeen)
 
   (custom-set-faces
-   '(helm-buffer-directory ((t (:background "#080808" :foreground "#8787ff" :underline nil))))
-   '(helm-ff-directory ((t (:background "#080808" :foreground "#8787ff" :underline nil))))
-   '(helm-ff-dotted-directory ((t (:background "#080808" :foreground "#8787ff" :underline nil))))
+   '(helm-buffer-directory ((t (:background "#080808" :foreground "#8787ff"))))
+   '(helm-ff-directory ((t (:background "#080808" :foreground "#8787ff"))))
+   '(helm-ff-dotted-directory ((t (:background "#080808" :foreground "#8787ff"))))
    '(helm-ff-dotted-symlink-directory ((t (:background "#333333" :foreground "#ab82ff"))))
-   '(helm-ff-file ((t (:background "#080808" :foreground "#e5e5e5" :underline nil))))
-   '(helm-ff-symlink ((t (:background "#080808" :foreground "#ffa8a8" :underline nil))))
-   '(helm-header ((t (:background "#1c1c1c" :foreground "#5f87ff" :underline nil))))
+   '(helm-ff-file ((t (:inherit default :foreground "Gray"))))
+   '(helm-ff-symlink ((t (:background "#080808" :foreground "#ffa8a8"))))
+   '(helm-header ((t (:background "#1c1c1c" :foreground "#5f87ff"))))
    '(helm-selection ((t (:inherit match))))
    '(helm-candidate-number ((t (:inherit mode-line :inherit font-lock-keyword-face))))
    '(helm-source-header ((t (:background "#262626" :foreground "#e5e5e5" :weight bold))))
-   '(helm-visible-mark ((t (:background "#9e1200" :foreground "#ffffff" :underline nil)))))
+   '(helm-visible-mark ((t (:background "#9e1200" :foreground "#ffffff")))))
 
  (defun helm-find-files+ ()
     (interactive
