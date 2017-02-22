@@ -102,12 +102,11 @@
 (use-package shackle
   :config
   (setq shackle-select-reused-windows t
-        ;;shackle-default-rule '(:align below :select t :size 0.5)
         shackle-rules '(("*Buffer List*" :align below :select t :size 0.5)
                         ("*Help*" :align below :select t :size 0.5)
                         ("*Faces*" :align right :select t :size 0.5)
                         ("*Colors*" :align right :select t :size 0.5)
-                        ("*Compile-Log*" :align below :select nil :size 0.3)))
+                        ("*Compile-Log*" :align below :ignore t :size 0.3)))
   (shackle-mode 1))
 
 
