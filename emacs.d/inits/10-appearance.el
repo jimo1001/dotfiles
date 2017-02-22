@@ -123,7 +123,7 @@
 ;; like powerline
 (use-package powerline
   :init
-  (setq powerline-default-separator 'box)
+  (setq powerline-default-separator 'bar)
   (setq powerline-height nil)
   (setq powerline-text-scale-factor nil)
   :config
