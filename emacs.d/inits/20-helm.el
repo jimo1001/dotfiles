@@ -3,41 +3,19 @@
 
 ;;; Code:
 
+(use-package helm-config)
+
 (use-package helm
+  :defer 1
   :diminish helm-mode
   :bind
   (("M-x" . helm-M-x)
    ("C-x C-f" . helm-find-files)
-   ("C-x C-r" . helm-recentf)
-   ("C-x b" . helm-buffers-list)
-   ("C-c C-f" . helm-find-files+)
-   ("C-c C-b" . helm-bookmarks)
-   ("C-c h" . helm-mini)
-   ("C-c y" . helm-show-kill-ring)
+   ("C-c b" . helm-bookmarks)
    ("C-c o" . helm-occur)
-   ("C-c /" . helm-swoop)
-   ("C-c ?" . helm-ag)
-   ("C-c p h" . helm-projectile)
-   ("C-c z" . helm-perspeen)
-   ("C-c v g" . helm-ls-git-ls)
-   ("C-c v s" . helm-ls-svn-ls)
-   ("<f1> b" . helm-descbinds)
-   ("<f1> m" . helm-describe-modes)
    ("<f1> ?" . helm-info)
-   :map helm-map ("C-h" . delete-backward-char)
-   :map helm-find-files-map ("TAB" . helm-execute-persistent-action)
-   :map helm-read-file-map ("TAB" . helm-execute-persistent-action))
-
+   :map helm-map ("C-h" . delete-backward-char))
   :config
-  (use-package helm-config)
-  (use-package helm-buffers)
-  (use-package helm-files)
-  (use-package helm-projectile)
-  (use-package helm-ls-git)
-  (use-package helm-ls-svn)
-  (use-package helm-ag)
-  (use-package helm-perspeen)
-
   (custom-set-faces
    '(helm-buffer-directory ((t (:background "#080808" :foreground "#8787ff"))))
    '(helm-ff-directory ((t (:background "#080808" :foreground "#8787ff"))))
@@ -50,25 +28,38 @@
    '(helm-candidate-number ((t (:inherit mode-line :inherit font-lock-keyword-face))))
    '(helm-source-header ((t (:background "#262626" :foreground "#e5e5e5" :weight bold))))
    '(helm-visible-mark ((t (:background "#9e1200" :foreground "#ffffff")))))
+  (helm-mode 1)
+  (add-hook 'helm-kill-buffer-hook #'(set-buffer "*scratch*")))
 
- (defun helm-find-files+ ()
-    (interactive
-     (helm '(helm-source-files-in-current-dir helm-source-ls-git helm-source-ls-svn))))
+(use-package helm-buffers
+  :bind
+  (("C-c h" . helm-mini)
+   ("C-x b" . helm-buffers-list)
+   ("C-x C-b" . helm-buffers-list))
+  :config
+  (require 'helm-perspeen)
+  (require 'helm-projectile)
   ;; default sources
   (setq helm-mini-default-sources
         '(helm-source-perspeen-tabs
           helm-source-buffers-list
-          helm-source-bookmarks
           helm-source-perspeen-workspaces
           helm-source-projectile-projects
           helm-source-recentf
           helm-source-buffer-not-found))
-  (helm-mode 1)
   ;; boring buffers
   (add-to-list 'helm-boring-buffer-regexp-list "\\*Backtrace\\*")
-  (add-to-list 'helm-boring-buffer-regexp-list "\\*Buffer List\\*")
-  ;; kill buffer hook
-  (add-hook 'helm-kill-buffer-hook #'(set-buffer "*scratch*")))
+  (add-to-list 'helm-boring-buffer-regexp-list "\\*Buffer List\\*"))
+
+(use-package helm-projectile :bind ("C-c p h" . helm-projectile))
+(use-package helm-perspeen :bind ("C-c z" . helm-perspeen))
+(use-package helm-ls-git :bind ("C-c v g" . helm-ls-git-ls))
+(use-package helm-ls-svn :bind ("C-c v s" . helm-ls-svn-ls))
+(use-package helm-swoop :bind ("C-c /" . helm-swoop))
+(use-package helm-ag :bind ("C-c ?" . helm-ag))
+(use-package helm-ring :bind ("C-c y" . helm-show-kill-ring))
+(use-package helm-descbinds :bind ("<f1> b" . helm-descbinds))
+(use-package helm-describe-modes :bind ("<f1> m" . helm-describe-modes))
 
 (use-package shackle
   :no-require t
