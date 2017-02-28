@@ -3,8 +3,6 @@
 
 ;;; Code:
 
-(use-package helm-config)
-
 (use-package helm
   :defer 1
   :diminish helm-mode
@@ -14,8 +12,27 @@
    ("C-c b" . helm-bookmarks)
    ("C-c o" . helm-occur)
    ("<f1> ?" . helm-info)
+   ("C-c h" . helm-mini)
+   ("C-x b" . helm-buffers-list)
+   ("C-x C-b" . helm-buffers-list)
    :map helm-map ("C-h" . delete-backward-char))
   :config
+  (use-package helm-config)
+  (use-package helm-buffers)
+  (use-package helm-perspeen)
+  (use-package helm-projectile)
+  ;; default sources
+  (setq helm-mini-default-sources
+        '(
+          helm-source-perspeen-tabs
+          helm-source-buffers-list
+          helm-source-perspeen-workspaces
+          helm-source-projectile-projects
+          helm-source-recentf
+          helm-source-buffer-not-found))
+  ;; boring buffers
+  (add-to-list 'helm-boring-buffer-regexp-list "\\*Backtrace\\*")
+  (add-to-list 'helm-boring-buffer-regexp-list "\\*Buffer List\\*")
   (custom-set-faces
    '(helm-buffer-directory ((t (:background "#080808" :foreground "#8787ff"))))
    '(helm-ff-directory ((t (:background "#080808" :foreground "#8787ff"))))
@@ -30,26 +47,6 @@
    '(helm-visible-mark ((t (:background "#9e1200" :foreground "#ffffff")))))
   (helm-mode 1)
   (add-hook 'helm-kill-buffer-hook #'(set-buffer "*scratch*")))
-
-(use-package helm-buffers
-  :bind
-  (("C-c h" . helm-mini)
-   ("C-x b" . helm-buffers-list)
-   ("C-x C-b" . helm-buffers-list))
-  :config
-  (require 'helm-perspeen)
-  (require 'helm-projectile)
-  ;; default sources
-  (setq helm-mini-default-sources
-        '(helm-source-perspeen-tabs
-          helm-source-buffers-list
-          helm-source-perspeen-workspaces
-          helm-source-projectile-projects
-          helm-source-recentf
-          helm-source-buffer-not-found))
-  ;; boring buffers
-  (add-to-list 'helm-boring-buffer-regexp-list "\\*Backtrace\\*")
-  (add-to-list 'helm-boring-buffer-regexp-list "\\*Buffer List\\*"))
 
 (use-package helm-projectile :bind ("C-c p h" . helm-projectile))
 (use-package helm-perspeen :bind ("C-c z" . helm-perspeen))
