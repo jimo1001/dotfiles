@@ -27,7 +27,9 @@
   (bind-keys :map perspeen-mode-map
              ("C-z n" . perspeen-tab-next)
              ("C-z p" . perspeen-tab-prev)
-             ("C-z c" . perspeen-tab-create-tab)
+             ("C-z c" . (lambda ()
+                          (interactive)
+                          (perspeen-tab-create-tab nil 0 t)))
              ("C-z k" . perspeen-tab-del)))
 
 ;;; 05-workspace.el ends here
