@@ -8,18 +8,14 @@
   :bind (:map python-mode-map ("C-a" . move-beginning-of-line))
   :config
   (setq expand-region-preferred-python-mode 'python-mode)
-  (pyvenv-workon "default")
   (pyvenv-tracking-mode t)
   (add-hook 'python-mode-hook
             #'(lambda ()
                 (py-autopep8-enable-on-save)
                 (make-local-variable 'company-backends)
-                (push '(company-jedi :with company-yasnippet) company-backends))))
-
-(use-package python-environment
-  :defer t
-  :config
-  (setq python-environment-directory (getenv "WORKON_HOME")))
+                (push '(company-jedi :with company-yasnippet) company-backends)))
+  (add-to-list 'helm-boring-buffer-regexp-list "\\*Python Completions\\*")
+  (push '("*Python Completions*" :align below :size 0.2) shackle-rules))
 
 (use-package pyvenv
   :defer t
