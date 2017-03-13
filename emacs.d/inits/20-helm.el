@@ -33,6 +33,7 @@
   ;; boring buffers
   (add-to-list 'helm-boring-buffer-regexp-list "\\*Backtrace\\*")
   (add-to-list 'helm-boring-buffer-regexp-list "\\*Buffer List\\*")
+  (add-to-list 'helm-boring-buffer-regexp-list "\\*Compile-Log\\*")
   (custom-set-faces
    '(helm-buffer-directory ((t (:background "#080808" :foreground "#8787ff"))))
    '(helm-ff-directory ((t (:background "#080808" :foreground "#8787ff"))))

@@ -3,8 +3,7 @@
 
 ;;; Code:
 
-(use-package use-package
-  :no-require t
+(use-package faces
   :if window-system
   :init
   ;; Font

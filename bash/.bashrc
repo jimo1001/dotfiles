@@ -7,7 +7,6 @@ export JAVA_HOME=${JAVA_HOME:-"/Library/Java/Home"}
 export GOPATH=${GOPATH:-"$HOME/work/go"}
 
 # Python
-# for pyenv + pyenv-virtualenv
 export PYENV_ROOT=$HOME/.pyenv
 if which pyenv > /dev/null; then
     eval "$(pyenv init -)"
@@ -21,7 +20,7 @@ fi
 export HOMEBREW_NO_ANALYTICS=1
 
 # PATH
-export PATH=$HOME/bin:$JAVA_HOME/bin:$GOPATH/bin:$WORKON_HOME/bin:$PYENV_ROOT/bin:/opt/local/bin:/usr/local/bin:$PATH
+export PATH=$JAVA_HOME/bin:$GOPATH/bin:$WORKON_HOME/bin:$PYENV_ROOT/bin:/usr/local/bin:$PATH
 
 # Editor
 export EDITOR=vim

@@ -3,14 +3,11 @@
 
 ;;; Code:
 
-(use-package use-package
-  :no-require t
-  :init
-  ;; not display error message
-  (setq debug-on-error nil)
-  ;; カーソルが遅くなる問題の対処 (emacs-24)
-  (setq-default bidi-display-reordering nil))
+;; not display error message
+(setq debug-on-error nil)
 
+;; カーソルが遅くなる問題の対処 (emacs-24)
+(setq-default bidi-display-reordering nil)
 
 ;;; Set Environment Variables
 

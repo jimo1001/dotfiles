@@ -3,21 +3,19 @@
 
 ;;; Code:
 
-(use-package use-package
-  :no-require t
-  :init
-  ;; Emacs startup message
-  (setq inhibit-startup-screen t)
-  ;; Ignore ring-bell
-  (setq ring-bell-function 'ignore)
-  ;; Enable region highlighting
-  (setq transient-mark-mode t)
+;; Emacs startup message
+(setq inhibit-startup-screen t)
 
-  :config
-  (delete-selection-mode t)
-  ;; Display column number
-  (column-number-mode t))
+;; Ignore ring-bell
+(setq ring-bell-function 'ignore)
 
+;; Enable region highlighting
+(setq transient-mark-mode t)
+
+(setq delete-selection-mode t)
+
+;; Display column number
+(setq column-number-mode t)
 
 ;; non-displayed tool bar
 (use-package tool-bar
