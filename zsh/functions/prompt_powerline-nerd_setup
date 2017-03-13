@@ -35,11 +35,11 @@ _prompt_powerline_nerd_git_info_untracked=" "
 _prompt_powerline_nerd_python_icon=" "
 
 _prompt_powerline_nerd_os_icon=""
-_prompt_powerline_nerd_os_icon_darwin=""
-_prompt_powerline_nerd_os_icon_linux=""
-_prompt_powerline_nerd_os_icon_ubuntu=""
+_prompt_powerline_nerd_os_icon_darwin=""
+_prompt_powerline_nerd_os_icon_linux=""
+_prompt_powerline_nerd_os_icon_ubuntu=""
 _prompt_powerline_nerd_os_icon_windows=""
-_prompt_powerline_nerd_os_icon_bsd=""
+_prompt_powerline_nerd_os_icon_bsd=""
 
 case "${OSTYPE}" in
     darwin*)

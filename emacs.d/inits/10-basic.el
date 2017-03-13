@@ -3,31 +3,36 @@
 
 ;;; Code:
 
-(use-package use-package
-  :no-require t
+;; key bindings
+(bind-key "C-c n" 'narrow-to-region)
+(bind-key "C-c w" 'widen)
+(bind-key "C-c r" 'revert-buffer)
+(bind-key "C-c c" 'comment-region)
+(bind-key "C-h" 'backward-delete-char)
+
+;; simplify message on the scratch buffer at startup.
+(setq initial-scratch-message ";;; *scratch*\n\n")
+
+;; use space when indent
+(setq indent-tabs-mode nil)
+
+;; yes/no -> y/n
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Disable backup file creation
+(setq backup-inhibited t
+      make-backup-files nil)
+
+;; Disable auto-save files
+(setq auto-save-list-file-name nil
+      auto-save-list-file-prefix nil
+      auto-save-default nil
+      delete-auto-save-files t)
+
+(use-package abbrev-mode
+  :defer t
   :init
-  ;; key bindings
-  (bind-key "C-c n" 'narrow-to-region)
-  (bind-key "C-c w" 'widen)
-  (bind-key "C-c r" 'revert-buffer)
-  (bind-key "C-c c" 'comment-region)
-  (bind-key "C-h" 'backward-delete-char)
-  ;; simplify message on the scratch buffer at startup.
-  (setq initial-scratch-message ";;; *scratch*\n\n")
-  ;; use space when indent
-  (setq-default indent-tabs-mode nil)
-  ;; yes/no -> y/n
-  (fset 'yes-or-no-p 'y-or-n-p)
-  ;; Disable backup file creation
-  (setq backup-inhibited t
-        make-backup-files nil)
-  ;; Disable auto-save files
-  (setq auto-save-list-file-name nil
-        auto-save-list-file-prefix nil
-        auto-save-default nil
-        delete-auto-save-files t)
-  :config
-  (put 'narrow-to-region 'disabled nil))
+  (setq abbrev-file-name "~/tmp/abbrev_defs"))
 
 ;; recent files
 (use-package recentf

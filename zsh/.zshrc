@@ -20,17 +20,17 @@ if [[ -d "${ZDOTDIR:-$HOME}/functions" ]]; then
     autoload pyenv-activate
 fi
 
+# Travis
+if [[ -s "$HOME/.travis/travis.sh" ]]; then
+    source "$HOME/.travis/travis.sh"
+fi
+
 # Source zshrc
 if [[ -d "${ZDOTDIR:-$HOME}/zshrc.d" ]]; then
     for src in $(\ls ${ZDOTDIR:-$HOME}/zshrc.d/); do
         source "${ZDOTDIR:-$HOME}/zshrc.d/$src"
     done
     unset src
-fi
-
-# Travis
-if [[ -s "$HOME/.travis/travis.sh" ]]; then
-    source "$HOME/.travis/travis.sh"
 fi
 
 # Display zsh profile
