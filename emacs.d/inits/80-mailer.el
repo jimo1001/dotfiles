@@ -11,6 +11,8 @@
         elmo-imap4-use-modified-utf7 t
         elmo-message-fetch-threshold 500000
         elmo-msgdb-convert-type 'auto
+        elmo-network-session-retry-count t
+        elmo-network-session-idle-timeout 1800
         mime-edit-split-message nil
         mime-save-directory "~/Downloads"
         mime-setup-enable-inline-html nil

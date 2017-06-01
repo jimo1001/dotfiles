@@ -14,7 +14,7 @@
 (setq initial-scratch-message ";;; *scratch*\n\n")
 
 ;; use space when indent
-(setq indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 
 ;; yes/no -> y/n
 (fset 'yes-or-no-p 'y-or-n-p)

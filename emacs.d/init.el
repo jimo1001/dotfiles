@@ -3,13 +3,6 @@
 
 ;;; Code:
 
-;; Language
-(set-language-environment "Japanese")
-
-;; Default Coding System
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-
 ;; Load custom-file
 (setq custom-file (locate-user-emacs-file "custom.el"))
 (load custom-file t t)
@@ -53,3 +46,4 @@
 (init-loader-load (locate-user-emacs-file "inits"))
 
 ;;; init.el ends here
+(put 'downcase-region 'disabled nil)

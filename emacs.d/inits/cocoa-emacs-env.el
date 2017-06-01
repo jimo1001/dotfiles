@@ -3,6 +3,11 @@
 
 ;;; Code:
 
+;; Unicode normalization (NFD, NFC)
+(when (require 'ucs-normalize nil t)
+  (setq file-name-coding-system 'utf-8-hfs)
+  (setq locale-coding-system 'utf-8-hfs))
+
 (use-package faces
   :if window-system
   :init
