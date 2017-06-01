@@ -137,5 +137,32 @@
    '(powerline-inactive2 ((t (:inherit powerline-active2 :foreground "#606060" :weight light)))))
   (powerline-default-theme))
 
+;; (use-package cyphejor
+;;   :init
+;;   (setq cyphejor-rules
+;;       '(:upcase
+;;           ("bookmark"    "")
+;;           ("buffer"      "")
+;;           ("diff"        "")
+;;           ("dired"       "")
+;;           ("emacs"       "")
+;;           ("go"          "")
+;;           ("fundamental" "")
+;;           ("interaction" "" :prefix)
+;;           ("interactive" "" :prefix)
+;;           ("lisp"        "λ" :postfix)
+;;           ("mode"        "")
+;;           ("package"     "")
+;;           ("python"      "")
+;;           ("shell"       "" :postfix)
+;;           ("web"         "")
+;;           ("js2"         "")
+;;           ("js"          "")
+;;           ("mustash"     "")
+;;           ("text"        "")
+;;           ("folder"      "")))
+;;   :config
+;;   (cyphejor-mode 1))
+
 
 ;;; 10-appearance.el ends here
