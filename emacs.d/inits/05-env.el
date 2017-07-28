@@ -17,6 +17,6 @@
   (setq exec-path-from-shell-check-startup-files nil
         exec-path-from-shell-arguments '("-l"))
   :config
-  (exec-path-from-shell-copy-envs '("PATH" "GOROOT" "GOPATH" "WORKON_HOME")))
+  (exec-path-from-shell-copy-envs '("PATH" "GOROOT" "GOPATH" "WORKON_HOME" "HTTP_PROXY" "HTTPS_PROXY")))
 
 ;;; 05-env.el ends here
