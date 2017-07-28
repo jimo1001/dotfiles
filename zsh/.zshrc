@@ -16,7 +16,7 @@ if [[ -d "${ZDOTDIR:-$HOME}/functions" ]]; then
     prompt_themes=(powerline-nerd $prompt_themes)
     prompt "powerline-nerd"
 
-    autoload zprezto-update
+    autoload update-zprezto
     autoload pyenv-activate
 fi
 
