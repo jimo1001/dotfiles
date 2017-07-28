@@ -34,6 +34,7 @@ alias stop-traproxy='sudo launchctl stop traproxy'
 alias netl="sudo lsof -iTCP -sTCP:LISTEN -n -P"
 
 # Python packages
-alias pip-upgrade-all="pip freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip install -U"
-alias pip2-upgrade-all="pip2 freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip2 install -U"
-alias pip3-upgrade-all="pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip3 install -U"
+alias update-python-packages="pip list -o -l --format freeze | cut -d = -f 1 | xargs -n 1 pip install -U"
+
+# Emacs packages
+alias update-emacs-packages="emacs --batch -l ~/.emacs.d/init.el --eval \"(progn (require 'package-utils)(package-utils-upgrade-all)(package-autoremove))\""
