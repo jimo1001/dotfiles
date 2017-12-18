@@ -74,23 +74,20 @@ function prompt_powerline-nerd_start_segment {
 
 function prompt_powerline-nerd_end_segment {
     if [[ -n "$_prompt_powerline_nerd_current_bg" ]]; then
-        print -n " %k%F{$_prompt_powerline_nerd_current_bg}$_prompt_powerline_nerd_segment_separator_bl"
-    else
-        print -n "%k"
+        print -n " %k%F{$_prompt_powerline_nerd_current_bg}${_prompt_powerline_nerd_segment_separator_bl}"
     fi
-    print -n "%f"
+    print -n "%k%f"
     _prompt_powerline_nerd_current_bg=''
 }
 
 function prompt_powerline-nerd_build_prompt {
     prompt_powerline-nerd_start_segment 252 238 "%(?.%{%F{0}%}.%{%F{124}%})%(!:%F{100}:)%(1j:%F{27}:)${_prompt_powerline_nerd_os_icon}"
-    if [[ -n "$PYENV_VIRTUALENV_INIT" ]]; then
-        prompt_powerline-nerd_start_segment 252 232 "${_prompt_powerline_nerd_segment_separator_wl} ${_prompt_powerline_nerd_python_icon} $(pyenv version-name)"
-    fi
     prompt_powerline-nerd_start_segment 236 16 "%F{228}%n%F{7}@%m%f"
-    prompt_powerline-nerd_start_segment 33 232 "$_prompt_powerline_nerd_pwd"
     if [[ -n "$git_info" ]]; then
         prompt_powerline-nerd_start_segment 112 0 "${(e)git_info[ref]}${(e)git_info[status]}"
+    fi
+    if [[ -n "$PYENV_VIRTUALENV_INIT" ]]; then
+        prompt_powerline-nerd_start_segment 33 0 "${_prompt_powerline_nerd_python_icon} $(pyenv version-name)"
     fi
     prompt_powerline-nerd_end_segment
 }
@@ -182,8 +179,9 @@ function prompt_powerline-nerd_setup {
            'status' '%s%C%A%B%S%m%a%d%r%U%u'
 
     # Define prompts.
-    PROMPT='${(e)$(prompt_powerline-nerd_build_prompt)}${prompt_newline}${editor_info[keymap]} '
-    RPROMPT='%B%F{12}${_prompt_powerline_nerd_segment_separator_wr}%f%b %F{245}%D{%H:%M:%S}%f'
+    #PROMPT='${(e)$(prompt_powerline-nerd_build_prompt)}${prompt_newline}${editor_info[keymap]} '
+    PROMPT='${(e)$(prompt_powerline-nerd_build_prompt)}${editor_info[keymap]} '
+    RPROMPT='%F{245}${_prompt_powerline_nerd_segment_separator_wr} ${_prompt_powerline_nerd_pwd} ${_prompt_powerline_nerd_segment_separator_wr} %D{%H:%M:%S}%f'
     SPROMPT='zsh: correct %F{9}%R%f to %F{10}%r%f [nyae]? '
 }
 
