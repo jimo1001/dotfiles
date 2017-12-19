@@ -153,7 +153,8 @@ function prompt_powerline-nerd_setup {
 
     # Set editor-info parameters.
     zstyle ':prezto:module:editor:info:completing' format "%B%F{9}${_prompt_powerline_nerd_editor_info_completing}%f%b"
-    zstyle ':prezto:module:editor:info:keymap:primary' format "%B%F{12}${_prompt_powerline_nerd_segment_separator_wl}%f%b"
+    #zstyle ':prezto:module:editor:info:keymap:primary' format "%B%F{12}${_prompt_powerline_nerd_segment_separator_wl}%f%b"
+    zstyle ':prezto:module:editor:info:keymap:primary' format "%B%F{13} $%f%b"
     zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format "%F{9}${_prompt_powerline_nerd_editor_info_overwrite}%f"
     zstyle ':prezto:module:editor:info:keymap:alternate' format "%B%F{12}${_prompt_powerline_nerd_segment_separator_wr}%f%b"
 
