@@ -60,7 +60,7 @@
 
 ;; C/Migemo -- incremental searches by ro-maji
 (use-package migemo
-  :defer t
+  :defer 3
   :if (executable-find "cmigemo")
   :init
   (setq migemo-command "cmigemo"
