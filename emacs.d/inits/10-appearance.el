@@ -55,14 +55,6 @@
   (custom-set-faces
    '(linum ((t (:foreground "#5c5c5c"))))))
 
-;; Enable cursor highlighting
-(use-package hl-line+
-  :config
-  (custom-set-faces
-   '(hl-line ((t (:background "#261212" :foreground nil)))))
-  (hl-line-when-idle-interval 0.3)
-  (hl-line-toggle-when-idle))
-
 ;; Enable matching parens highlighting
 (use-package paren
   :config

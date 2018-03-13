@@ -3,47 +3,55 @@
 
 ;;; Code:
 
-;; Load custom-file
-(setq custom-file (locate-user-emacs-file "custom.el"))
-(load custom-file t t)
+;; Load ~/.emacs.d/env.el
+(load (locate-user-emacs-file "env.el") t)
 
-;; Initialize Packages
-(require 'package)
-;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
-;;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-(when (< emacs-major-version 24)
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/") t))
 
-;; Activate all the packages (in particular autoloads)
-(package-initialize)
+;; Packages Initialization
+(setq package-directory-list '("~/.emacs.d/elpa/"))
+(when (require 'package nil t)
+  ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+  ;;(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+  ;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
+  (when (< emacs-major-version 24)
+    (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t))
 
-;; Fetch the list of packages available
-(unless package-archive-contents
-  (package-refresh-contents))
+  ;; Activate all packages (in particular autoloads)
+  (package-initialize)
 
-;; Install required packages
-(dolist (pkg '(package-utils init-loader use-package))
-  (unless (package-installed-p pkg)
-    (package-install pkg))
-  (require pkg))
+  ;; Fetch the list of packages available
+  (unless package-archive-contents
+    (package-refresh-contents))
 
-(eval-when-compile
-  (require 'use-package))
-(require 'diminish) ;; if you use :diminish
-(require 'bind-key) ;; if you use any :bind variant
+  ;; Install required packages
+  (dolist (pkg '(package-utils
+                 init-loader
+                 use-package
+                 diminish ;; if you use :diminish
+                 bind-key ;; if you use any :bind variant
+                 ))
+    (unless (package-installed-p pkg)
+      (package-install pkg))
+    (require pkg))
 
-;; Install the missing packages
-(when package-selected-packages
-  (package-install-selected-packages))
+  (eval-when-compile
+    (require 'use-package))
 
-;; Load init files
-(require 'init-loader)
-;; Show loading log message if this value is t.
-(setq init-loader-show-log-after-init nil)
+  ;; Load my custom-file (~/.emacs.d/custom.el)
+  (setq custom-file (locate-user-emacs-file "custom-autogen.el"))
+  (load (locate-user-emacs-file "custom.el") t)
 
-(init-loader-load (locate-user-emacs-file "inits"))
+  ;; Install missing packages
+  (when package-selected-packages
+    (package-install-selected-packages))
+
+  ;; Load user's init files
+  (require 'init-loader)
+  ;; Show loading log message if this value is t.
+  (setq init-loader-show-log-after-init nil)
+
+  (init-loader-load (locate-user-emacs-file "inits")))
+
 
 ;;; init.el ends here
-(put 'downcase-region 'disabled nil)
