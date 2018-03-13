@@ -37,10 +37,10 @@ if which pyenv > /dev/null; then
 fi
 
 # pyenv-virtualenv
-# if which pyenv-virtualenv-init > /dev/null; then
-#     eval "$(pyenv virtualenv-init -)"
-#     path=($VIRTUAL_ENV/bin $path)
-# fi
+if which pyenv-virtualenv-init > /dev/null; then
+    eval "$(pyenv virtualenv-init -)"
+    path=($VIRTUAL_ENV/bin $path)
+fi
 
 # Homebrew
 export HOMEBREW_NO_ANALYTICS=1

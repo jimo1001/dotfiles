@@ -1,6 +1,8 @@
 # unnecessary files
 *.elc
 *~
+custom-autogen.el
+env.el
 recentf
 ac-comphist.dat
 company-statistics-cache.el
@@ -9,7 +11,6 @@ projectile-bookmarks.eld
 projectile.cache
 abbrev_defs
 tramp
-
 elpa/
 eshell/
 howm/
