@@ -30,6 +30,9 @@ fi
 alias start-traproxy='sudo launchctl start traproxy'
 alias stop-traproxy='sudo launchctl stop traproxy'
 
+alias la='ls -A'
+alias lal='ls -Al'
+
 # Listen ports
 alias netl="sudo lsof -iTCP -sTCP:LISTEN -n -P"
 
@@ -38,3 +41,4 @@ alias update-python-packages="pip list -o -l --format freeze | cut -d = -f 1 | x
 
 # Emacs packages
 alias update-emacs-packages="emacs --batch -l ~/.emacs.d/init.el --eval \"(progn (require 'package-utils)(package-utils-upgrade-all)(package-autoremove))\""
+

@@ -4,25 +4,27 @@
 ;;; Code:
 
 (use-package howm
-  :bind ("C-c , ," . howm-menu)
+  :bind
+  ("C-c , ," . howm-menu)
   :init
-  (setq howm-excluded-file-regexp "/\\.#\\|[~#]$\\|\\.bak$\\|/CVS/\\|\\.doc$\\|\\.pdf$\\|\\.ppt$\\|\\.xls$"
-        howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.org"
-        howm-history-file (expand-file-name "~/tmp/howm-history")
-        howm-keyword-file (expand-file-name "~/tmp/howm-keys")
-        howm-list-all-title t
-        howm-list-recent-title t
-        howm-menu-expiry-hours 2
-        howm-menu-file (locate-user-emacs-file "menu.howm")
-        howm-menu-lang 'en
-        howm-menu-name-format "*howm*"
-        howm-menu-refresh-after-save nil
-        howm-menu-schedule-days 7
-        howm-menu-schedule-days-before 2
-        howm-refresh-after-save nil
-        howm-view-split-horizontally t
-        howm-view-summary-persistent nil
-        howm-view-title-regexp "^\\(=\\|#\\)\\( +[^-]\\(.*\\)\\|\\)$")
+  (setq howm-excluded-file-regexp "/\\.#\\|[~#]$\\|\\.bak$\\|/CVS/\\|\\.doc$\\|\\.pdf$\\|\\.ppt$\\|\\.xls$")
+  (setq howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.org")
+  (setq howm-history-file (expand-file-name "~/tmp/howm-history"))
+  (setq howm-keyword-file (expand-file-name "~/tmp/howm-keys"))
+  ;;(setq howm-list-all-title t)
+  (setq howm-list-recent-title t)
+  (setq howm-menu-expiry-hours 2)
+  (setq howm-menu-file (locate-user-emacs-file "menu.howm"))
+  (setq howm-menu-lang 'en)
+  (setq howm-menu-name-format "*howm*")
+  (setq howm-menu-refresh-after-save nil)
+  (setq howm-menu-schedule-days 7)
+  (setq howm-menu-schedule-days-before 2)
+  (setq howm-refresh-after-save nil)
+  ;;(setq howm-view-use-grep t)
+  (setq howm-view-split-horizontally nil)
+  (setq howm-view-summary-persistent nil)
+  (setq howm-view-title-regexp "^\\(=\\|#\\)\\( +[^-]\\(.*\\)\\|\\)$")
   :config
   (custom-set-faces
    '(howm-menu-list-face ((t (:foreground "#a9a9a9"))))
