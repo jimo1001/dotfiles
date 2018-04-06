@@ -20,6 +20,9 @@ if [[ -d "${ZDOTDIR:-$HOME}/functions" ]]; then
     autoload pyenv-activate
 fi
 
+# SSH Agent
+#eval "$(ssh-agent -s)"
+
 # Travis
 if [[ -s "$HOME/.travis/travis.sh" ]]; then
     source "$HOME/.travis/travis.sh"
