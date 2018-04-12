@@ -19,4 +19,10 @@
   :config
   (exec-path-from-shell-copy-envs '("PATH" "GOROOT" "GOPATH" "WORKON_HOME" "HTTP_PROXY" "HTTPS_PROXY")))
 
+(use-package async
+  :defer t
+  :config
+  (dired-async-mode 1)
+  (async-bytecomp-package-mode 1))
+
 ;;; 05-env.el ends here

@@ -6,7 +6,6 @@
 ;; Load ~/.emacs.d/env.el
 (load (locate-user-emacs-file "env.el") t)
 
-
 ;; Packages Initialization
 (setq package-directory-list '("~/.emacs.d/elpa/"))
 (when (require 'package nil t)
@@ -16,6 +15,10 @@
   ;;(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
   (when (< emacs-major-version 24)
     (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t))
+
+  ;; Load my custom-file (~/.emacs.d/custom.el)
+  (setq custom-file (locate-user-emacs-file "custom-autogen.el"))
+  (load (locate-user-emacs-file "custom.el") t)
 
   ;; Activate all packages (in particular autoloads)
   (package-initialize)
@@ -36,11 +39,7 @@
     (require pkg))
 
   (eval-when-compile
-    (require 'use-package))
-
-  ;; Load my custom-file (~/.emacs.d/custom.el)
-  (setq custom-file (locate-user-emacs-file "custom-autogen.el"))
-  (load (locate-user-emacs-file "custom.el") t)
+    (require 'use-package nil t))
 
   ;; Install missing packages
   (when package-selected-packages

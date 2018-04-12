@@ -6,50 +6,54 @@
 (use-package wl
   :bind ("C-c m m" . wl)
   :init
-  ;; Basic
-  (setq elmo-imap4-use-cache t
-        elmo-imap4-use-modified-utf7 t
-        elmo-message-fetch-threshold 500000
-        elmo-msgdb-convert-type 'auto
-        elmo-network-session-retry-count t
-        elmo-network-session-idle-timeout 1800
-        mime-edit-split-message nil
-        mime-save-directory "~/Downloads"
-        mime-setup-enable-inline-html nil
-        mime-view-ignored-field-list '("^.*")
-        signature-insert-at-eof t
-        signature-separator "\n"
-        wl-auto-select-first t
-        wl-auto-select-next 'unread
-        wl-biff-check-folder-async t
-        wl-biff-state-indicator-off "[-]"
-        wl-biff-state-indicator-on "[!]"
-        wl-biff-use-idle-timer t
-        wl-demo nil
-        wl-draft-reply-buffer-style 'keep
-        wl-draft-reply-default-position 'bottom
-        wl-draft-reply-use-address-with-full-name nil
-        wl-expire-use-log t
-        wl-fcc-force-as-read t
-        wl-folder-check-async t
-        wl-folder-hierarchy-access-folders '("^.*$")
-        wl-folder-move-cur-folder t
-        wl-icon-directory "~/.emacs.d/share/wl/icons"
-        wl-message-id-use-message-from t
-        wl-prefetch-threshold 500000
-        wl-stay-folder-window t
-        wl-summary-exit-next-move nil
-        wl-summary-line-format "%n%T%P%1@%M/%D(%W)%h:%m %t%[%17(%c %f%) %] %s"
-        wl-summary-max-thread-depth 30
-        wl-summary-weekday-name-lang 'en
-        wl-summary-width nil
-        wl-thread-have-younger-brother-str "+"
-        wl-thread-horizontal-str "-"
-        wl-thread-indent-level 2
-        wl-thread-insert-opened t
-        wl-thread-space-str " "
-        wl-thread-vertical-str "|"
-        wl-thread-youngest-child-str "+")
+  (setq elmo-imap4-use-cache t)
+  (setq elmo-imap4-use-modified-utf7 t)
+  (setq elmo-message-fetch-threshold 500000)
+  (setq elmo-msgdb-convert-type 'auto)
+  (setq elmo-network-session-retry-count t)
+  (setq elmo-network-session-idle-timeout 1800)
+  (setq mime-edit-split-message nil)
+  (setq mime-save-directory "~/Downloads")
+  (setq mime-setup-enable-inline-html nil)
+  (setq mime-view-ignored-field-list '("^.*"))
+  (setq signature-insert-at-eof t)
+  (setq signature-separator "\n")
+  (setq wl-auto-select-first t)
+  (setq wl-auto-select-next 'unread)
+  (setq wl-biff-check-folder-async t)
+  (setq wl-biff-state-indicator-off "[-]")
+  (setq wl-biff-state-indicator-on "[!]")
+  (setq wl-biff-use-idle-timer t)
+  (setq wl-demo nil)
+  (setq wl-draft-reply-buffer-style 'keep)
+  (setq wl-draft-reply-default-position 'bottom)
+  (setq wl-draft-reply-use-address-with-full-name nil)
+  (setq wl-expire-use-log t)
+  (setq wl-fcc-force-as-read t)
+  (setq wl-folder-check-async t)
+  (setq wl-folder-hierarchy-access-folders '("^.*$"))
+  (setq wl-folder-move-cur-folder t)
+  (setq wl-icon-directory (locate-user-emacs-file "share/wl/icons"))
+  (setq wl-message-id-use-message-from t)
+  (setq wl-prefetch-threshold 500000)
+  (setq wl-stay-folder-window t)
+  (setq wl-summary-exit-next-move nil)
+  (setq wl-summary-line-format "%n%T%P%1@%M/%D(%W)%h:%m %t%[%17(%c %f%) %] %s")
+  (setq wl-summary-max-thread-depth 30)
+  (setq wl-summary-weekday-name-lang 'en)
+  (setq wl-summary-width nil)
+  (setq wl-thread-have-younger-brother-str "+")
+  (setq wl-thread-horizontal-str "-")
+  (setq wl-thread-indent-level 2)
+  (setq wl-thread-insert-opened t)
+  (setq wl-thread-space-str " ")
+  (setq wl-thread-vertical-str "|")
+  (setq wl-thread-youngest-child-str "+")
+  (setq wl-init-file (locate-user-emacs-file ".wl"))
+  (setq wl-folders-file (locate-user-emacs-file ".folders"))
+  (setq wl-alias-file (locate-user-emacs-file ".im/aliases"))
+  (setq wl-address-file (locate-user-emacs-file ".addresses"))
+  (setq mail-signature-file (locate-user-emacs-file ".signature"))
 
   :config
   (setq wl-summary-line-format-spec-alist
