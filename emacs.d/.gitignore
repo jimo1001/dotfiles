@@ -1,6 +1,9 @@
 # unnecessary files
 *.elc
 *~
+.wl
+.folders
+.signature
 custom-autogen.el
 env.el
 recentf
