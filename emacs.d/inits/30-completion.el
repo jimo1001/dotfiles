@@ -55,6 +55,8 @@
                             company-keywords)
                            company-oddmuse
                            company-dabbrev))
+
+  ;; enable company-mode
   (global-company-mode)
   (company-statistics-mode))
 

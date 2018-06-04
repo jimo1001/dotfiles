@@ -44,15 +44,15 @@
   :defer t
   :mode ("\\.js\\'" . web-mode)
   :init
-  (setq indent-tabs-mode nil
-        tab-width 2
-        web-mode-attr-indent-offset nil
-        web-mode-markup-indent-offset 2
-        web-mode-css-indent-offset 2
-        web-mode-sql-indent-offset 2
-        web-mode-code-indent-offset 4
-        web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
+  (setq indent-tabs-mode nil)
+  (setq tab-width 2)
   :config
+  (setq web-mode-attr-indent-offset nil)
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-sql-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
   ;; use eslint with web-mode for jsx files
   (setq-default flycheck-disabled-checkers
                 (append flycheck-disabled-checkers
