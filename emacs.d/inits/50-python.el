@@ -9,15 +9,17 @@
   :init
   ;;(setq expand-region-preferred-python-mode 'python-mode)
   (setq python-environment-directory "~/.pyenv/versions")
-  (setq python-environment-default-root-name "py2")
-  (setq virtualenv-name "py2")
+  (setq jedi:setup-keys t)
+  (setq jedi:complete-on-dot t)
   :config
   (add-hook 'python-mode-hook
-            #'(lambda ()
-                (setq pyenv-mode t)
-                (py-autopep8-enable-on-save)
-                (make-local-variable 'company-backends)
-                (push '(company-jedi :with company-yasnippet) company-backends)))
+            '(lambda ()
+               (pyenv-mode t)
+               (pyvenv-mode t)
+               (py-autopep8-enable-on-save)
+               (jedi:setup)
+               (make-local-variable 'company-backends)
+               (push '(company-jedi :with company-yasnippet) company-backends)))
   (add-to-list 'helm-boring-buffer-regexp-list "\\*Python Completions\\*")
   (push '("*Python Completions*" :align below :size 0.2) shackle-rules))
 
@@ -26,9 +28,9 @@
   :init
   (setq py-complete-function nil))
 
-(use-package pyenv-mode-auto
-  :defer t
-  :functions pyenv-mode-auto)
+(use-package pyenv-mode-auto :defer t)
+
+(use-package pyvenv :defer t)
 
 (use-package py-autopep8 :defer t)
 

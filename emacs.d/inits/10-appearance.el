@@ -65,14 +65,42 @@
 (use-package whitespace
   :diminish (whitespace-mode global-whitespace-mode)
   :config
-  (setq whitespace-style '(face tabs spaces trailing newline indentation tab-mark))
+  (setq whitespace-style '(face tabs spaces indentation indentation::space indentation::tab trailing newline tab-mark space-mark newline-mark))
+  (setq whitespace-display-mappings
+        '((space-mark ?\  [?ˍ] [?.])
+          ;;(space-mark ?\  [?␣] [?.])
+          ;;(space-mark ?\  [?·] [?.])
+          (space-mark ?\xA0 [?¤] [?_])
+          (newline-mark ?\n [?⏎ ?\n] [?$ ?\n])
+          (tab-mark ?\t [?⌘ ?\t] [?\\ ?\t])))
   (custom-set-faces
    '(whitespace-empty ((t (:background "#8b8b00" :foreground "#b22222"))))
    '(whitespace-indentation ((t (:background "#121212" :foreground "#5c5c5c"))))
-   '(whitespace-space ((t (:foreground "#5c5c5c"))))
+   '(whitespace-space ((t (:foreground "#303030"))))
+   '(whitespace-newline ((t (:foreground "#363636"))))
    '(whitespace-space-after-tab ((t (:background "#8b8b00" :foreground "#b22222"))))
    '(whitespace-tab ((t (:background "#262626" :foreground "#5c5c5c"))))
    '(whitespace-trailing ((t (:inherit trailing-whitespace)))))
+
+  ;; for company-mode
+  (defvar my-prev-whitespace-mode nil)
+  (make-variable-buffer-local 'my-prev-whitespace-mode)
+  (defun pre-popup-draw ()
+    "Turn off whitespace mode before showing company complete tooltip"
+    (if (or whitespace-mode global-whitespace-mode)
+        (progn
+          (setq my-prev-whitespace-mode t)
+          (whitespace-mode -1)
+          (setq my-prev-whitespace-mode t))))
+  (defun post-popup-draw ()
+    "Restore previous whitespace mode after showing company tooltip"
+    (if my-prev-whitespace-mode
+        (progn
+          (whitespace-mode 1)
+          (setq my-prev-whitespace-mode nil))))
+  (advice-add 'company-pseudo-tooltip-unhide :before #'pre-popup-draw)
+  (advice-add 'company-pseudo-tooltip-hide :after #'post-popup-draw)
+
   (global-whitespace-mode t))
 
 

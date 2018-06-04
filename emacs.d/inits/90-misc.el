@@ -67,6 +67,10 @@ CURRENT-POINT is current cursor point."
   :commands (ansible-inventory-generic-mode)
   :load-path "site-lisp/")
 
+(use-package wiki-generic-mode
+  :commands (wiki-generic-mode)
+  :load-path "site-lisp/")
+
 (use-package outline
   :defer t
   :diminish (outline-mode outline-minor-mode))

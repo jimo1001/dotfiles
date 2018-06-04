@@ -12,6 +12,8 @@
      ansible-doc
      anzu
      auto-compile
+     auto-virtualenv
+     auto-virtualenvwrapper
      cargo
      color-moccur
      company
@@ -123,8 +125,7 @@
      wanderlust
      web-mode
      yaml-mode
-     yasnippet
-     ))))
+     yasnippet))))
 
 (provide 'custom)
 ;;; custom.el ends here

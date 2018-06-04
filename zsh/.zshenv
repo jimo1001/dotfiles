@@ -42,6 +42,11 @@ if which pyenv-virtualenv-init > /dev/null; then
     path=($VIRTUAL_ENV/bin $path)
 fi
 
+# direnv
+if which direnv > /dev/null; then
+    eval "$(direnv hook $SHELL)"
+fi
+
 # Homebrew
 export HOMEBREW_NO_ANALYTICS=1
 
