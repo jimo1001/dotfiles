@@ -54,3 +54,6 @@ export HOMEBREW_NO_ANALYTICS=1
 if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+
+export LANG=ja_JP.UTF-8
+export LC_ALL=ja_JP.UTF-8

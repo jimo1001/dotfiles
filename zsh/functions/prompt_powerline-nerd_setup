@@ -18,6 +18,7 @@ _prompt_powerline_nerd_segment_separator_wr=""
 _prompt_powerline_nerd_editor_info_overwrite=""
 _prompt_powerline_nerd_editor_info_completing="..."
 
+# Git icons
 _prompt_powerline_nerd_git_info_action="  %s"
 _prompt_powerline_nerd_git_info_branch=" %b"
 _prompt_powerline_nerd_git_info_commit=" %.7c"
@@ -34,6 +35,7 @@ _prompt_powerline_nerd_git_info_unmerged=" "
 _prompt_powerline_nerd_git_info_untracked=" "
 _prompt_powerline_nerd_python_icon=" "
 
+# OS icons
 _prompt_powerline_nerd_os_icon=" "
 _prompt_powerline_nerd_os_icon_darwin=" "
 _prompt_powerline_nerd_os_icon_linux=" "
@@ -77,18 +79,26 @@ function prompt_powerline-nerd_end_segment {
         print -n " %k%F{$_prompt_powerline_nerd_current_bg}${_prompt_powerline_nerd_segment_separator_bl}"
     fi
     print -n "%k%f"
-    _prompt_powerline_nerd_current_bg=''
+    _prompt_powerline_nerd_current_bg='NONE'
 }
 
 function prompt_powerline-nerd_build_prompt {
-    prompt_powerline-nerd_start_segment 252 238 "%(?.%{%F{0}%}.%{%F{124}%})%(!:%F{100}:)%(1j:%F{27}:)${_prompt_powerline_nerd_os_icon}"
-    prompt_powerline-nerd_start_segment 236 16 "%F{228}%n%F{7}@%m%f"
+    prompt_powerline-nerd_start_segment 15 0 "%(?.%{%F{0}%}.%{%F{124}%})%(!:%F{100}:)%(1j:%F{27}:)${_prompt_powerline_nerd_os_icon}"
+    prompt_powerline-nerd_start_segment 238 15 "%n"
+    prompt_powerline-nerd_start_segment 15 0 "${_prompt_powerline_nerd_pwd}"
     if [[ -n "$git_info" ]]; then
-        prompt_powerline-nerd_start_segment 112 0 "${(e)git_info[ref]}${(e)git_info[status]}"
+        prompt_powerline-nerd_start_segment 120 0 "${(e)git_info[ref]}${(e)git_info[status]}"
     fi
     if [[ -n "$PYENV_VIRTUALENV_INIT" ]]; then
-        prompt_powerline-nerd_start_segment 33 0 "${_prompt_powerline_nerd_python_icon} $(pyenv version-name)"
+        prompt_powerline-nerd_start_segment 33 192 "${_prompt_powerline_nerd_python_icon} $(pyenv version-name)"
     fi
+    prompt_powerline-nerd_end_segment
+    print "" # \n
+    prompt_powerline-nerd_build_prompt2
+}
+
+function prompt_powerline-nerd_build_prompt2 {
+    prompt_powerline-nerd_start_segment 238 15 "%D{%H:%M:%S}"
     prompt_powerline-nerd_end_segment
 }
 
@@ -180,9 +190,7 @@ function prompt_powerline-nerd_setup {
            'status' '%s%C%A%B%S%m%a%d%r%U%u'
 
     # Define prompts.
-    #PROMPT='${(e)$(prompt_powerline-nerd_build_prompt)}${prompt_newline}${editor_info[keymap]} '
     PROMPT='${(e)$(prompt_powerline-nerd_build_prompt)}${editor_info[keymap]} '
-    RPROMPT='%F{245}${_prompt_powerline_nerd_segment_separator_wr} ${_prompt_powerline_nerd_pwd} ${_prompt_powerline_nerd_segment_separator_wr} %D{%H:%M:%S}%f'
     SPROMPT='zsh: correct %F{9}%R%f to %F{10}%r%f [nyae]? '
 }
 
