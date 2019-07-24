@@ -65,7 +65,9 @@ function prompt_powerline-nerd_start_segment {
     local bg fg
     [[ -n "$1" ]] && bg="%K{$1}" || bg="%k"
     [[ -n "$2" ]] && fg="%F{$2}" || fg="%f"
-    if [[ "$_prompt_powerline_nerd_current_bg" != 'NONE' && "$1" != "$_prompt_powerline_nerd_current_bg" ]]; then
+    if [[ "$1" == "$_prompt_powerline_nerd_current_bg" ]]; then
+        print -n " $bg$fg$_prompt_powerline_nerd_segment_separator_wl "
+    elif [[ "$_prompt_powerline_nerd_current_bg" != 'NONE' ]]; then
         print -n " $bg%F{$_prompt_powerline_nerd_current_bg}$_prompt_powerline_nerd_segment_separator_bl$fg "
     else
         print -n "$bg$fg "
@@ -85,7 +87,7 @@ function prompt_powerline-nerd_end_segment {
 function prompt_powerline-nerd_build_prompt {
     prompt_powerline-nerd_start_segment 15 0 "%(?.%{%F{0}%}.%{%F{124}%})%(!:%F{100}:)%(1j:%F{27}:)${_prompt_powerline_nerd_os_icon}"
     prompt_powerline-nerd_start_segment 238 15 "%n"
-    prompt_powerline-nerd_start_segment 15 0 "${_prompt_powerline_nerd_pwd}"
+    prompt_powerline-nerd_start_segment 238 15 "${_prompt_powerline_nerd_pwd}"
     if [[ -n "$git_info" ]]; then
         prompt_powerline-nerd_start_segment 120 0 "${(e)git_info[ref]}${(e)git_info[status]}"
     fi
