@@ -8,12 +8,8 @@
   :init
   (setq projectile-projects-cache t
         projectile-file-exists-cache-timer t
-        projectile-file-exists-local-cache-expire 3600)
-  (setq projectile-mode-line
-        '(:eval
-          (when (not (file-remote-p default-directory))
-            (format " P[%s]"
-                    (projectile-project-name)))))
+        projectile-file-exists-local-cache-expire 3600
+        projectile-mode-line-prefix " P")
   :config
   (projectile-mode t))
 
