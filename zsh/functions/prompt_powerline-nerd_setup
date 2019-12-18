@@ -34,6 +34,7 @@ _prompt_powerline_nerd_git_info_renamed=" "
 _prompt_powerline_nerd_git_info_unmerged=" "
 _prompt_powerline_nerd_git_info_untracked=" "
 _prompt_powerline_nerd_python_icon=" "
+_prompt_powerline_nerd_ruby_icon=" "
 
 # OS icons
 _prompt_powerline_nerd_os_icon=" "
@@ -93,6 +94,9 @@ function prompt_powerline-nerd_build_prompt {
     fi
     if [[ -n "$PYENV_VIRTUALENV_INIT" ]]; then
         prompt_powerline-nerd_start_segment 33 192 "${_prompt_powerline_nerd_python_icon} $(pyenv version-name)"
+    fi
+    if [[ -n "$RBENV_SHELL" ]]; then
+        prompt_powerline-nerd_start_segment 210 88 "${_prompt_powerline_nerd_ruby_icon} $(rbenv version-name)"
     fi
     prompt_powerline-nerd_end_segment
     print "" # \n

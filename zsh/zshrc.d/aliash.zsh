@@ -42,3 +42,10 @@ alias update-python-packages="pip list -o -l --format freeze | cut -d = -f 1 | x
 # Emacs packages
 alias update-emacs-packages="emacs --batch -l ~/.emacs.d/init.el --eval \"(progn (require 'package-utils)(package-utils-upgrade-all)(package-autoremove))\""
 
+# Git-Crypt
+alias git-crypt="LANG=C LC_ALL=C git-crypt"
+
+# Terraform
+alias terraform11="/usr/local/opt/terraform@0.11/bin/terraform"
+alias terraform12="/usr/local/opt/terraform@0.12/bin/terraform"
+

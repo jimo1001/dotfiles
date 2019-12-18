@@ -7,8 +7,9 @@
   :bind
   ("C-c , ," . howm-menu)
   :init
+  (setq howm-template "# %title%cursor\n%date %file\n\n")
   (setq howm-excluded-file-regexp "/\\.#\\|[~#]$\\|\\.bak$\\|/CVS/\\|\\.doc$\\|\\.pdf$\\|\\.ppt$\\|\\.xls$")
-  (setq howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.org")
+  (setq howm-file-name-format "%Y/%m/%Y-%m-%d-%H%M%S.md")
   (setq howm-history-file (expand-file-name "~/tmp/howm-history"))
   (setq howm-keyword-file (expand-file-name "~/tmp/howm-keys"))
   ;;(setq howm-list-all-title t)

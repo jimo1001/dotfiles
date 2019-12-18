@@ -29,3 +29,6 @@ export VISUAL=vim
 # grep
 export GREP_COLOR='1;31'
 export GREP_COLORS="mt=$GREP_COLOR"
+
+# added by travis gem
+[ -f /Users/yoshinobu.fujimoto/.travis/travis.sh ] && source /Users/yoshinobu.fujimoto/.travis/travis.sh
