@@ -8,7 +8,6 @@
    (quote
     (
      adoc-mode
-     all-ext
      ansible-doc
      anzu
      auto-compile
