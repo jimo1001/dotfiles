@@ -32,6 +32,7 @@
      exec-path-from-shell
      expand-region
      flycheck
+     flycheck-golangci-lint
      flycheck-package
      flycheck-rust
      frame-tag
