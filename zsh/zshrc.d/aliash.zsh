@@ -46,6 +46,10 @@ alias update-emacs-packages="emacs --batch -l ~/.emacs.d/init.el --eval \"(progn
 alias git-crypt="LANG=C LC_ALL=C git-crypt"
 
 # Terraform
-alias terraform11="/usr/local/opt/terraform@0.11/bin/terraform"
-alias terraform12="/usr/local/opt/terraform@0.12/bin/terraform"
+alias t11="/usr/local/opt/terraform@0.11/bin/terraform"
+alias t12="/usr/local/opt/terraform@0.12/bin/terraform"
+alias t="terraform"
+
+# Kubernetes
+alias k="kubectl"
 

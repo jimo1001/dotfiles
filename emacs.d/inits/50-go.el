@@ -3,6 +3,8 @@
 
 ;;; Code:
 
+(setenv "GO111MODULE" "on")
+
 (use-package go-mode
   :defer t
   :mode ("\\.go\\'" . go-mode)
@@ -21,5 +23,9 @@
                (push '(company-go :with company-yasnippet) company-backends))))
 
 (use-package go-eldoc :defer t)
+
+(use-package flycheck-golangci-lint
+  :ensure t
+  :hook (go-mode . flycheck-golangci-lint-setup))
 
 ;;; 50-go.el ends here
