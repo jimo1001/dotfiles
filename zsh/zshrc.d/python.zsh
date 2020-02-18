@@ -15,6 +15,5 @@ fi
 # pyenv-virtualenv
 if which pyenv-virtualenv-init > /dev/null; then
     eval "$(pyenv virtualenv-init -)"
-    path=($VIRTUAL_ENV/bin $path)
 fi
 
