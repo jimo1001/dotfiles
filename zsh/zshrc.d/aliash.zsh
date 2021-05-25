@@ -39,7 +39,9 @@ alias netl="sudo lsof -iTCP -sTCP:LISTEN -n -P"
 # Python packages
 alias update-python-packages="pip list -o -l --format freeze | cut -d = -f 1 | xargs -n 1 pip install -U"
 
-# Emacs packages
+# Emacs
+alias emacs="reattach-to-user-namespace emacs -nw"
+# Update packages
 alias update-emacs-packages="emacs --batch -l ~/.emacs.d/init.el --eval \"(progn (require 'package-utils)(package-utils-upgrade-all)(package-autoremove))\""
 
 # Git-Crypt
@@ -58,4 +60,3 @@ alias uuid="uuidgen | tr -d '\n' | tr '[:upper:]' '[:lower:]'  | pbcopy && pbpas
 
 # Git
 alias git-clean-branches="git branch -q -l | grep -v master | grep -v main | grep -v develop | xargs -L1 git branch -d"
-
