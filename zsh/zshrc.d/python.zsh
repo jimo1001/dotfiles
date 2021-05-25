@@ -4,12 +4,13 @@ export PYTHONDONTWRITEBYTECODE=1
 export PYENV_ROOT=$HOME/.pyenv
 export WORKON_HOME=$PYENV_ROOT/versions
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+export PATH="$PYENV_ROOT/bin:$PATH"
 
 path=($PYENV_ROOT/{bin,shims} $JAVA_HOME/bin $GOPATH/bin $path)
 
 # pyenv
-if which pyenv > /dev/null; then
-    eval "$(pyenv init -)"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init --path)"
 fi
 
 # pyenv-virtualenv

@@ -38,9 +38,9 @@ _prompt_powerline_nerd_ruby_icon=" "
 
 # OS icons
 _prompt_powerline_nerd_os_icon=" "
-_prompt_powerline_nerd_os_icon_darwin=" "
-_prompt_powerline_nerd_os_icon_linux=" "
-_prompt_powerline_nerd_os_icon_ubuntu=" "
+_prompt_powerline_nerd_os_icon_darwin=" "
+_prompt_powerline_nerd_os_icon_linux=" "
+_prompt_powerline_nerd_os_icon_ubuntu=" "
 _prompt_powerline_nerd_os_icon_windows=" "
 _prompt_powerline_nerd_os_icon_bsd=" "
 
