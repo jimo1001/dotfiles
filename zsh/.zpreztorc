@@ -21,6 +21,9 @@ zstyle ':prezto:load' zmodule 'attr' 'stat'
 # Set the Zsh functions to load (man zshcontrib).
 zstyle ':prezto:load' zfunction 'zargs' 'zmv'
 
+# Prezto modules dir
+zstyle ':prezto:load' pmodule-dirs $HOME/.zsh/.zprezto-contrib
+
 # Set the Prezto modules to load (browse modules).
 # The order matters.
 zstyle ':prezto:load' pmodule \
@@ -38,7 +41,9 @@ zstyle ':prezto:load' pmodule \
   'syntax-highlighting' \
   'prompt' \
   'python' \
-  'ruby'
+  'ruby' \
+  'kubectl' \
+  'terraform'
 
 #
 # Autosuggestions

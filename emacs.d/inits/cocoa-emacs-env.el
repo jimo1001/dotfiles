@@ -12,8 +12,8 @@
   :if window-system
   :init
   ;; Font
-  (set-face-attribute 'default nil :family "Ricty Discord NF" :height 135)
-  (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Ricty Discord NF" :height 135)))
+  (set-face-attribute 'default nil :family "HackGenNerd" :height 135)
+  (set-fontset-font nil 'japanese-jisx0208 (font-spec :family "HackGenNerd" :height 135)))
 
 ;; C/Migemo
 (use-package migemo

@@ -7,9 +7,10 @@ export JAVA_HOME=${JAVA_HOME:-"/Library/Java/Home"}
 export GOPATH=${GOPATH:-"$HOME/work/go"}
 
 # Python
-export PYENV_ROOT=$HOME/.pyenv
-if which pyenv > /dev/null; then
-    eval "$(pyenv init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init --path)"
 fi
 export WORKON_HOME=$PYENV_ROOT/versions
 if which pyenv-virtualenv-init > /dev/null; then

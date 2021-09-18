@@ -11,6 +11,7 @@ path=($PYENV_ROOT/{bin,shims} $JAVA_HOME/bin $GOPATH/bin $path)
 # pyenv
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
 fi
 
 # pyenv-virtualenv

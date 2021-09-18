@@ -37,6 +37,7 @@
      flycheck-rust
      frame-tag
      git-commit
+     git-gutter
      gitconfig-mode
      go-complete
      go-eldoc
