@@ -67,9 +67,10 @@
   :config
   (setq whitespace-style '(face tabs spaces indentation indentation::space indentation::tab trailing newline tab-mark space-mark newline-mark))
   (setq whitespace-display-mappings
-        '((space-mark ?\  [?ˍ] [?.])
+        '(
+          ;;(space-mark ?\  [?_] [?.])
           ;;(space-mark ?\  [?␣] [?.])
-          ;;(space-mark ?\  [?·] [?.])
+          (space-mark ?\  [?·] [?.])
           (space-mark ?\xA0 [?¤] [?_])
           (newline-mark ?\n [?⏎ ?\n] [?$ ?\n])
           (tab-mark ?\t [?⌘ ?\t] [?\\ ?\t])))

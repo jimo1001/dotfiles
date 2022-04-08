@@ -87,7 +87,8 @@ function prompt_powerline-nerd_end_segment {
 }
 
 function prompt_powerline-nerd_build_prompt {
-    prompt_powerline-nerd_start_segment 15 0 "%(?.%{%F{0}%}.%{%F{124}%})%(!:%F{100}:)%(1j:%F{27}:)${_prompt_powerline_nerd_os_icon}"
+    #prompt_powerline-nerd_start_segment 15 0 "%(?.%{%F{0}%}.%{%F{124}%})%(!:%F{100}:)%(1j:%F{27}:)${_prompt_powerline_nerd_os_icon}"
+    prompt_powerline-nerd_start_segment 238 15 "%D{%H:%M:%S}"
     prompt_powerline-nerd_start_segment 238 15 "%n"
     prompt_powerline-nerd_start_segment 238 15 "${_prompt_powerline_nerd_pwd}"
     if [[ -n "$git_info" ]]; then
@@ -108,8 +109,9 @@ function prompt_powerline-nerd_build_prompt {
 }
 
 function prompt_powerline-nerd_build_prompt2 {
-    prompt_powerline-nerd_start_segment 238 15 "%D{%H:%M:%S}"
-    prompt_powerline-nerd_end_segment
+    #prompt_powerline-nerd_start_segment 238 15 "%D{%H:%M:%S}"
+    #prompt_powerline-nerd_end_segment
+    echo -n "$ "
 }
 
 function prompt_powerline-nerd_pwd {
@@ -200,7 +202,7 @@ function prompt_powerline-nerd_setup {
            'status' '%s%C%A%B%S%m%a%d%r%U%u'
 
     # Define prompts.
-    PROMPT='${(e)$(prompt_powerline-nerd_build_prompt)}${editor_info[keymap]} '
+    PROMPT='${(e)$(prompt_powerline-nerd_build_prompt)}${editor_info[keymap]}'
     SPROMPT='zsh: correct %F{9}%R%f to %F{10}%r%f [nyae]? '
 }
 

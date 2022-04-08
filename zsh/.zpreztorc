@@ -43,7 +43,8 @@ zstyle ':prezto:load' pmodule \
   'python' \
   'ruby' \
   'kubectl' \
-  'terraform'
+  'terraform' \
+  'fzf'
 
 #
 # Autosuggestions

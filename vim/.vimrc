@@ -43,3 +43,9 @@ set helpfile=$VIMRUNTIME/doc/help.txt
 " ファイルタイプ判定をon
 "filetype plugin on
 "syntax on
+
+" 削除キーでyankしない
+nnoremap x "_x
+"nnoremap d "_d
+nnoremap D "_D
+

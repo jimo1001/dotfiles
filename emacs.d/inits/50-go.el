@@ -17,7 +17,7 @@
   (use-package company-go)
   (add-hook 'before-save-hook 'gofmt-before-save)
   (add-hook 'go-mode-hook
-            '(lambda ()
+            #'(lambda ()
                (go-eldoc-setup)
                (make-local-variable 'company-backends)
                (push '(company-go :with company-yasnippet) company-backends))))

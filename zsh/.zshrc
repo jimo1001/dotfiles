@@ -40,3 +40,4 @@ fi
 if (type zprof > /dev/null); then
     zprof
 fi
+

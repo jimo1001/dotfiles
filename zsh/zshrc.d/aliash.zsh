@@ -58,6 +58,3 @@ alias k="kubectl"
 # UUID
 alias uuid="uuidgen | tr -d '\n' | tr '[:upper:]' '[:lower:]'  | pbcopy && pbpaste && echo"
 
-# Git
-alias git-clean-branches="git branch -q -l | grep -v master | grep -v main | grep -v develop | xargs -L1 git branch -d"
-

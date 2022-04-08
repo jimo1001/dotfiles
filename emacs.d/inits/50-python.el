@@ -13,7 +13,7 @@
   (setq jedi:complete-on-dot t)
   :config
   (add-hook 'python-mode-hook
-            '(lambda ()
+            #'(lambda ()
                (pyenv-mode t)
                (pyvenv-mode t)
                (py-autopep8-enable-on-save)

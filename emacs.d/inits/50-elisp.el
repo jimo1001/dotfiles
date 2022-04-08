@@ -19,4 +19,7 @@
   :config
   (add-hook 'after-init-hook #'(lambda () (global-eldoc-mode +1))))
 
+(use-package elisp-format
+  :defer t)
+
 ;;; 50-elisp.el ends here

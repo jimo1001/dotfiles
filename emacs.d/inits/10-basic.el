@@ -98,5 +98,8 @@
       (cua-set-mark)))
   (advice-add 'er/expand-region :around #'ad-er/expand-region))
 
+(use-package sort-words
+  :defer t)
+
 
 ;;; 10-basic.el ends here
