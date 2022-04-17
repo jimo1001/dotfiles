@@ -6,11 +6,10 @@ export WORKON_HOME=$PYENV_ROOT/versions
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 export PATH="$PYENV_ROOT/bin:$PATH"
 
-path=($PYENV_ROOT/{bin,shims} $JAVA_HOME/bin $GOPATH/bin $path)
+path=($PYENV_ROOT/{bin,shims} $path)
 
 # pyenv
 if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init --path)"
   eval "$(pyenv init -)"
 fi
 
