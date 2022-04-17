@@ -35,6 +35,9 @@ $(HOME)/.zsh/.zprezto-contrib/kubectl: $(HOME)/.zsh
 $(HOME)/.zsh/.zprezto-contrib/terraform: $(HOME)/.zsh
 	cd $(HOME)/.zsh; git clone https://github.com/prezto-contributions/prezto-terraform.git .zprezto-contrib/terraform
 
+$(HOME)/.zsh/.zprezto-contrib/fzf: $(HOME)/.zsh
+	cd $(HOME)/.zsh; git clone https://github.com/gpanders/fzf-prezto.git .zprezto-contrib/fzf
+
 # Emacs
 $(HOME)/.emacs.d:
 	/bin/ln -s $(CURRENT_DIR)emacs.d $@
@@ -75,7 +78,7 @@ install: bash zsh emacs vim dotconfig tmux ;
 
 bash: $(HOME)/.bash_profile $(HOME)/.bashrc ;
 
-zsh: $(HOME)/.zshenv $(HOME)/.zsh/.zprezto $(HOME)/.zsh/.zprezto-contrib/kubectl $(HOME)/.zsh/.zprezto-contrib/terraform ;
+zsh: $(HOME)/.zshenv $(HOME)/.zsh/.zprezto $(HOME)/.zsh/.zprezto-contrib/kubectl $(HOME)/.zsh/.zprezto-contrib/terraform $(HOME)/.zsh/.zprezto-contrib/fzf ;
 
 emacs: $(HOME)/.emacs.d ;
 
