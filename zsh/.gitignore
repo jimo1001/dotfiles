@@ -1,6 +1,8 @@
+.zprezto-contrib/
+.zsh_sessions/
 .zcompdump
 .zcompdump.zwc
-.zhistory
+.zsh_history
 .zcompcache
 .zprezto
 .zplug

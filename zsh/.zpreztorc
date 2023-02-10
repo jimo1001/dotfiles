@@ -40,11 +40,11 @@ zstyle ':prezto:load' pmodule \
   'ssh' \
   'syntax-highlighting' \
   'prompt' \
-  'python' \
-  'ruby' \
   'kubectl' \
   'terraform' \
-  'fzf'
+  'fzf' \
+  'python'
+#  'ruby' \
 
 #
 # Autosuggestions
