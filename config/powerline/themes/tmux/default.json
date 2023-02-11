@@ -16,7 +16,7 @@
       {
         "function": "powerline.segments.common.time.date",
         "args": {
-          "format": "%Y-%m-%d(%a)"
+          "format": "%Y-%m-%d (%a)"
         }
       },
       {
