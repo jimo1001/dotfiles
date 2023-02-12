@@ -17,7 +17,6 @@
    ("C-x C-b" . helm-buffers-list)
    :map helm-map ("C-h" . delete-backward-char))
   :config
-  (use-package helm-config)
   (use-package helm-buffers)
   (use-package helm-perspeen)
   (use-package helm-projectile)
