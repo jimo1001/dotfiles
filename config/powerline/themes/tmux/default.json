@@ -2,11 +2,18 @@
   "segments": {
     "right": [
       {
-        "function": "powerline.segments.common.sys.cpu_load_percent",
-        "before": " "
+        "function": "powerline.segments.common.sys.system_load",
+        "args": {
+          "track_cpu_count": true
+        },
+        "before": " "
       },
       {
-        "function": "powerline.segments.common.bat.battery"
+        "function": "powerline.segments.common.bat.battery",
+        "args": {
+          "offline": "",
+          "online": ""
+        }
       },
       {
         "function": "powerline.segments.common.time.date",
