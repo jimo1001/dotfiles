@@ -37,7 +37,7 @@ alias lal='ls -Al'
 alias netl="sudo lsof -iTCP -sTCP:LISTEN -n -P"
 
 # Python packages
-alias update-python-packages="pip list -o -l --format freeze | cut -d = -f 1 | xargs -n 1 pip install -U"
+alias update-python-packages="pip list -o -l --format json | jq -r '.[] | .name' | xargs -n 1 pip install -U"
 
 # Emacs
 alias emacs="reattach-to-user-namespace emacs -nw"
