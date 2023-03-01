@@ -63,7 +63,11 @@ $(HOME)/.tmux.conf: $(HOME)/.tmux.d
 $(HOME)/.tmux-powerline: $(HOME)/.tmux.d
 	cd $(HOME); /bin/ln -s .tmux.d/.tmux-powerlinerc .
 
+$(HOME)/tmp:
+	@mkdir $@
+
 # Targets
+.PHONY: uninstall
 uninstall:
 	@if [ -e $(HOME)/.zsh/.zprezto ]; then \
 	  rm -frv $(HOME)/.zsh/.zprezto; \
@@ -74,16 +78,26 @@ uninstall:
 	  fi \
 	done
 
-install: bash zsh emacs vim dotconfig tmux ;
+.PHONY: install
+install: tmpdir bash zsh emacs vim dotconfig tmux ;
 
+.PHONY: bash
 bash: $(HOME)/.bash_profile $(HOME)/.bashrc ;
 
+.PHONY: zsh
 zsh: $(HOME)/.zshenv $(HOME)/.zsh/.zprezto $(HOME)/.zsh/.zprezto-contrib/kubectl $(HOME)/.zsh/.zprezto-contrib/terraform $(HOME)/.zsh/.zprezto-contrib/fzf ;
 
+.PHONY: emacs
 emacs: $(HOME)/.emacs.d ;
 
+.PHONY: vim
 vim: $(HOME)/.vimrc ;
 
+.PHONY: dotconfig
 dotconfig: $(HOME)/.config ;
 
+.PHONY: tmux
 tmux: $(HOME)/.tmux.conf ;
+
+.PHONY: tmpdir
+tmpdir: $(HOME)/tmp ;
